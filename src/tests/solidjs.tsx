@@ -11,7 +11,5 @@ export default function () {
 
     onCleanup(() => clearInterval(id));
 
-    return (
-        <div style={{ color: "blue" }}>Hello world from Solidjs {count()}</div>
-    );
+    return <span style={{ color: "blue" }}>Solidjs {count()}</span>;
 }

@@ -1,50 +1,81 @@
 ---
 import Layout from "@layouts/Layout.astro";
 
-import AstroComponent from "@components/astro.astro";
-import Preact from "@components/preact";
-import React from "@components/react";
-import Solid from "@components/solidjs";
-import Svelte from "@components/svelte.svelte";
-import Lit from "@components/lit";
-import Alpine from "@components/alpinejs.astro";
-import Vue from "@components/vue.vue";
+import AstroComponent from "@tests/astro.astro";
+import Preact from "@tests/preact";
+import React from "@tests/react";
+import Solid from "@tests/solidjs";
+import Svelte from "@tests/svelte.svelte";
+import Lit from "@tests/lit";
+import Alpine from "@tests/alpinejs.astro";
+import Vue from "@tests/vue.vue";
+import Link from "@components/link.astro";
 
 export const prerender = true;
 ---
 
 <Layout title="Astro Health">
     <main>
-        <a
-            href="https://github.com/ZackarySantana/AstroHealth"
-            class="text-blue-500">GitHub</a
-        >
+        <Link path="">GitHub</Link>
         <h1><span>SSR</span> Only</h1>
         <AstroComponent />
         <Alpine />
 
         <h1><span>Server-Side</span> Rendered</h1>
+        <Link path="src/tests/preact.tsx">Hello world from</Link>
         <Preact />
+        <br />
+        <Link path="src/tests/react.tsx">Hello world from</Link>
         <React />
+        <br />
+        <Link path="src/tests/svelte.svelte">Hello world from</Link>
         <Svelte />
+        <br />
+        <Link path="src/tests/solidjs.tsx">Hello world from</Link>
         <Solid />
+        <br />
+        <Link path="src/tests/lit.ts">Hello world from</Link>
         <Lit />
+        <br />
+        <Link path="src/tests/vue.vue">Hello world from</Link>
         <Vue />
 
         <h1><span>Client</span> Partial-hydrated</h1>
+        <Link path="src/tests/preact.tsx">Hello world from</Link>
         <Preact client:load />
+        <br />
+        <Link path="src/tests/react.tsx">Hello world from</Link>
         <React client:load />
+        <br />
+        <Link path="src/tests/svelte.svelte">Hello world from</Link>
         <Svelte client:load />
+        <br />
+        <Link path="src/tests/solidjs.tsx">Hello world from</Link>
         <Solid client:load />
+        <br />
+        <Link path="src/tests/lit.ts">Hello world from</Link>
         <Lit client:load />
+        <br />
+        <Link path="src/tests/vue.vue">Hello world from</Link>
         <Vue client:load />
 
         <h1><span>Client</span> Hydrated</h1>
+        <Link path="src/tests/preact.tsx">Hello world from</Link>
         <Preact client:only="preact" />
+        <br />
+        <Link path="src/tests/react.tsx">Hello world from</Link>
         <React client:only="react" />
+        <br />
+        <Link path="src/tests/svelte.svelte">Hello world from</Link>
         <Svelte client:only="svelte" />
+        <br />
+        <Link path="src/tests/solidjs.tsx">Hello world from</Link>
         <Solid client:only="solid" />
+        <br />
+        <Link path="src/tests/lit.ts">Hello world from</Link>
         <Lit client:only="lit" />
+        <br />
+        <Link path="src/tests/vue.vue">Hello world from</Link>
         <Vue client:only="vue" />
     </main>
 </Layout>

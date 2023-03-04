@@ -1,5 +1,5 @@
 <template>
-    <div>Hello from Vue {{ counter }}</div>
+    <span>Vue {{ counter }}</span>
 </template>
 
 <script lang="ts">

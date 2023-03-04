@@ -1,0 +1,13 @@
+---
+const { path } = Astro.props;
+
+const baseURL = "https://github.com/ZackarySantana/AstroHealth/";
+
+let finalPath = baseURL;
+
+if (path != "") {
+    finalPath = baseURL + "blob/main/" + path;
+}
+---
+
+<a href={finalPath} class="text-blue-500"><slot /></a>

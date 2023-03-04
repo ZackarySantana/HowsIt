@@ -6,7 +6,7 @@ export const tagName = "count-element";
 @customElement(tagName)
 export default class Count extends LitElement {
     static styles = css`
-        div {
+        span {
             color: coral;
         }
     `;
@@ -25,7 +25,7 @@ export default class Count extends LitElement {
     }
 
     render() {
-        return html`<div>Hello world from Lit ${this.count}</div>`;
+        return html`<span>Lit ${this.count}</span>`;
     }
 }
 

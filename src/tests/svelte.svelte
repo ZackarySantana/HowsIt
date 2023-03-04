@@ -7,10 +7,10 @@
     setInterval(setCount, 1000);
 </script>
 
-<div>Hello world from Svelte {count}</div>
+<span>Svelte {count}</span>
 
 <style>
-    div {
+    span {
         color: red;
     }
 </style>
