@@ -1,5 +1,11 @@
 import { html, css, LitElement } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
+
+declare global {
+    interface HTMLElementTagNameMap {
+        [tagName]: Count;
+    }
+}
 
 export const tagName = "count-element";
 
@@ -11,11 +17,10 @@ export default class Count extends LitElement {
         }
     `;
 
-    declare count: number;
+    @property({ type: Number }) count = 0;
 
     constructor() {
         super();
-        this.count = 0;
     }
 
     connectedCallback() {
