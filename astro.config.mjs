@@ -15,6 +15,7 @@ import vue from "@astrojs/vue";
 // https://astro.build/config
 export default defineConfig({
     integrations: [
+        lit(),
         preact(),
         react(),
         tailwind(),
@@ -24,7 +25,6 @@ export default defineConfig({
         solidJs(),
         svelte(),
         alpinejs(),
-        lit(),
         vue({ jsx: true }),
     ],
     output: "server",

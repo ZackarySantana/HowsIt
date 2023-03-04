@@ -1,16 +1,41 @@
 ---
-let initialCount = 0;
+import Link from "@components/link.astro";
+
+function timerComponent() {
+    return {
+        count: 0,
+        intervalId: null as any,
+        init() {
+            if (this.intervalId != null) {
+                return;
+            }
+            this.intervalId = setInterval(() => {
+                ++this.count;
+            }, 1000);
+        },
+    };
+}
+
+const func = timerComponent.toString();
+const insideFunc = func.substring(func.indexOf("{") + 1, func.lastIndexOf("}"));
+const obj = insideFunc.substring(
+    insideFunc.indexOf("{"),
+    insideFunc.lastIndexOf("}") + 1,
+);
 ---
 
-<div x-data="{ count: 0 }">
-    <p>Alpine.js</p>
-    <button x-on:click="count--">-</button>
-    <span x-text="count">{initialCount}</span>
-    <button x-on:click="count++">+</button>
+<div x-data={obj} x-init="init()">
+    <Link path="src/tests/alpinejs.astro">Hello world from</Link>
+    <span>Alpine.js</span>
+    <!-- <button x-on:click="count--">-</button> -->
+    <span x-text="count">{0}</span>
+    <!-- <button x-on:click="count++">+</button> -->
 </div>
 
+<script></script>
+
 <style>
-    * {
+    span {
         display: inline;
         color: yellowgreen;
     }
