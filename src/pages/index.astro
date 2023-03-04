@@ -1,0 +1,67 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+import AstroComponent from "@components/astro.astro";
+import Preact from "@components/preact";
+import React from "@components/react";
+import Solid from "@components/solidjs";
+import Svelte from "@components/svelte.svelte";
+import Lit from "@components/lit";
+import Alpine from "@components/alpinejs.astro";
+import Vue from "@components/vue.vue";
+
+export const prerender = true;
+---
+
+<Layout title="Astro Health">
+    <main>
+        <h1>Can <span>only</span> be SSR</h1>
+        <AstroComponent />
+        <Alpine />
+
+        <h1>Only <span>SSR</span></h1>
+        <Preact />
+        <React />
+        <Svelte />
+        <Solid />
+        <Lit />
+        <Vue />
+
+        <h1>Client <span>Partial-hydrated</span></h1>
+        <Preact client:load />
+        <React client:load />
+        <Svelte client:load />
+        <Solid client:load />
+        <Lit client:load />
+        <Vue client:load />
+
+        <h1>Client <span>Hydrated</span></h1>
+        <Preact client:only="preact" />
+        <React client:only="react" />
+        <Svelte client:only="svelte" />
+        <Solid client:only="solid" />
+        <Lit client:only="lit" />
+        <Vue client:only="vue" />
+    </main>
+</Layout>
+
+<style>
+    main {
+        margin: auto;
+        padding: 1.5rem;
+        max-width: 90ch;
+    }
+    h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin: 0;
+        margin-top: 2rem;
+    }
+    span {
+        background-image: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 400%;
+        background-position: 0%;
+    }
+</style>

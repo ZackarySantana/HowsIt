@@ -1,0 +1,17 @@
+---
+let initialCount = 0;
+---
+
+<div x-data="{ count: 0 }">
+    <p>Hello world from Alpine.js</p>
+    <button x-on:click="count--">-</button>
+    <span x-text="count">{initialCount}</span>
+    <button x-on:click="count++">+</button>
+</div>
+
+<style>
+    * {
+        display: inline;
+        color: yellowgreen;
+    }
+</style>
