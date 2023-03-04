@@ -4,6 +4,7 @@ const setCount = () => {
     count += 1;
 };
 
+// Astro never runs client-side
 if (typeof window !== "undefined") {
     setInterval(setCount, 1000);
 }
