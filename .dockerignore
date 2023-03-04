@@ -1,0 +1,14 @@
+# Deployment files
+fly.toml
+Dockerfile
+.dockerignore
+
+# Local development files
+node_modules
+dist
+
+# Misc
+.vscode
+.git
+.gitignore
+README.md
