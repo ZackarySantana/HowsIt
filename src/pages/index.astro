@@ -15,11 +15,15 @@ export const prerender = true;
 
 <Layout title="Astro Health">
     <main>
-        <h1>Can <span>only</span> be SSR</h1>
+        <a
+            href="https://github.com/ZackarySantana/AstroHealth"
+            class="text-blue-500">GitHub</a
+        >
+        <h1><span>SSR</span> Only</h1>
         <AstroComponent />
         <Alpine />
 
-        <h1>Only <span>SSR</span></h1>
+        <h1><span>Server-Side</span> Rendered</h1>
         <Preact />
         <React />
         <Svelte />
@@ -27,7 +31,7 @@ export const prerender = true;
         <Lit />
         <Vue />
 
-        <h1>Client <span>Partial-hydrated</span></h1>
+        <h1><span>Client</span> Partial-hydrated</h1>
         <Preact client:load />
         <React client:load />
         <Svelte client:load />
@@ -35,7 +39,7 @@ export const prerender = true;
         <Lit client:load />
         <Vue client:load />
 
-        <h1>Client <span>Hydrated</span></h1>
+        <h1><span>Client</span> Hydrated</h1>
         <Preact client:only="preact" />
         <React client:only="react" />
         <Svelte client:only="svelte" />
