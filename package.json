@@ -21,8 +21,7 @@
         "@astrojs/solid-js": "^2.0.2",
         "@astrojs/svelte": "^2.0.2",
         "@astrojs/tailwind": "^3.0.1",
-        "@astrojs/vue": "^2.0.1",
-        "@webcomponents/template-shadowroot": "^0.1.0"
+        "@astrojs/vue": "^2.0.1"
     },
     "devDependencies": {
         "@types/alpinejs": "^3.7.1",
