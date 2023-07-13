@@ -1,15 +1,15 @@
 ---
 import Layout from "@layouts/Layout.astro";
 
+import Link from "@components/link.astro";
+import Alpine from "@tests/alpinejs.astro";
 import AstroComponent from "@tests/astro.astro";
+import Lit from "@tests/lit";
 import Preact from "@tests/preact";
 import React from "@tests/react";
 import Solid from "@tests/solidjs";
 import Svelte from "@tests/svelte.svelte";
-import Lit from "@tests/lit";
-import Alpine from "@tests/alpinejs.astro";
 import Vue from "@tests/vue.vue";
-import Link from "@components/link.astro";
 
 export const prerender = true;
 ---
@@ -87,10 +87,9 @@ export const prerender = true;
         max-width: 90ch;
     }
     h1 {
-        font-size: 2rem;
-        font-weight: 800;
-        margin: 0;
-        margin-top: 2rem;
+        font-size: 2rem !important;
+        font-weight: 800 !important;
+        margin-top: 2rem !important;
     }
     span {
         background-image: var(--accent-gradient);

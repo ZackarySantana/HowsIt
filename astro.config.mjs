@@ -1,15 +1,15 @@
 import { defineConfig } from "astro/config";
 
 // https://astro.build/config
-import preact from "@astrojs/preact";
-import react from "@astrojs/react";
-import node from "@astrojs/node";
-import tailwind from "@astrojs/tailwind";
-import prefetch from "@astrojs/prefetch";
-import solidJs from "@astrojs/solid-js";
-import svelte from "@astrojs/svelte";
 import alpinejs from "@astrojs/alpinejs";
 import lit from "@astrojs/lit";
+import node from "@astrojs/node";
+import preact from "@astrojs/preact";
+import prefetch from "@astrojs/prefetch";
+import react from "@astrojs/react";
+import solidJs from "@astrojs/solid-js";
+import svelte from "@astrojs/svelte";
+import tailwind from "@astrojs/tailwind";
 import vue from "@astrojs/vue";
 
 // https://astro.build/config
