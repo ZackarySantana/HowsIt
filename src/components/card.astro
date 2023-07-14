@@ -1,7 +1,7 @@
 ---
 import Link from "@components/link.astro";
 import fs from "fs";
-const { example, type, info } = Astro.props;
+const { example, type, title, info } = Astro.props;
 
 let extension = "tsx";
 
@@ -33,7 +33,7 @@ if (exists) {
 ---
 
 <details class="w-full rounded-xl bg-slate-700 px-8 py-4 text-white shadow-lg">
-    <summary class="text-3xl font-bold capitalize">{type}</summary>
+    <summary class="text-3xl font-bold capitalize">{title ?? type}</summary>
 
     <details
         open

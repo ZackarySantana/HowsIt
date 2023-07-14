@@ -88,20 +88,6 @@ export const prerender = true;
         />
     </Card>
     <Card
-        type="lit"
-        example={example}
-    >
-        <Lit slot="ssr" />
-        <Lit
-            slot="ch"
-            client:load
-        />
-        <Lit
-            slot="co"
-            client:only="lit"
-        />
-    </Card>
-    <Card
         type="vue"
         example={example}
     >
@@ -113,6 +99,21 @@ export const prerender = true;
         <Vue
             slot="co"
             client:only="vue"
+        />
+    </Card>
+    <Card
+        type="lit"
+        example={example}
+        title="Lit (Broken)"
+    >
+        <Lit slot="ssr" />
+        <Lit
+            slot="ch"
+            client:load
+        />
+        <Lit
+            slot="co"
+            client:only="lit"
         />
     </Card>
 </Layout>
