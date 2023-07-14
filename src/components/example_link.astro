@@ -1,0 +1,9 @@
+---
+const { path } = Astro.props;
+
+const url =
+    "https://github.com/ZackarySantana/AstroHealth/blob/main/src/examples/" +
+    path;
+---
+
+<a href={url} class="text-blue-500"><slot /></a>

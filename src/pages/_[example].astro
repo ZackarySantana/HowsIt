@@ -1,0 +1,103 @@
+---
+// This is attempting to dynamically import the example components
+// Right now, Astro bundles the client directives and the modules required to
+// Hydrated components on the client with only explicit import statements, not
+// Dynamic ones. This means that the following code will not work unless this
+// is added
+import Layout from "@layouts/Layout.astro";
+import fs from "fs";
+import Test from "src/examples/alpinejs/interval.astro";
+const { example } = Astro.params;
+
+if (!example) {
+    return Astro.redirect("/404?error=No%20example%20specified");
+}
+
+const getPath = (type: string) => {
+    let extension = "";
+    if (type === "astro" || type === "svelte" || type === "vue") {
+        extension += "." + type;
+    } else if (type === "alpinejs") {
+        extension += ".astro";
+    } else if (type === "lit") {
+        extension += ".ts";
+    } else if (type === "preact" || type === "react" || type === "solid") {
+        extension += ".tsx";
+    }
+    return `src/examples/${type}/${example}${extension}`;
+};
+
+const getFile = (type: string) => {
+    const path = getPath(type);
+    const exists = fs.existsSync(path);
+    if (!exists) {
+        console.log(path + " does not exist");
+        return undefined;
+    }
+    return fs.readFileSync(path, "utf-8");
+};
+
+const get = async (
+    type: string,
+): Promise<[string, string, any] | [string, undefined, undefined]> => {
+    const file = getFile(type);
+    if (file === undefined) {
+        return [type, undefined, undefined];
+    }
+    let component = undefined;
+    if (type === "astro" || type === "alpinejs") {
+        component = await import(
+            /* @vite-ignore */ `../examples/${type}/${example}.astro`
+        ).catch((e) => console.log(e));
+    } else if (type === "lit") {
+        component = await import(
+            /* @vite-ignore */ `../examples/${type}/${example}.ts`
+        ).catch((e) => console.log(e));
+    } else if (type === "preact" || type == "react" || type === "solid") {
+        component = await import(
+            /* @vite-ignore */ `../examples/${type}/${example}.tsx`
+        ).catch((e) => console.log(e));
+    } else if (type === "svelte") {
+        component = await import(
+            /* @vite-ignore */ `../examples/${type}/${example}.svelte`
+        ).catch((e) => console.log(e));
+    } else if (type === "vue") {
+        component = await import(
+            /* @vite-ignore */ `../examples/${type}/${example}.vue`
+        ).catch((e) => console.log(e));
+    }
+    return [type, file, component];
+};
+
+// const alpinejs = get("alpinejs");
+// const astro = get("astro");
+// const lit = get("lit");
+// const preact = get("preact");
+const react = get("react");
+// const svelte = get("svelte");
+// const vue = get("vue");
+
+const examplesPromises = [react];
+
+const examples = await Promise.all(examplesPromises);
+---
+
+<Layout title={example}>
+    {
+        examples.map((example) => {
+            const [type, code, ComponentInfo] = example;
+            const Component = ComponentInfo?.default;
+            console.log("======1 " + type);
+            console.log(Component);
+            console.log("======2 " + type);
+            console.log(Test);
+            return (
+                <div>
+                    <h1>Hey</h1>
+                    <Component client:only="react" />
+                    <h1 class="whitespace-pre">{example[0]}</h1>
+                </div>
+            );
+        })
+    }
+</Layout>

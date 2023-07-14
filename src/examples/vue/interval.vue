@@ -1,5 +1,5 @@
 <template>
-    <span>Vue {{ counter }}</span>
+    <span>{{ counter }}</span>
 </template>
 
 <script lang="ts">
@@ -16,3 +16,8 @@ export default {
     },
 };
 </script>
+<style>
+span {
+    color: lightblue;
+}
+</style>

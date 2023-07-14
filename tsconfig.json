@@ -1,5 +1,6 @@
 {
     "extends": "astro/tsconfigs/strict",
+    "exclude": ["node_modules", "dist", "public"],
     "compilerOptions": {
         "experimentalDecorators": true,
         "jsx": "preserve",
@@ -7,10 +8,16 @@
         "baseUrl": ".",
         "paths": {
             "@components/*": ["src/components/*"],
-            "@tests/*": ["src/tests/*"],
             "@layouts/*": ["src/layouts/*"],
-            "@pages/*": ["src/pages/*"],
-            "@constants/*": ["src/constants/*"]
+            "@examples/*": ["src/examples/*"],
+            "@alpinejs/*": ["src/examples/alpinejs/*"],
+            "@astro/*": ["src/examples/astro/*"],
+            "@lit/*": ["src/examples/lit/*"],
+            "@preact/*": ["src/examples/preact/*"],
+            "@react/*": ["src/examples/react/*"],
+            "@solid/*": ["src/examples/solid/*"],
+            "@svelte/*": ["src/examples/svelte/*"],
+            "@vue/*": ["src/examples/vue/*"]
         }
     }
 }

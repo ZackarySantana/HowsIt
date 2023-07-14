@@ -1,4 +1,4 @@
-import { html, css, LitElement } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 declare global {
@@ -13,7 +13,7 @@ export const tagName = "count-element";
 export default class Count extends LitElement {
     static styles = css`
         span {
-            color: coral;
+            color: lightblue;
         }
     `;
 
@@ -30,8 +30,10 @@ export default class Count extends LitElement {
     }
 
     render() {
-        return html`<span>Lit ${this.count}</span>`;
+        return html`
+            <span>${this.count}</span>
+        `;
     }
 }
 
-// customElements.define(tagName, Count);
+// CustomElements.define(tagName, Count);

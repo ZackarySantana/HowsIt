@@ -24,9 +24,10 @@ const obj = insideFunc.substring(
 );
 ---
 
-<div x-data={obj} x-init="init()">
-    <Link path="src/tests/alpinejs.astro">Hello world from</Link>
-    <span>Alpine.js</span>
+<div
+    x-data={obj}
+    x-init="init()"
+>
     <!-- <button x-on:click="count--">-</button> -->
     <span x-text="count">{0}</span>
     <!-- <button x-on:click="count++">+</button> -->
@@ -37,6 +38,6 @@ const obj = insideFunc.substring(
 <style>
     span {
         display: inline;
-        color: yellowgreen;
+        color: lightblue;
     }
 </style>

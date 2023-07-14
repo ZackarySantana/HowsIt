@@ -10,4 +10,11 @@ if (path != "") {
 }
 ---
 
-<a href={finalPath} class="text-blue-500"><slot /></a>
+<a
+    href={finalPath}
+    target="_blank"
+    referrerpolicy="no-referrer"
+    class="text-blue-500"
+>
+    <slot />
+</a>

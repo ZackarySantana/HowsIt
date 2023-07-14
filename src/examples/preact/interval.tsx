@@ -1,8 +1,8 @@
-/** @jsxImportSource react */
+/** @jsxImportSource preact */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "preact/hooks";
 
-export default function () {
+export default function Preact() {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
@@ -13,5 +13,5 @@ export default function () {
         return () => clearInterval(id);
     }, []);
 
-    return <span style={{ color: "green" }}>React {count}</span>;
+    return <span style={{ color: "lightblue" }}>{count}</span>;
 }

@@ -1,8 +1,8 @@
 /** @jsxImportSource solid-js */
 
-import { onCleanup, createSignal } from "solid-js";
+import { createSignal, onCleanup } from "solid-js";
 
-export default function () {
+export default function Solid() {
     const [count, setCount] = createSignal(0);
 
     const id = setInterval(() => {
@@ -11,5 +11,5 @@ export default function () {
 
     onCleanup(() => clearInterval(id));
 
-    return <span style={{ color: "blue" }}>Solidjs {count()}</span>;
+    return <span style={{ color: "lightblue" }}>{count()}</span>;
 }
