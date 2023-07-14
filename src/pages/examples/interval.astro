@@ -13,11 +13,17 @@ import Svelte from "@svelte/interval.svelte";
 import Vue from "@vue/interval.vue";
 
 const example = "interval";
+const desc = "An interval to update a count by 1 every second";
 
 export const prerender = true;
 ---
 
 <Layout title={`Example - ${example}`}>
+    <h1 class="self-start text-3xl font-bold capitalize text-white">
+        {example} Example
+    </h1>
+    <p class="self-start text-white">{desc}</p>
+    <hr class="w-full border-t-2 border-solid border-white" />
     <SSRCard
         type="astro"
         example={example}

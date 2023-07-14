@@ -8,6 +8,9 @@ let extension = "tsx";
 if (type === "astro" || type === "vue" || type === "svelte") {
     extension = type;
 }
+if (type === "alpinejs") {
+    extension = "astro";
+}
 if (type === "lit") {
     extension = "ts";
 }
