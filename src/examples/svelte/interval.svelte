@@ -9,7 +9,7 @@
 
 <span>{count}</span>
 
-<style>
+<style scoped>
     span {
         color: lightblue;
     }

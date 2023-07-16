@@ -1,0 +1,20 @@
+---
+const { path } = Astro.props;
+
+const baseURL = "https://github.com/ZackarySantana/howsit/";
+
+let finalPath = baseURL;
+
+if (path != "") {
+    finalPath = baseURL + "blob/main/" + path;
+}
+---
+
+<a
+    href={finalPath}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="text-blue-500"
+>
+    <slot />
+</a>

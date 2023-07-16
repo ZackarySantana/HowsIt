@@ -1,90 +1,17 @@
 ---
-import Link from "@components/link.astro";
-import fs from "fs";
-const { example, type, info } = Astro.props;
-
-let extension = "tsx";
-
-if (type === "astro" || type === "vue" || type === "svelte") {
-    extension = type;
-}
-if (type === "alpinejs") {
-    extension = "astro";
-}
-if (type === "lit") {
-    extension = "ts";
-}
-
-const fullPath = `src/examples/${type}/${example}.${extension}`;
-
-const exists = fs.existsSync(fullPath);
-let code = "Failed to load";
-let numbers = "";
-
-if (exists) {
-    code = fs.readFileSync(fullPath, "utf-8");
-    const lines = code.split("\n");
-
-    const lineDigits = Math.floor(Math.log10(lines.length)) + 1;
-
-    const getPadding = (i: number) => {
-        return " ".repeat(lineDigits - Math.floor(Math.log10(i + 1)));
-    };
-
-    numbers = lines.map((_, i) => `${i + 1}.${getPadding(i)}  `).join("\n");
-}
+import Card from "./card.astro";
+const { example, type, title, typeInfo, exampleInfo } = Astro.props;
 ---
 
-<details class="w-full rounded-xl bg-slate-700 px-8 py-4 text-white shadow-lg">
-    <summary class="text-3xl font-bold capitalize">
-        {type}
-        <span class="italic">(SSR Only)</span>
-    </summary>
-
-    <details
-        open
-        class="text-slate-400"
-    >
-        <summary class="mb-1 mt-4 text-xl">Example</summary>
-        <div
-            class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-white"
-        >
-            <slot />
-        </div>
-    </details>
-
-    <details
-        open
-        class="text-slate-400"
-    >
-        <summary class="mb-1 mt-4 text-xl">
-            Code
-            <span class="text-md italic">
-                <Link path={fullPath}>(GitHub)</Link>
-            </span>
-        </summary>
-
-        <div class="flex rounded-xl bg-slate-800 p-4 text-sm">
-            <p class="select-none whitespace-pre">{numbers}</p>
-            <p class="overflow-x-auto text-slate-200">
-                <code class="whitespace-pre leading-[0]">{code}</code>
-            </p>
-        </div>
-    </details>
-    {
-        info && info.length > 0 && (
-            <details open>
-                <summary class="mb-1 mt-4 text-xl">
-                    Notes on <span class="capitalize">{type}</span>
-                </summary>
-                <ul class="ml-4 list-decimal">
-                    {info.map((item: string) => (
-                        <li class="ml-5">
-                            <p class="ml-2">{item}</p>
-                        </li>
-                    ))}
-                </ul>
-            </details>
-        )
-    }
-</details>
+<Card
+    metaTitle="(SRR Only)"
+    hideClientHydrated={true}
+    hideClientRendered={true}
+    example={example}
+    type={type}
+    title={title}
+    typeInfo={typeInfo}
+    exampleInfo={exampleInfo}
+>
+    <slot slot="ssr" />
+</Card>

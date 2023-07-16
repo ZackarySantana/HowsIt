@@ -6,16 +6,16 @@ import AstroComponent from "@astro/interval.astro";
 import Card from "@components/card.astro";
 import SSRCard from "@components/ssr_card.astro";
 import Lit from "@lit/interval";
-import Preact from "@preact/interval";
-import Preact2 from "@preact/interval_2";
-import React from "@react/interval";
+import Preact from "@preact/counter";
+import Preact2 from "@preact/counter_2";
+import React from "@react/counter";
 import Solid from "@solid/interval";
-import Svelte from "@svelte/interval.svelte";
-import Vue from "@vue/interval.vue";
+import Svelte from "@svelte/counter.svelte";
+import Vue from "@vue/counter.vue";
 
-const example = "interval";
+const example = "counter";
 Astro.locals.example = example;
-const desc = "An interval to update a count by 1 every second";
+const desc = "An interactive counter with a decrement and increment button.";
 
 export const prerender = true;
 ---

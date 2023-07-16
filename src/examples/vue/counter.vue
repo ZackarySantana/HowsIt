@@ -1,5 +1,7 @@
 <template>
+    <button @click="decrement">-</button>
     <span>{{ counter }}</span>
+    <button v-on:click="increment">+</button>
 </template>
 
 <script lang="ts">
@@ -9,15 +11,13 @@ export default {
             counter: 0,
         };
     },
-    mounted() {
-        setInterval(() => {
+    methods: {
+        decrement() {
+            this.counter--;
+        },
+        increment() {
             this.counter++;
-        }, 1000);
+        },
     },
 };
 </script>
-<style scoped>
-span {
-    color: lightblue;
-}
-</style>

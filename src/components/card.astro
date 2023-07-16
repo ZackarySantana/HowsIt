@@ -1,111 +1,123 @@
 ---
+import GithubLink from "@components/github_link.astro";
 import Link from "@components/link.astro";
-import fs from "fs";
-const { example, type, title, info } = Astro.props;
+import { GetCodeAndLines, GetExtension, GetTypeInfo, GetVersion } from "@utils";
+const {
+    type,
+    title,
+    metaTitle,
+    typeInfo: givenTypeInfo,
+    exampleInfo,
+    hideClientHydrated,
+    hideClientRendered,
+} = Astro.props;
 
-let extension = "tsx";
+const example = Astro.locals.example;
 
-if (type === "astro" || type === "vue" || type === "svelte") {
-    extension = type;
-}
-if (type === "alpinejs") {
-    extension = "astro";
-}
-if (type === "lit") {
-    extension = "ts";
-}
-
-const fullPath = `src/examples/${type}/${example}.${extension}`;
-
-const exists = fs.existsSync(fullPath);
-let code = "Failed to load";
-let numbers = "";
-
-if (exists) {
-    code = fs.readFileSync(fullPath, "utf-8");
-    const lines = code.split("\n");
-
-    const lineDigits = Math.floor(Math.log10(lines.length)) + 1;
-
-    const getPadding = (i: number) => {
-        return " ".repeat(lineDigits - Math.floor(Math.log10(i + 1)));
-    };
-
-    numbers = lines.map((_, i) => `${i + 1}.${getPadding(i)}  `).join("\n");
-}
+const extension = GetExtension(type);
+const version = GetVersion(type, metaTitle);
+const typeInfo = GetTypeInfo(type, givenTypeInfo);
+const fullPath = `src/examples/${type}/${example}${version}.${extension}`;
+const { code, lines } = GetCodeAndLines(fullPath);
 ---
 
 <details class="w-full rounded-xl bg-slate-700 px-8 py-4 text-white shadow-lg">
-    <summary class="text-3xl font-bold capitalize">{title ?? type}</summary>
+    <summary class="text-3xl font-bold capitalize">
+        {title ?? type}
+        <span class="italic text-slate-400">{metaTitle}</span>
+    </summary>
 
-    <details
-        open
-        class="text-slate-400"
+    <h1 class="mb-1 mt-4 text-xl text-white">Server Side Rendered</h1>
+    <div
+        class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-zinc-300"
     >
-        <summary class="mb-1 mt-4 text-xl">Server Side Rendered</summary>
-        <div
-            class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-white"
-        >
-            <slot name="ssr" />
-        </div>
-    </details>
+        <slot name="ssr" />
+    </div>
 
-    <details
-        open
-        class="text-slate-400"
-    >
-        <summary class="mb-1 mt-4 text-xl">SSR + Client Hydrated</summary>
-        <div
-            class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-white"
-        >
-            <slot name="ch" />
-        </div>
-    </details>
-
-    <details
-        open
-        class="text-slate-400"
-    >
-        <summary class="mb-1 mt-4 text-xl">Client Rendered</summary>
-        <div
-            class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-white"
-        >
-            <slot name="co" />
-        </div>
-    </details>
-
-    <details
-        open
-        class="text-slate-400"
-    >
-        <summary class="mb-1 mt-4 text-xl">
-            Code
-            <span class="text-md italic">
-                <Link path={fullPath}>(GitHub)</Link>
-            </span>
-        </summary>
-
-        <div class="flex rounded-xl bg-slate-800 p-4 text-sm">
-            <p class="select-none whitespace-pre">{numbers}</p>
-            <p class="overflow-x-auto text-slate-200">
-                <code class="whitespace-pre leading-[0]">{code}</code>
-            </p>
-        </div>
-    </details>
     {
-        info && info.length > 0 && (
-            <details open>
-                <summary class="mb-1 mt-4 text-xl">
-                    Notes on <span class="capitalize">{type}</span>
-                </summary>
+        !hideClientHydrated && (
+            <>
+                <h1 class="mb-1 mt-4 text-xl text-white">
+                    SSR + Client Hydrated
+                </h1>
+                <div class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-zinc-300">
+                    <slot name="ch" />
+                </div>
+            </>
+        )
+    }
+
+    {
+        !hideClientRendered && (
+            <>
+                <h1 class="mb-1 mt-4 text-xl text-white">Client Rendered</h1>
+                <div class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-zinc-300">
+                    <slot name="co" />
+                </div>
+            </>
+        )
+    }
+    <h1 class="mb-1 mt-4 text-xl text-white">
+        Code
+        <span class="text-md italic">
+            <GithubLink path={fullPath}>(GitHub)</GithubLink>
+        </span>
+    </h1>
+
+    <div class="flex rounded-xl bg-slate-800 p-4 text-sm text-slate-300">
+        <p class="select-none whitespace-pre">{lines}</p>
+        <p class="overflow-x-auto">
+            <code class="whitespace-pre leading-[0]">{code}</code>
+        </p>
+    </div>
+
+    {
+        exampleInfo && exampleInfo.length > 0 && (
+            <>
+                <h1 class="mb-1 mt-4 text-xl text-white">Example Notes</h1>
                 <ul class="ml-4 list-decimal">
-                    {info.map((item: string) => (
-                        <li class="ml-5">
-                            <p class="ml-2">{item}</p>
+                    {exampleInfo.map((item: string, i: number) => (
+                        <li class="ml-5 text-zinc-300">
+                            {i === 0 && item.startsWith("https://") ? (
+                                <Link
+                                    href={item}
+                                    class="ml-2 italic"
+                                >
+                                    Docs
+                                </Link>
+                            ) : (
+                                <p class="ml-2">{item}</p>
+                            )}
                         </li>
                     ))}
                 </ul>
-            </details>
+            </>
+        )
+    }
+
+    {
+        typeInfo && typeInfo.length > 0 && (
+            <>
+                <h1 class="mb-1 mt-4 text-xl text-white">
+                    <span class="capitalize">{type}</span> Notes
+                </h1>
+                <ul class="ml-4 list-decimal">
+                    {typeInfo.map((item: string, i: number) => (
+                        <li class="ml-5 text-zinc-300">
+                            {i === 0 && item.startsWith("https://") ? (
+                                <Link
+                                    href={item}
+                                    class="ml-2 italic"
+                                >
+                                    Docs
+                                </Link>
+                            ) : (
+                                <p class="ml-2">{item}</p>
+                            )}
+                        </li>
+                    ))}
+                </ul>
+            </>
         )
     }
 </details>

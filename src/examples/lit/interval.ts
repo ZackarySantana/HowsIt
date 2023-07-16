@@ -12,7 +12,7 @@ export const tagName = "count-element";
 @customElement(tagName)
 export default class Count extends LitElement {
     static styles = css`
-        span {
+        span.lit-element {
             color: lightblue;
         }
     `;
@@ -31,7 +31,7 @@ export default class Count extends LitElement {
 
     render() {
         return html`
-            <span>${this.count}</span>
+            <span class="lit-element">${this.count}</span>
         `;
     }
 }

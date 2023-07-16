@@ -1,20 +1,12 @@
 ---
-const { path } = Astro.props;
-
-const baseURL = "https://github.com/ZackarySantana/AstroHealth/";
-
-let finalPath = baseURL;
-
-if (path != "") {
-    finalPath = baseURL + "blob/main/" + path;
-}
+const { href, class: className } = Astro.props;
 ---
 
 <a
-    href={finalPath}
+    href={href}
     target="_blank"
     rel="noopener noreferrer"
-    class="text-blue-500"
+    class=`text-blue-500 ${className}`
 >
     <slot />
 </a>
