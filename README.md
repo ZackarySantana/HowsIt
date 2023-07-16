@@ -1,6 +1,6 @@
-# Astro Health
+# How's It
 
-[Demo](https://astrohealth.fly.dev/)
+[Demo](https://howsit.dev/)
 
 ## Contributing
 
