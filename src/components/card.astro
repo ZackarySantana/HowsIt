@@ -1,4 +1,13 @@
 ---
+export interface Props {
+    type: string;
+    title?: string;
+    metaTitle?: string;
+    typeInfo?: string[];
+    exampleInfo?: string[];
+    hideClientHydrated: boolean;
+    hideClientRendered: boolean;
+}
 import GithubLink from "@components/github_link.astro";
 import Link from "@components/link.astro";
 import { GetCodeAndLines, GetExtension, GetTypeInfo, GetVersion } from "@utils";

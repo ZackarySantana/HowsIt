@@ -1,9 +1,71 @@
 ---
+import Link from "@components/link.astro";
 import Layout from "@layouts/Layout.astro";
+import { frameworks, frameworksTBA, images } from "@utils";
 
 export const prerender = true;
 ---
 
-<Layout title="Astro Health">
-    <h1>Helklow</h1>
+<Layout title="How's It">
+    <div class="w-full text-white sm:py-4">
+        <h1 class="text-3xl font-bold">
+            Learn about the <span class="italic underline">Modern</span> Web!
+        </h1>
+        <p class="mt-4">
+            Implementation and direct comparision is the best way for some
+            people to learn about different 'bleeding edge' libraries.
+        </p>
+        <p class="mt-1">
+            This site is a collection of examples implemented, explained, and
+            rendered to compare these libraries.
+        </p>
+        <h2 class="mt-4 break-words text-2xl">Supported libraries:</h2>
+        <ul class="ml-8 list-decimal">
+            {
+                Object.keys(frameworks)
+                    .map((f) => frameworks[f])
+                    .map((f) => (
+                        <li>
+                            <div>
+                                <Link href={f.docs}>{f.name}</Link>
+                                {f.supportedLanguages.map((l) => (
+                                    <img
+                                        src={images[l.toLowerCase()]}
+                                        alt={l}
+                                        class="min-w-4 ml-2 inline-block h-4"
+                                    />
+                                ))}
+                            </div>
+
+                            <ul class="ml-8 list-disc">
+                                {f.notes.map((e) => (
+                                    <li>
+                                        <span class="text-sm">{e}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                    ))
+            }
+        </ul>
+        <h2 class="mt-4 break-words text-2xl">Future libraries:</h2>
+        <ul class="ml-8 list-decimal">
+            {
+                Object.keys(frameworksTBA)
+                    .map((f) => frameworksTBA[f])
+                    .map((f) => (
+                        <li>
+                            <Link href={f.docs}>{f.name}</Link>
+                            <ul class="ml-8 list-disc">
+                                {f.notes.map((e) => (
+                                    <li>
+                                        <span class="text-sm">{e}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                    ))
+            }
+        </ul>
+    </div>
 </Layout>

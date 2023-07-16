@@ -1,50 +1,144 @@
 import fs from "fs";
 
-const extensions: { [key: string]: string } = {
-    astro: "astro",
-    vue: "vue",
-    svelte: "svelte",
-    lit: "ts",
-    alpinejs: "astro",
-    react: "tsx",
-    preact: "tsx",
-    solid: "tsx",
-} as const;
+export type Framework = {
+    name: string;
+    url: string;
+    docs: string;
+    extension: string;
+    supportedLanguages: string[];
+    notes: string[];
+};
 
-const frameworkInfo: { [key: string]: string[] } = {
-    astro: [
-        "https://astro.build/",
-        "Supports TypeScript and JavaScript",
-        "Astro is a meta-framework that focuses on shipping less JavaScript and having a modular way of using your favorite libraries.",
-        "You can build your app using many of it's different integrations, which is how this site was built using all the different libraries!",
-        "As of right now (they have plans to change this), Astro is only a multi-page application (MPA), meaning it doesn't support client-side routing. Read more about these rendering styles in the learn section of the site!",
-    ],
-    vue: [
-        "https://v3.vuejs.org/",
-        "Supports TypeScript and JavaScript",
-        "Vue is a framework that uses single-file components (SFCs). It tends to be easier to beginners to learn than React.",
-        "A virtual DOM is used to update the DOM when data changes. This means changes to the data edit this virtual DOM and if there is a difference between the virtual DOM and the real DOM, Vue updates it",
-        "Model View ViewModel (MVVM) is the architecture that Vue uses, which is a two way data binding architecture.",
-        "It historically has been more of a single-page app (SPA) framework than an MPA framework, but it's still possible to build MPAs with it.",
-    ],
-    svelte: [
-        "https://svelte.dev/",
-        "Supports JavaScript and JS Docs (TypeScript support was recently removed).",
-        "Svelte (with SvelteKit) is a framework that uses single-file components (SFCs). It's a newer framework that is great for beginners.",
-        "It doesn't use a virtual DOM (view React, Vue to compare), it instead compiles it down to JavaScript and updates the DOM directly.",
-    ],
-    lit: ["lit"],
-    alpinejs: ["alpinejs"],
-    react: ["react"],
-    preact: ["preact"],
-    solid: ["solid"],
+export const frameworksTBA: {
+    [key: string]: Framework;
+} = {
+    angular: {
+        name: "Angular",
+        docs: "https://angular.io/docs",
+        url: "angular",
+        extension: "ts",
+        supportedLanguages: ["TypeScript", "JavaScript"],
+        notes: [],
+    },
+    qwik: {
+        name: "Qwik",
+        docs: "https://docs.qwik.dev",
+        url: "qwik",
+        extension: "ts",
+        supportedLanguages: [],
+        notes: [],
+    },
+    webcomponents: {
+        name: "Web Components",
+        docs: "https://developer.mozilla.org/en-US/docs/Web/Web_Components",
+        url: "web-components",
+        extension: "ts",
+        supportedLanguages: [],
+        notes: [],
+    },
+};
+
+export const frameworks: {
+    [key: string]: Framework;
+} = {
+    react: {
+        name: "React",
+        url: "react",
+        docs: "https://react.dev",
+        extension: "tsx",
+        supportedLanguages: ["TypeScript", "JavaScript"],
+        notes: [],
+    },
+    solid: {
+        name: "Solid",
+        url: "solid",
+        docs: "https://www.solidjs.com/docs/latest",
+        extension: "tsx",
+        supportedLanguages: ["TypeScript", "JavaScript"],
+        notes: [],
+    },
+    preact: {
+        name: "Preact",
+        url: "preact",
+        docs: "https://preactjs.com/guide/v10/getting-started",
+        extension: "tsx",
+        supportedLanguages: ["TypeScript", "JavaScript"],
+        notes: [],
+    },
+    svelte: {
+        name: "Svelte",
+        url: "svelte",
+        docs: "https://svelte.dev/docs",
+        extension: "svelte",
+        supportedLanguages: ["JSDoc", "JavaScript"],
+        notes: [
+            "Svelte (with SvelteKit) is a framework that uses single-file components (SFCs). It's a newer framework that is great for beginners.",
+            "It doesn't use a virtual DOM (view React, Vue to compare), it instead compiles it down to JavaScript and updates the DOM directly.",
+        ],
+    },
+    vue: {
+        name: "Vue",
+        url: "vue",
+        docs: "https://v3.vuejs.org/guide/introduction.html",
+        extension: "vue",
+        supportedLanguages: ["TypeScript", "JavaScript"],
+        notes: [
+            "Vue is a framework that uses single-file components (SFCs). It tends to be easier to beginners to learn than React.",
+            "A virtual DOM is used to update the DOM when data changes. This means changes to the data edit this virtual DOM and if there is a difference between the virtual DOM and the real DOM, Vue updates it",
+            "Model View ViewModel (MVVM) is the architecture that Vue uses, which is a two way data binding architecture.",
+            "It historically has been more of a single-page app (SPA) framework than an MPA framework, but it's still possible to build MPAs with it.",
+        ],
+    },
+    astro: {
+        name: "Astro",
+        url: "astro",
+        docs: "https://docs.astro.build/",
+        extension: "astro",
+        supportedLanguages: ["TypeScript", "JavaScript"],
+        notes: [
+            "Astro is a meta-framework that focuses on shipping less JavaScript and having a modular way of using your favorite libraries.",
+            "You can build your app using many of it's different integrations, which is how this site was built using all the different libraries!",
+            "As of right now (they have plans to change this), Astro is only a multi-page application (MPA), meaning it doesn't support client-side routing. Read more about these rendering styles in the learn section of the site!",
+        ],
+    },
+    alpinejs: {
+        name: "Alpine.js",
+        url: "alpinejs",
+        docs: "https://alpinejs.dev",
+        extension: "astro",
+        supportedLanguages: ["JavaScript"],
+        notes: [],
+    },
+    lit: {
+        name: "Lit",
+        url: "lit",
+        docs: "https://lit.dev",
+        extension: "ts",
+        supportedLanguages: ["JavaScript"],
+        notes: [],
+    },
+};
+
+export const images: {
+    [key: string]: string;
+} = {
+    typescript: "/typescript.svg",
+    javascript: "/javascript.png",
+    jsdoc: "/jsdoc.png",
 };
 
 export function GetExtension(type: string) {
-    return extensions[type.toLowerCase()];
+    return frameworks[type.toLowerCase()]?.extension;
 }
 
-export function GetVersion(type: string, metaTitle: string) {
+export function GetTypeInfo(type: string, givenInfo?: string[]): string[] {
+    if (givenInfo) {
+        return givenInfo;
+    }
+    return frameworks[type.toLowerCase()]?.notes ?? [];
+}
+
+export function GetVersion(type: string, metaTitle?: string) {
     const mt = metaTitle?.toLowerCase() ?? "";
 
     if (type === "preact") {
@@ -79,11 +173,4 @@ export function GetCodeAndLines(path: string) {
     }
 
     return { code, lines };
-}
-
-export function GetTypeInfo(type: string, givenInfo?: string[]): string[] {
-    if (givenInfo) {
-        return givenInfo;
-    }
-    return frameworkInfo[type.toLowerCase()] ?? [];
 }

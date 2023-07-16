@@ -1,13 +1,18 @@
 ---
+export interface Props {
+    type: string;
+    title?: string;
+    typeInfo?: string[];
+    exampleInfo?: string[];
+}
 import Card from "./card.astro";
-const { example, type, title, typeInfo, exampleInfo } = Astro.props;
+const { type, title, typeInfo, exampleInfo } = Astro.props;
 ---
 
 <Card
     metaTitle="(SRR Only)"
     hideClientHydrated={true}
     hideClientRendered={true}
-    example={example}
     type={type}
     title={title}
     typeInfo={typeInfo}
