@@ -1,0 +1,27 @@
+<div>
+    <button
+        hx-post="/htmx/counter?decrement"
+        hx-target="#htmx-element"
+        hx-swap="innerHTML"
+        hx-include="[name='counter']"
+    >
+        -
+    </button>
+
+    <span
+        id="htmx-element"
+        hx-trigger="load"
+        hx-get="/htmx/counter"
+        hx-target="this"
+        hx-swap="innerHTML"
+    ></span>
+
+    <button
+        hx-post="/htmx/counter?increment"
+        hx-target="#htmx-element"
+        hx-swap="innerHTML"
+        hx-include="[name='counter']"
+    >
+        +
+    </button>
+</div>

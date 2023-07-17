@@ -5,6 +5,7 @@ import Alpine from "@alpinejs/interval.astro";
 import AstroComponent from "@astro/interval.astro";
 import Card from "@components/card.astro";
 import SSRCard from "@components/ssr_card.astro";
+import HTMX from "@examples/htmx/interval.html";
 import Lit from "@lit/interval";
 import Preact from "@preact/interval";
 import Preact2 from "@preact/interval_2";
@@ -100,6 +101,9 @@ export const prerender = true;
             client:only="vue"
         />
     </Card>
+    <SSRCard type="htmx">
+        <HTMX />
+    </SSRCard>
     <SSRCard type="astro">
         <AstroComponent />
     </SSRCard>

@@ -106,7 +106,7 @@ export const frameworks: {
         url: "alpinejs",
         docs: "https://alpinejs.dev",
         extension: "astro",
-        supportedLanguages: ["JavaScript"],
+        supportedLanguages: ["HTML"],
         notes: [],
     },
     lit: {
@@ -117,6 +117,14 @@ export const frameworks: {
         supportedLanguages: ["JavaScript"],
         notes: [],
     },
+    htmx: {
+        name: "htmx",
+        url: "htmx",
+        docs: "https://htmx.org",
+        extension: "html",
+        supportedLanguages: ["HTML"],
+        notes: [],
+    },
 };
 
 export const images: {
@@ -125,6 +133,7 @@ export const images: {
     typescript: "/typescript.svg",
     javascript: "/javascript.png",
     jsdoc: "/jsdoc.png",
+    html: "/html.svg",
 };
 
 export function GetExtension(type: string) {
@@ -173,4 +182,17 @@ export function GetCodeAndLines(path: string) {
     }
 
     return { code, lines };
+}
+
+export function GetEndpointCodeAndLines(type: string, example: string) {
+    if (type.toLowerCase() !== "htmx") {
+        return undefined;
+    }
+
+    const path = `src/pages/htmx/${example}.ts`;
+
+    return {
+        ...GetCodeAndLines(path),
+        path,
+    };
 }

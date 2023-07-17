@@ -5,12 +5,19 @@ export interface Props {
     metaTitle?: string;
     typeInfo?: string[];
     exampleInfo?: string[];
-    hideClientHydrated: boolean;
-    hideClientRendered: boolean;
+    hideClientHydrated?: boolean;
+    hideClientRendered?: boolean;
 }
+import Code from "@components/code.astro";
 import GithubLink from "@components/github_link.astro";
 import Link from "@components/link.astro";
-import { GetCodeAndLines, GetExtension, GetTypeInfo, GetVersion } from "@utils";
+import {
+    GetCodeAndLines,
+    GetEndpointCodeAndLines,
+    GetExtension,
+    GetTypeInfo,
+    GetVersion,
+} from "@utils";
 const {
     type,
     title,
@@ -28,6 +35,8 @@ const version = GetVersion(type, metaTitle);
 const typeInfo = GetTypeInfo(type, givenTypeInfo);
 const fullPath = `src/examples/${type}/${example}${version}.${extension}`;
 const { code, lines } = GetCodeAndLines(fullPath);
+
+const endpoint = GetEndpointCodeAndLines(type, example);
 ---
 
 <details class="w-full rounded-xl bg-slate-700 px-8 py-4 text-white shadow-lg">
@@ -66,6 +75,7 @@ const { code, lines } = GetCodeAndLines(fullPath);
             </>
         )
     }
+
     <h1 class="mb-1 mt-4 text-xl text-white">
         Code
         <span class="text-md italic">
@@ -76,9 +86,28 @@ const { code, lines } = GetCodeAndLines(fullPath);
     <div class="flex rounded-xl bg-slate-800 p-4 text-sm text-slate-300">
         <p class="select-none whitespace-pre">{lines}</p>
         <p class="overflow-x-auto">
-            <code class="whitespace-pre leading-[0]">{code}</code>
+            <Code>{code}</Code>
         </p>
     </div>
+
+    {
+        endpoint !== undefined && (
+            <>
+                <h1 class="mb-1 mt-4 text-xl text-white">
+                    Endpoint
+                    <span class="text-md italic">
+                        <GithubLink path={endpoint.path}>(GitHub)</GithubLink>
+                    </span>
+                </h1>
+                <div class="flex rounded-xl bg-slate-800 p-4 text-sm text-slate-300">
+                    <p class="select-none whitespace-pre">{endpoint.lines}</p>
+                    <p class="overflow-x-auto">
+                        <Code>{endpoint.code}</Code>
+                    </p>
+                </div>
+            </>
+        )
+    }
 
     {
         exampleInfo && exampleInfo.length > 0 && (
