@@ -72,8 +72,9 @@ export const frameworks: {
         extension: "svelte",
         supportedLanguages: ["JSDoc", "JavaScript"],
         notes: [
-            "Svelte (with SvelteKit) is a framework that uses single-file components (SFCs). It's a newer framework that is great for beginners.",
-            "It doesn't use a virtual DOM (view React, Vue to compare), it instead compiles it down to JavaScript and updates the DOM directly.",
+            "Svelte (with SvelteKit) is a framework that uses single-file components (SFCs). It's great for beginners because of it's relatively simple and understable code.",
+            "It doesn't use a virtual DOM (view React or Vue to compare), it instead compiles it down to JavaScript and updates the DOM directly.",
+            "JSDoc is now used to annotate types for variables, functions, parameters, return values, etc instead of a typed language like TypeScript. Many believe this can speed up development time but may be easier to introduce bugs.",
         ],
     },
     vue: {
@@ -122,7 +123,7 @@ export const frameworks: {
         url: "lit",
         docs: "https://lit.dev",
         extension: "ts",
-        supportedLanguages: ["JavaScript"],
+        supportedLanguages: ["TypeScript", "JavaScript"],
         notes: [],
     },
 };

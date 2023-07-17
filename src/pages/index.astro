@@ -11,13 +11,55 @@ export const prerender = true;
         <h1 class="text-3xl font-bold">
             Learn about the <span class="italic underline">Modern</span> Web!
         </h1>
-        <p class="mt-4">
+        <p class="mt-2">
+            Right now, the <span class="italic">modern web</span> is dominated by
+            using TypeScript, JavaScript or more recently JSDoc with a framework/library
+            to create your fullstack (frontend/visual + backend/server) applications.
+        </p>
+        <p>
+            <span class="font-bold">HTML</span> is the main code of the web. It is
+            the markup language that provides the skeleton to all websites.
+        </p>
+        <p>
+            <span class="font-bold">CSS</span> is the design of the web. It is a
+            language that gives elements their color, width, shadows, and more.
+        </p>
+        <p>
+            <span class="font-bold">JavaScript</span> (or JS) is the language of
+            the web, it's the main language in which browsers like Chrome can run
+            code for sites.
+        </p>
+        <p>
+            <span class="font-bold">TypeScript</span> (or TS) is a superset of JavaScript
+            that introduces types in to the language. Types help catch bugs and speed
+            up development.
+        </p>
+        <p>
+            <span class="font-bold">JSDoc</span> is a recent alternative to TypeScript
+            that allows for annotations to be added to JavaScript code, to give type
+            inference.
+        </p>
+        <p class="mt-5">
+            Using JS, TS, or JSDoc, websites are usually made using a framework.
+            There are many frameworks and libraries like Next.js, SvelteKit,
+            Solid-Start, Astro, and more.
+        </p>
+        <p>
+            Each of these frameworks uses an underlying library to write the
+            websites in.
+        </p>
+        <p class="mt-5">
             Implementation and direct comparision is the best way for some
             people to learn about different 'bleeding edge' libraries.
         </p>
-        <p class="mt-1">
-            This site is a collection of examples implemented, explained, and
-            rendered to compare these libraries.
+        <p>
+            This site goes over the different ways you would implement the same
+            thing in these different libraries. Below you'll see the list of
+            supported libraries, and what popular frameworks use them.
+        </p>
+        <p>
+            Go to the <Link href="/examples">examples</Link> page to look at some
+            code and live examples!
         </p>
         <h2 class="mt-4 break-words text-2xl">Supported libraries:</h2>
         <ul class="ml-8 list-decimal">
@@ -48,7 +90,7 @@ export const prerender = true;
                     ))
             }
         </ul>
-        <h2 class="mt-4 break-words text-2xl">Future libraries:</h2>
+        <h2 class="mt-4 break-words text-2xl">Other libraries:</h2>
         <ul class="ml-8 list-decimal">
             {
                 Object.keys(frameworksTBA)
