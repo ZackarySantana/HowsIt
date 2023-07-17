@@ -105,7 +105,7 @@ export const frameworks: {
         name: "Alpine.js",
         url: "alpinejs",
         docs: "https://alpinejs.dev",
-        extension: "astro",
+        extension: "html",
         supportedLanguages: ["HTML"],
         notes: [],
     },

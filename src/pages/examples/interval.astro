@@ -1,10 +1,11 @@
 ---
 import Layout from "@layouts/Layout.astro";
 
-import Alpine from "@alpinejs/interval.astro";
 import AstroComponent from "@astro/interval.astro";
 import Card from "@components/card.astro";
 import SSRCard from "@components/ssr_card.astro";
+import SSRClientCard from "@components/ssr_client_card.astro";
+import Alpine from "@examples/alpinejs/interval.html";
 import HTMX from "@examples/htmx/interval.html";
 import Lit from "@lit/interval";
 import Preact from "@preact/interval";
@@ -101,14 +102,14 @@ export const prerender = true;
             client:only="vue"
         />
     </Card>
-    <SSRCard type="htmx">
+    <SSRClientCard type="htmx">
         <HTMX />
-    </SSRCard>
+    </SSRClientCard>
+    <SSRClientCard type="alpinejs">
+        <Alpine />
+    </SSRClientCard>
     <SSRCard type="astro">
         <AstroComponent />
-    </SSRCard>
-    <SSRCard type="alpinejs">
-        <Alpine />
     </SSRCard>
     <Card
         type="lit"

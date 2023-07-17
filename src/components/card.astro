@@ -5,6 +5,7 @@ export interface Props {
     metaTitle?: string;
     typeInfo?: string[];
     exampleInfo?: string[];
+    isSSRAndClientHydrated?: boolean;
     hideClientHydrated?: boolean;
     hideClientRendered?: boolean;
 }
@@ -24,6 +25,7 @@ const {
     metaTitle,
     typeInfo: givenTypeInfo,
     exampleInfo,
+    isSSRAndClientHydrated,
     hideClientHydrated,
     hideClientRendered,
 } = Astro.props;
@@ -45,7 +47,13 @@ const endpoint = GetEndpointCodeAndLines(type, example);
         <span class="italic text-slate-400">{metaTitle}</span>
     </summary>
 
-    <h1 class="mb-1 mt-4 text-xl text-white">Server Side Rendered</h1>
+    <h1 class="mb-1 mt-4 text-xl text-white">
+        {
+            isSSRAndClientHydrated
+                ? "SSR + Client Hydrated"
+                : "Server Side Rendered"
+        }
+    </h1>
     <div
         class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-zinc-300"
     >
@@ -53,7 +61,7 @@ const endpoint = GetEndpointCodeAndLines(type, example);
     </div>
 
     {
-        !hideClientHydrated && (
+        !hideClientHydrated && !isSSRAndClientHydrated && (
             <>
                 <h1 class="mb-1 mt-4 text-xl text-white">
                     SSR + Client Hydrated
@@ -66,7 +74,7 @@ const endpoint = GetEndpointCodeAndLines(type, example);
     }
 
     {
-        !hideClientRendered && (
+        !hideClientRendered && !isSSRAndClientHydrated && (
             <>
                 <h1 class="mb-1 mt-4 text-xl text-white">Client Rendered</h1>
                 <div class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-zinc-300">

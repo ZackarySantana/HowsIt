@@ -11,11 +11,10 @@ const { type, title, metaTitle, typeInfo, exampleInfo } = Astro.props;
 ---
 
 <Card
-    metaTitle={metaTitle ?? "(SRR Only)"}
-    hideClientHydrated={true}
-    hideClientRendered={true}
+    isSSRAndClientHydrated={true}
     type={type}
     title={title}
+    metaTitle={metaTitle}
     typeInfo={typeInfo}
     exampleInfo={exampleInfo}
 >

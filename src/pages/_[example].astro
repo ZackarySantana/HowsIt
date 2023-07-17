@@ -4,9 +4,9 @@
 // Hydrated components on the client with only explicit import statements, not
 // Dynamic ones. This means that the following code will not work unless this
 // is added
+import Test from "@examples/alpinejs/interval.html";
 import Layout from "@layouts/Layout.astro";
 import fs from "fs";
-import Test from "src/examples/alpinejs/interval.astro";
 const { example } = Astro.params;
 
 if (!example) {
