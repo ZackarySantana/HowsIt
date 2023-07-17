@@ -1,12 +1,12 @@
 ---
-import Layout from "@layouts/Layout.astro";
-
-import AstroComponent from "@astro/interval.astro";
 import Card from "@components/card.astro";
 import SSRCard from "@components/ssr_card.astro";
 import SSRClientCard from "@components/ssr_client_card.astro";
+import ExampleLayout from "@layouts/ExampleLayout.astro";
+
+import AstroComponent from "@astro/interval.astro";
 import Alpine from "@examples/alpinejs/interval.html";
-import HTMX from "@examples/htmx/interval.html";
+import HTMX from "@htmx/interval.html";
 import Lit from "@lit/interval";
 import Preact from "@preact/interval";
 import Preact2 from "@preact/interval_2";
@@ -16,13 +16,15 @@ import Svelte from "@svelte/interval.svelte";
 import Vue from "@vue/interval.vue";
 
 const example = "interval";
+const desc =
+    "A 1 second interval (timer) that updates a number by 1. Note that for SSR, the number will not update.";
 Astro.locals.example = example;
-const desc = "An interval to update a count by 1 every second";
+Astro.locals.desc = desc;
 
 export const prerender = true;
 ---
 
-<Layout title={`Example - ${example}`}>
+<ExampleLayout>
     <h1 class="self-start text-3xl font-bold capitalize text-white">
         {example} Example
     </h1>
@@ -125,4 +127,4 @@ export const prerender = true;
             client:only="lit"
         />
     </Card>
-</Layout>
+</ExampleLayout>

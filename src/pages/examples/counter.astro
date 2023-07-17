@@ -1,10 +1,10 @@
 ---
-import Layout from "@layouts/Layout.astro";
-
-import AstroComponent from "@astro/interval.astro";
 import Card from "@components/card.astro";
 import SSRCard from "@components/ssr_card.astro";
 import SSRClientCard from "@components/ssr_client_card.astro";
+import ExampleLayout from "@layouts/ExampleLayout.astro";
+
+import AstroComponent from "@astro/interval.astro";
 import Alpine from "@examples/alpinejs/counter.html";
 import HTMX from "@htmx/counter.html";
 import Lit from "@lit/interval";
@@ -16,13 +16,15 @@ import Svelte from "@svelte/counter.svelte";
 import Vue from "@vue/counter.vue";
 
 const example = "counter";
+const desc =
+    "An interactive counter with a decrement and increment button. Note that for SSR, the counter will not be interactive.";
 Astro.locals.example = example;
-const desc = "An interactive counter with a decrement and increment button.";
+Astro.locals.desc = desc;
 
 export const prerender = true;
 ---
 
-<Layout title={`Example - ${example}`}>
+<ExampleLayout>
     <h1 class="self-start text-3xl font-bold capitalize text-white">
         {example} Example
     </h1>
@@ -125,4 +127,4 @@ export const prerender = true;
             client:only="lit"
         />
     </Card>
-</Layout>
+</ExampleLayout>

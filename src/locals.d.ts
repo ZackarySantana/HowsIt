@@ -3,5 +3,6 @@
 declare namespace App {
     interface Locals {
         example: string;
+        desc: string;
     }
 }
