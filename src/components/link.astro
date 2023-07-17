@@ -2,11 +2,27 @@
 const { href, class: className } = Astro.props;
 ---
 
-<a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    class=`text-blue-400 ${className}`
->
-    <slot />
-</a>
+<>
+    {
+        href.startsWith("/") && (
+            <a
+                href={href}
+                class={`text-blue-400 ${className}`}
+            >
+                <slot />
+            </a>
+        )
+    }
+    {
+        !href.startsWith("/") && (
+            <a
+                href={href}
+                class={`text-blue-400 ${className}`}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <slot />
+            </a>
+        )
+    }
+</>

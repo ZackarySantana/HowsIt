@@ -1,9 +1,29 @@
 ---
-import Layout from "@layouts/Layout.astro";
+import Link from "@components/link.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import { Capitalize, GetAllExamples, descs } from "@utils";
+
+const examples = GetAllExamples();
 
 export const prerender = true;
 ---
 
-<Layout title="Examples">
-    <h1>Hello</h1>
-</Layout>
+<PageLayout
+    title="Examples"
+    desc="View different examples of implementations"
+>
+    <h1 class="text-3xl font-bold">Examples</h1>
+    {
+        examples.map((e) => (
+            <div class="my-4">
+                <Link
+                    href={`/examples/${e}`}
+                    class="text-2xl font-bold"
+                >
+                    {Capitalize(e)}
+                </Link>
+                <p class="">{descs[e]}</p>
+            </div>
+        ))
+    }
+</PageLayout>

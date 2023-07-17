@@ -13,11 +13,11 @@ import Preact2 from "@preact/interval_2";
 import React from "@react/interval";
 import Solid from "@solid/interval";
 import Svelte from "@svelte/interval.svelte";
+import { descs } from "@utils";
 import Vue from "@vue/interval.vue";
 
 const example = "interval";
-const desc =
-    "A 1 second interval (timer) that updates a number by 1. Note that for SSR, the number will not update.";
+const desc = descs[example];
 Astro.locals.example = example;
 Astro.locals.desc = desc;
 
@@ -25,10 +25,10 @@ export const prerender = true;
 ---
 
 <ExampleLayout>
-    <h1 class="self-start text-3xl font-bold capitalize text-white">
+    <h1 class="text-3xl font-bold capitalize">
         {example} Example
     </h1>
-    <p class="self-start text-white">{desc}</p>
+    <p>{desc}</p>
     <hr class="w-full border-t-2 border-solid border-white" />
     <Card type="react">
         <React slot="ssr" />

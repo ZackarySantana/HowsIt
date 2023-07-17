@@ -13,11 +13,11 @@ import Preact2 from "@preact/counter_2";
 import React from "@react/counter";
 import Solid from "@solid/interval";
 import Svelte from "@svelte/counter.svelte";
+import { descs } from "@utils";
 import Vue from "@vue/counter.vue";
 
 const example = "counter";
-const desc =
-    "An interactive counter with a decrement and increment button. Note that for SSR, the counter will not be interactive.";
+const desc = descs[example];
 Astro.locals.example = example;
 Astro.locals.desc = desc;
 

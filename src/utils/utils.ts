@@ -1,5 +1,14 @@
 import fs from "fs";
 
+export const descs: {
+    [key: string]: string;
+} = {
+    interval:
+        "A 1 second interval (timer) that updates a number by 1. Note that for SSR, the number will not update.",
+    counter:
+        "An interactive counter with a decrement and increment button. Note that for SSR, the counter will not be interactive.",
+};
+
 export type Framework = {
     name: string;
     url: string;
@@ -197,6 +206,10 @@ export function GetEndpointCodeAndLines(type: string, example: string) {
         ...GetCodeAndLines(path),
         path,
     };
+}
+
+export function GetAllExamples(): string[] {
+    return Object.keys(descs);
 }
 
 export function Capitalize(str: string) {

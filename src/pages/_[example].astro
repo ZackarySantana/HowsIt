@@ -82,7 +82,10 @@ const examplesPromises = [react];
 const examples = await Promise.all(examplesPromises);
 ---
 
-<Layout title={example}>
+<Layout
+    title={example}
+    desc={example}
+>
     {
         examples.map((example) => {
             const [type, code, ComponentInfo] = example;
