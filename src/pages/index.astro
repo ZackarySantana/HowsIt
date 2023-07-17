@@ -20,7 +20,7 @@ export const prerender = true;
             <img
                 src={images["html"]}
                 alt={"HTML"}
-                class="min-w-4 ml-2 inline-block h-4"
+                class="min-w-4 ml-2 inline-block h-4 w-4"
             />
             <span class="text-xl font-bold text-html">HTML</span> is the main code
             of the web. It is the markup language that provides the skeleton to all
@@ -30,7 +30,7 @@ export const prerender = true;
             <img
                 src={images["css"]}
                 alt={"CSS"}
-                class="min-w-4 ml-2 inline-block h-4"
+                class="min-w-4 ml-2 inline-block h-4 w-4"
             />
             <span class="text-xl font-bold text-css">CSS</span> is the design of
             the web. It is a language that gives elements their color, width, shadows,
@@ -40,7 +40,7 @@ export const prerender = true;
             <img
                 src={images["javascript"]}
                 alt={"JavaScript"}
-                class="min-w-4 ml-2 inline-block h-4"
+                class="min-w-4 ml-2 inline-block h-4 w-4"
             />
             <span class="text-xl font-bold text-js">JavaScript</span> (or JS) is
             the language of the web, it's the main language in which browsers like
@@ -50,7 +50,7 @@ export const prerender = true;
             <img
                 src={images["typescript"]}
                 alt={"TypeScript"}
-                class="min-w-4 ml-2 inline-block h-4"
+                class="min-w-4 ml-2 inline-block h-4 w-4"
             />
             <span class="text-xl font-bold text-ts">TypeScript</span> (or TS) is
             a superset of JavaScript that introduces types in to the language. Types
@@ -60,7 +60,7 @@ export const prerender = true;
             <img
                 src={images["jsdoc"]}
                 alt={"JSDoc"}
-                class="min-w-4 ml-2 inline-block h-4"
+                class="min-w-4 ml-2 inline-block h-4 w-20"
             />
             is a recent alternative to TypeScript that allows for annotations to
             be added to JavaScript code, to give type inference.
@@ -100,7 +100,11 @@ export const prerender = true;
                                     <img
                                         src={images[l.toLowerCase()]}
                                         alt={l}
-                                        class="min-w-4 ml-2 inline-block h-4"
+                                        class={`min-w-4 ml-2 inline-block h-4 ${
+                                            l.toLowerCase() === "jsdoc"
+                                                ? "w-20"
+                                                : "w-4"
+                                        }`}
                                     />
                                 ))}
                             </div>
