@@ -1,7 +1,8 @@
 ---
+import Icon from "@components/icon.astro";
 import Link from "@components/link.astro";
 import Layout from "@layouts/Layout.astro";
-import { frameworks, frameworksTBA, images } from "@utils";
+import { frameworks, frameworksTBA } from "@utils";
 
 export const prerender = true;
 ---
@@ -17,51 +18,31 @@ export const prerender = true;
             to create your fullstack (frontend/visual + backend/server) applications.
         </p>
         <p class="mt-6 sm:mt-0">
-            <img
-                src={images["html"]}
-                alt={"HTML"}
-                class="min-w-4 ml-2 inline-block h-4 w-4"
-            />
+            <Icon src="HTML" />
             <span class="text-xl font-bold text-html">HTML</span> is the main code
             of the web. It is the markup language that provides the skeleton to all
             websites.
         </p>
         <p>
-            <img
-                src={images["css"]}
-                alt={"CSS"}
-                class="min-w-4 ml-2 inline-block h-4 w-4"
-            />
+            <Icon src="CSS" />
             <span class="text-xl font-bold text-css">CSS</span> is the design of
             the web. It is a language that gives elements their color, width, shadows,
             and more.
         </p>
         <p>
-            <img
-                src={images["javascript"]}
-                alt={"JavaScript"}
-                class="min-w-4 ml-2 inline-block h-4 w-4"
-            />
+            <Icon src="JavaScript" />
             <span class="text-xl font-bold text-js">JavaScript</span> (or JS) is
             the language of the web, it's the main language in which browsers like
             Chrome can run code for sites.
         </p>
         <p>
-            <img
-                src={images["typescript"]}
-                alt={"TypeScript"}
-                class="min-w-4 ml-2 inline-block h-4 w-4"
-            />
+            <Icon src="TypeScript" />
             <span class="text-xl font-bold text-ts">TypeScript</span> (or TS) is
             a superset of JavaScript that introduces types in to the language. Types
             help catch bugs and speed up development.
         </p>
         <p>
-            <img
-                src={images["jsdoc"]}
-                alt={"JSDoc"}
-                class="min-w-4 ml-2 inline-block h-4 w-20"
-            />
+            <Icon src="JSDoc" />
             is a recent alternative to TypeScript that allows for annotations to
             be added to JavaScript code, to give type inference.
         </p>
@@ -97,14 +78,9 @@ export const prerender = true;
                             <div>
                                 <Link href={f.docs}>{f.name}</Link>
                                 {f.supportedLanguages.map((l) => (
-                                    <img
-                                        src={images[l.toLowerCase()]}
-                                        alt={l}
-                                        class={`min-w-4 ml-2 inline-block h-4 ${
-                                            l.toLowerCase() === "jsdoc"
-                                                ? "w-20"
-                                                : "w-4"
-                                        }`}
+                                    <Icon
+                                        src={l}
+                                        class="ml-2"
                                     />
                                 ))}
                             </div>

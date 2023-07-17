@@ -1,0 +1,26 @@
+---
+import { images } from "@utils";
+export interface Props {
+    src: string;
+    alt?: string;
+    class?: string;
+}
+
+const { src, alt, class: classProp } = Astro.props;
+
+let classes = "min-w-4 inline-block h-4";
+
+if (src.toLowerCase() === "jsdoc") {
+    classes += " w-20";
+} else {
+    classes += " w-4";
+}
+
+classes += ` ${classProp}`;
+---
+
+<img
+    class={classes}
+    src={images[src.toLowerCase()]}
+    alt={alt ?? src}
+/>
