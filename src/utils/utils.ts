@@ -135,6 +135,7 @@ export const images: {
     javascript: "/javascript.png",
     jsdoc: "/jsdoc.png",
     html: "/html.svg",
+    css: "/css.svg",
 };
 
 export function GetExtension(type: string) {
