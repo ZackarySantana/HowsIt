@@ -1,42 +1,11 @@
+---
+import NavbarDesktop from "./NavbarDesktop.astro";
+import NavbarMobile from "./NavbarMobile.astro";
+---
+
 <header class="mb-6">
     <nav>
-        <ul
-            class="flex w-full items-center justify-between gap-4 sm:justify-start"
-        >
-            <li>
-                <a
-                    href="/"
-                    class="mr-5 text-4xl font-bold text-sky-300"
-                >
-                    How's It
-                </a>
-            </li>
-            <li>
-                <a
-                    href="/learn"
-                    class="hidden text-white sm:block"
-                >
-                    Learn
-                </a>
-            </li>
-            <li>
-                <a
-                    href="/examples"
-                    class="hidden text-white sm:block"
-                >
-                    Examples
-                </a>
-            </li>
-            <li>
-                <a
-                    href="https://github.com/ZackarySantana/howsit/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="hidden text-white sm:block"
-                >
-                    GitHub
-                </a>
-            </li>
-        </ul>
+        <NavbarDesktop />
+        <NavbarMobile />
     </nav>
 </header>
