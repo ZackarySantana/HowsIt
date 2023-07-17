@@ -47,7 +47,7 @@ export const frameworks: {
         docs: "https://react.dev",
         extension: "tsx",
         supportedLanguages: ["TypeScript", "JavaScript"],
-        notes: [],
+        notes: ["TBA"],
     },
     solid: {
         name: "Solid",
@@ -55,7 +55,7 @@ export const frameworks: {
         docs: "https://www.solidjs.com/docs/latest",
         extension: "tsx",
         supportedLanguages: ["TypeScript", "JavaScript"],
-        notes: [],
+        notes: ["TBA"],
     },
     preact: {
         name: "Preact",
@@ -63,7 +63,7 @@ export const frameworks: {
         docs: "https://preactjs.com/guide/v10/getting-started",
         extension: "tsx",
         supportedLanguages: ["TypeScript", "JavaScript"],
-        notes: [],
+        notes: ["TBA"],
     },
     svelte: {
         name: "Svelte",
@@ -96,7 +96,7 @@ export const frameworks: {
         docs: "https://htmx.org",
         extension: "html",
         supportedLanguages: ["HTML"],
-        notes: [],
+        notes: ["TBA"],
     },
     alpinejs: {
         name: "Alpine.js",
@@ -104,7 +104,7 @@ export const frameworks: {
         docs: "https://alpinejs.dev",
         extension: "html",
         supportedLanguages: ["HTML"],
-        notes: [],
+        notes: ["TBA"],
     },
     astro: {
         name: "Astro",
@@ -124,7 +124,7 @@ export const frameworks: {
         docs: "https://lit.dev",
         extension: "ts",
         supportedLanguages: ["TypeScript", "JavaScript"],
-        notes: [],
+        notes: ["TBA"],
     },
 };
 
