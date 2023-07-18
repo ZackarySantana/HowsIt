@@ -3,10 +3,11 @@ import fs from "fs";
 export const descs: {
     [key: string]: string;
 } = {
-    interval:
-        "A 1 second interval (timer) that updates a number by 1. Note that for SSR, the number will not update.",
+    styling: "How custom styling styling can be done in every framework.",
     counter:
         "An interactive counter with a decrement and increment button. Note that for SSR, the counter will not be interactive.",
+    interval:
+        "A 1 second interval (timer) that updates a number by 1. Note that for SSR, the number will not update.",
 };
 
 export type Framework = {
@@ -50,6 +51,14 @@ export const frameworksTBA: {
 export const frameworks: {
     [key: string]: Framework;
 } = {
+    vanilla: {
+        name: "Vanilla",
+        url: "vanilla",
+        docs: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+        extension: "html",
+        supportedLanguages: ["JavaScript"],
+        notes: ["TBA"],
+    },
     react: {
         name: "React",
         url: "react",
@@ -142,10 +151,20 @@ export const images: {
 } = {
     typescript: "/typescript.svg",
     javascript: "/javascript.png",
+    vanilla: "/javascript.png",
     jsdoc: "/jsdoc.png",
     html: "/html.svg",
     css: "/css.svg",
     github: "/github.svg",
+    react: "/react.svg",
+    preact: "/preact.svg",
+    svelte: "/svelte.svg",
+    solid: "/solid.svg",
+    vue: "/vue.svg",
+    htmx: "/htmx.png",
+    alpinejs: "/alpinejs.svg",
+    astro: "/astro.svg",
+    lit: "/lit.svg",
 };
 
 export function GetExtension(type: string) {

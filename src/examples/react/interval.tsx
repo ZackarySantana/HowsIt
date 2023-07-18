@@ -13,5 +13,5 @@ export default function React() {
         return () => clearInterval(id);
     }, []);
 
-    return <span style={{ color: "lightblue" }}>{count}</span>;
+    return <span>{count}</span>;
 }

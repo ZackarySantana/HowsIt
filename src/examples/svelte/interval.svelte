@@ -8,9 +8,3 @@
 </script>
 
 <span>{count}</span>
-
-<style scoped>
-    span {
-        color: lightblue;
-    }
-</style>

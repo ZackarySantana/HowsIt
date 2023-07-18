@@ -11,5 +11,5 @@ export default function Solid() {
 
     onCleanup(() => clearInterval(id));
 
-    return <span style={{ color: "lightblue" }}>{count()}</span>;
+    return <span>{count()}</span>;
 }

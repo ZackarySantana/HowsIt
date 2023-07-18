@@ -1,0 +1,10 @@
+<span id="vanilla-element-counter">0</span>
+
+<script>
+    let counterAmount = 0;
+    setInterval(() => {
+        const counter = document.querySelector("#vanilla-element-counter");
+        counterAmount++;
+        counter.innerHTML = counterAmount;
+    }, 1000);
+</script>

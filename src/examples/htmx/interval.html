@@ -1,11 +1,11 @@
 <div
     hx-trigger="load"
     hx-get="/htmx/interval"
-    hx-target="#htmx-element"
+    hx-target="#htmx-element-interval"
     hx-swap="innerHTML"
 >
     <span
-        id="htmx-element"
+        id="htmx-element-interval"
         hx-trigger="every 1s"
         hx-post="/htmx/interval"
         hx-target="this"

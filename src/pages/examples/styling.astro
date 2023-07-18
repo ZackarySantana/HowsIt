@@ -4,20 +4,19 @@ import SSRCard from "@components/ssr_card.astro";
 import SSRClientCard from "@components/ssr_client_card.astro";
 import ExampleLayout from "@layouts/ExampleLayout.astro";
 
-import AstroComponent from "@astro/interval.astro";
-import Alpine from "@examples/alpinejs/interval.html";
-import HTMX from "@htmx/interval.html";
+import AstroComponent from "@astro/styling.astro";
+import Alpine from "@examples/alpinejs/styling.html";
+import HTMX from "@htmx/styling.html";
 import Lit from "@lit/interval";
-import Preact from "@preact/interval";
-import Preact2 from "@preact/interval_2";
-import React from "@react/interval";
-import Solid from "@solid/interval";
-import Svelte from "@svelte/interval.svelte";
+import Preact from "@preact/styling";
+import React from "@react/styling";
+import Solid from "@solid/styling";
+import Svelte from "@svelte/styling.svelte";
 import { descs } from "@utils";
-import Vanilla from "@vanilla/interval.html";
-import Vue from "@vue/interval.vue";
+import Vanilla from "@vanilla/styling.html";
+import Vue from "@vue/styling.vue";
 
-const example = "interval";
+const example = "styling";
 const desc = descs[example];
 Astro.locals.example = example;
 Astro.locals.desc = desc;
@@ -56,30 +55,13 @@ export const prerender = true;
             client:only="solid"
         />
     </Card>
-    <Card
-        type="preact"
-        metaTitle="(Hooks)"
-    >
+    <Card type="preact">
         <Preact slot="ssr" />
         <Preact
             slot="ch"
             client:load
         />
         <Preact
-            slot="co"
-            client:only="preact"
-        />
-    </Card>
-    <Card
-        type="preact"
-        metaTitle="(Signals)"
-    >
-        <Preact2 slot="ssr" />
-        <Preact2
-            slot="ch"
-            client:load
-        />
-        <Preact2
             slot="co"
             client:only="preact"
         />

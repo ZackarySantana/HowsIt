@@ -4,16 +4,17 @@ import SSRCard from "@components/ssr_card.astro";
 import SSRClientCard from "@components/ssr_client_card.astro";
 import ExampleLayout from "@layouts/ExampleLayout.astro";
 
-import AstroComponent from "@astro/interval.astro";
+import AstroComponent from "@astro/counter.astro";
 import Alpine from "@examples/alpinejs/counter.html";
 import HTMX from "@htmx/counter.html";
 import Lit from "@lit/interval";
 import Preact from "@preact/counter";
 import Preact2 from "@preact/counter_2";
 import React from "@react/counter";
-import Solid from "@solid/interval";
+import Solid from "@solid/counter";
 import Svelte from "@svelte/counter.svelte";
 import { descs } from "@utils";
+import Vanilla from "@vanilla/counter.html";
 import Vue from "@vue/counter.vue";
 
 const example = "counter";
@@ -30,6 +31,9 @@ export const prerender = true;
     </h1>
     <p class="self-start text-white">{desc}</p>
     <hr class="w-full border-t-2 border-solid border-white" />
+    <SSRClientCard type="vanilla">
+        <Vanilla />
+    </SSRClientCard>
     <Card type="react">
         <React slot="ssr" />
         <React
@@ -55,7 +59,6 @@ export const prerender = true;
     <Card
         type="preact"
         metaTitle="(Hooks)"
-        exampleInfo={["This component can be done like xyz"]}
     >
         <Preact slot="ssr" />
         <Preact
@@ -70,7 +73,6 @@ export const prerender = true;
     <Card
         type="preact"
         metaTitle="(Signals)"
-        exampleInfo={["This component can be done like xyz"]}
     >
         <Preact2 slot="ssr" />
         <Preact2

@@ -19,6 +19,7 @@ import {
     GetTypeInfo,
     GetVersion,
 } from "@utils";
+import Icon from "./icon.astro";
 const {
     type,
     title,
@@ -43,6 +44,10 @@ const endpoint = GetEndpointCodeAndLines(type, example);
 
 <details class="w-full rounded-xl bg-slate-700 px-8 py-4 text-white shadow-lg">
     <summary class="text-3xl font-bold capitalize">
+        <Icon
+            src={type}
+            class="h-8 w-8"
+        />
         {title ?? type}
         <span class="italic text-slate-400">{metaTitle}</span>
     </summary>

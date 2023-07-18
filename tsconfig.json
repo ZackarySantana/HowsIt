@@ -20,6 +20,7 @@
             "@react/*": ["src/examples/react/*"],
             "@solid/*": ["src/examples/solid/*"],
             "@svelte/*": ["src/examples/svelte/*"],
+            "@vanilla/*": ["src/examples/vanilla/*"],
             "@vue/*": ["src/examples/vue/*"]
         }
     }
