@@ -168,6 +168,12 @@ export const images: {
 };
 
 export function GetExtension(type: string) {
+    if (type === "rust") {
+        return "rs";
+    }
+    if (type === "typescript") {
+        return "ts";
+    }
     return frameworks[type.toLowerCase()]?.extension;
 }
 
@@ -231,7 +237,7 @@ export function GetEndpointCodeAndLines(
         return undefined;
     }
 
-    const path = `src/pages/htmx/${lang}/${example}.ts`;
+    const path = `src/pages/htmx/${lang}/${example}.${GetExtension(lang)}`;
 
     return {
         ...GetCodeAndLines(path),
