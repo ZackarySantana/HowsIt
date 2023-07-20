@@ -4,11 +4,28 @@ export interface Props {
     src: string;
     alt?: string;
     class?: string;
+    large?: boolean;
 }
 
-const { src, alt, class: classProp } = Astro.props;
+const { src, alt, class: classProp, large } = Astro.props;
 
-let classes = "min-w-4 inline-block h-4";
+let classes = "inline-block";
+
+if (large) {
+    classes += " min-w-8 h-8";
+    if (src.toLowerCase() === "jsdoc") {
+        classes += " w-40";
+    } else {
+        classes += " w-8";
+    }
+} else {
+    classes += " min-w-4 h-4";
+    if (src.toLowerCase() === "jsdoc") {
+        classes += " w-20";
+    } else {
+        classes += " w-4";
+    }
+}
 
 if (src.toLowerCase() === "jsdoc") {
     classes += " w-20";

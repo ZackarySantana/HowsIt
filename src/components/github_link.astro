@@ -1,5 +1,11 @@
 ---
-const { path } = Astro.props;
+export interface Props {
+    path: string;
+    class?: string;
+}
+import Link from "./link.astro";
+
+const { path, class: className } = Astro.props;
 
 const baseURL = "https://github.com/ZackarySantana/howsit/";
 
@@ -10,11 +16,9 @@ if (path != "") {
 }
 ---
 
-<a
+<Link
     href={finalPath}
-    target="_blank"
-    rel="noopener noreferrer"
-    class="text-blue-500"
+    class={className}
 >
     <slot />
-</a>
+</Link>

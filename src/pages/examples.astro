@@ -13,14 +13,22 @@ export const prerender = true;
     desc="View different examples of implementations"
 >
     <h1 class="text-3xl font-bold">Examples</h1>
+    <p>
+        These have implementations for different common use cases in apps, to
+        show you an easy direct comparision!
+    </p>
+    <p class="mt-2">
+        If you want to go over the difference in rendering techniques, runtimes,
+        etc, go to <Link href="/learn">Learn</Link> page.
+    </p>
     {
-        examples.map((e) => (
+        examples.map((e, i) => (
             <div class="my-4">
                 <Link
                     href={`/examples/${e}`}
                     class="text-2xl font-bold"
                 >
-                    {Capitalize(e)}
+                    {i + 1}. {Capitalize(e)}
                 </Link>
                 <p class="">{descs[e]}</p>
             </div>

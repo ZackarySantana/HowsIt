@@ -44,11 +44,13 @@ const endpoint = GetEndpointCodeAndLines(type, example);
 
 <details class="w-full rounded-xl bg-slate-700 px-8 py-4 text-white shadow-lg">
     <summary class="text-3xl font-bold capitalize">
+        <!-- <div class="flex"> -->
         <Icon
             src={type}
-            class="h-8 w-8"
+            class="mx-1 -mt-2 h-8 w-8"
         />
         {title ?? type}
+        <!-- </div> -->
         <span class="italic text-slate-400">{metaTitle}</span>
     </summary>
 

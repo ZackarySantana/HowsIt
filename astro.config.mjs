@@ -1,6 +1,5 @@
 import { defineConfig } from "astro/config";
 
-// https://astro.build/config
 import alpinejs from "@astrojs/alpinejs";
 import lit from "@astrojs/lit";
 import node from "@astrojs/node";
@@ -13,22 +12,17 @@ import tailwind from "@astrojs/tailwind";
 import vue from "@astrojs/vue";
 
 // https://astro.build/config
+import mdx from "@astrojs/mdx";
+
+// https://astro.build/config
 export default defineConfig({
-    integrations: [
-        preact(),
-        react(),
-        tailwind(),
-        prefetch({
-            selector: "a",
-        }),
-        solidJs(),
-        svelte(),
-        alpinejs(),
-        lit(),
-        vue({ jsx: true }),
-    ],
-    output: "server",
-    adapter: node({
-        mode: "standalone",
-    }),
+  integrations: [preact(), react(), tailwind(), prefetch({
+    selector: "a"
+  }), solidJs(), svelte(), alpinejs(), lit(), vue({
+    jsx: true
+  }), mdx()],
+  output: "server",
+  adapter: node({
+    mode: "standalone"
+  })
 });

@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+import plugin from "tailwindcss/plugin";
+
 module.exports = {
     content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
     theme: {
@@ -12,5 +15,46 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        plugin(function inputs({ addUtilities, theme }) {
+            addUtilities({
+                ".learn-post h1": {
+                    "font-size": theme("fontSize.3xl"),
+                    "font-weight": theme("fontWeight.semibold"),
+                    "margin-top": theme("spacing.4"),
+                    "margin-bottom": theme("spacing.1"),
+                },
+                ".learn-post h2": {
+                    "font-size": theme("fontSize.2xl"),
+                    "font-weight": theme("fontWeight.semibold"),
+                    "margin-top": theme("spacing.4"),
+                    "margin-bottom": theme("spacing.1"),
+                },
+                ".learn-post h3": {
+                    "font-size": theme("fontSize.xl"),
+                    "font-weight": theme("fontWeight.semibold"),
+                    "margin-top": theme("spacing.4"),
+                    "margin-bottom": theme("spacing.1"),
+                },
+                ".learn-post blockquote": {
+                    position: "relative",
+                    "margin-left": theme("spacing.4"),
+                    color: theme("colors.gray.300"),
+                    "font-style": "italic",
+                    "&::before": {
+                        content: "'>'",
+                        position: "absolute",
+                        top: 0,
+                        left: "-" + theme("spacing.4"),
+                        color: "white",
+                        "font-style": "normal",
+                    },
+                },
+                ".learn-post ul": {
+                    "margin-left": theme("spacing.8"),
+                    "list-style-type": "decimal",
+                },
+            });
+        }),
+    ],
 };

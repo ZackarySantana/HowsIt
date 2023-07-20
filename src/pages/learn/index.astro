@@ -1,0 +1,37 @@
+---
+import Link from "@components/link.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import { Capitalize } from "@utils";
+import { getCollection } from "astro:content";
+
+const learn = await getCollection("learn");
+
+export const prerender = true;
+---
+
+<PageLayout
+    title="How's It - Let's Learn"
+    desc="Understand and master the web. Or at least try :)"
+>
+    <h1 class="text-3xl font-bold">Let's Learn!</h1>
+    <p>
+        These don't go in to <span class="italic">how</span> to implement things.
+        These go over the fundamentals which <span class="font-bold">all</span> web
+        development, regardless of framework or library (with only specific exceptions).
+    </p>
+    {
+        learn
+            .sort((b1, b2) => b1.data.index - b2.data.index)
+            .map((b, i) => (
+                <div class="my-4">
+                    <Link
+                        href={`/learn/${b.slug}`}
+                        class="text-2xl font-bold"
+                    >
+                        {i + 1}. {Capitalize(b.data.title)}
+                    </Link>
+                    <p class="">{b.data.description}</p>
+                </div>
+            ))
+    }
+</PageLayout>

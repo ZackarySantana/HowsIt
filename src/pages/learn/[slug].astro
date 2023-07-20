@@ -1,0 +1,92 @@
+---
+export interface Props {
+    entry: CollectionEntry<"learn">;
+    nextThreeEntries: CollectionEntry<"learn">[];
+    previousEntry?: CollectionEntry<"learn">;
+    author: CollectionEntry<"authors">;
+}
+import GithubLink from "@components/github_link.astro";
+import Icon from "@components/icon.astro";
+import Link from "@components/link.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import { CollectionEntry, getCollection, getEntries } from "astro:content";
+export const prerender = true;
+
+export async function getStaticPaths() {
+    const entries = await getCollection("learn");
+
+    const authors = await getEntries(entries.map((entry) => entry.data.author));
+
+    return entries.map((entry) => ({
+        params: { slug: entry.slug },
+        props: {
+            entry,
+            nextThreeEntries: entries
+                .filter(
+                    (e) =>
+                        e.data.index - entry.data.index <= 3 &&
+                        e.data.index - entry.data.index > 0,
+                )
+                .sort((e1, e2) => e1.data.index - e2.data.index),
+            previousEntry: entries.find(
+                (e) => e.data.index === entry.data.index - 1,
+            ),
+            author: authors.find(
+                (author) => author.id === entry.data.author.id,
+            ),
+        },
+    }));
+}
+
+const { entry, author, nextThreeEntries, previousEntry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<PageLayout
+    title={entry.data.title}
+    desc={entry.data.description}
+>
+    {
+        previousEntry && (
+            <span class="italic text-gray-400">
+                Go back to {previousEntry.data.index + 1}.{" "}
+                <Link href={`/learn/${previousEntry.slug}`}>
+                    {previousEntry.data.title}
+                </Link>
+            </span>
+        )
+    }
+    <h1 class="text-3xl font-bold">
+        {entry.data.index + 1}. {entry.data.title}
+    </h1>
+    <span class="italic text-gray-400">
+        By <Link href={author.data.portfolio}>
+            {author.data.name}
+        </Link>
+    </span>
+    <div class="mt-4 learn-post">
+        <Content />
+    </div>
+    <div class="mt-8">
+        <GithubLink
+            class="flex items-center gap-1 text-sm italic"
+            path={`learn/${entry.id}`}
+        >
+            <Icon src="github" />
+            Edit me on GitHub
+        </GithubLink>
+    </div>
+    <div class="mt-1">
+        <h2 class="text-2xl font-bold">Next</h2>
+        <ul class="mt-2">
+            {
+                nextThreeEntries.map((e, i) => (
+                    <li class="mt-2">
+                        <span class="text-gray-400">{e.data.index + 1}.</span>
+                        <Link href={`/learn/${e.slug}`}>{e.data.title}</Link>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</PageLayout>
