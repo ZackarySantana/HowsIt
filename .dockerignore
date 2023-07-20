@@ -6,6 +6,8 @@ Dockerfile
 # Local development files
 node_modules
 dist
+.astro
+.vscode
 
 # Misc
 .vscode

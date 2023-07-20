@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 
 import alpinejs from "@astrojs/alpinejs";
 import lit from "@astrojs/lit";
+import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 import preact from "@astrojs/preact";
 import prefetch from "@astrojs/prefetch";
@@ -12,17 +13,36 @@ import tailwind from "@astrojs/tailwind";
 import vue from "@astrojs/vue";
 
 // https://astro.build/config
-import mdx from "@astrojs/mdx";
-
-// https://astro.build/config
 export default defineConfig({
-  integrations: [preact(), react(), tailwind(), prefetch({
-    selector: "a"
-  }), solidJs(), svelte(), alpinejs(), lit(), vue({
-    jsx: true
-  }), mdx()],
-  output: "server",
-  adapter: node({
-    mode: "standalone"
-  })
+    integrations: [
+        preact(),
+        react(),
+        tailwind(),
+        prefetch({
+            selector: "a",
+        }),
+        solidJs(),
+        svelte(),
+        alpinejs(),
+        lit(),
+        vue({
+            jsx: true,
+        }),
+        mdx(),
+    ],
+    output: "server",
+    adapter: node({
+        mode: "standalone",
+    }),
+    vite: {
+        server: {
+            proxy: {
+                "/htmx/rust": {
+                    target: "http://localhost:8080",
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace("/htmx/rust", ""),
+                },
+            },
+        },
+    },
 });

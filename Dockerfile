@@ -27,7 +27,7 @@ COPY --from=deps /app/node_modules /app/node_modules
 RUN npm prune --production
 
 # Starts with the production deps, and grabs the application
-FROM production-deps
+FROM production-deps as astro-build
 
 # Install latest security
 RUN apt-get upgrade
@@ -38,4 +38,20 @@ COPY . .
 COPY --from=build /app/dist /app/dist
 COPY --from=build /app/public /app/public
 
-CMD ["npm", "run", "preview"]
+# Build rust binary
+FROM rust as rust-build
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY htmx .
+
+RUN cargo build --release
+
+# Final image
+FROM astro-build
+
+# Copy the rust binary
+COPY --from=rust-build /app/target/release/htmx /app/htmx_rust 
+
+CMD ["npm", "run", "deploy"]

@@ -4,7 +4,7 @@ const element = (counter: number) => `
     ${counter}
     <input 
         type="hidden"
-        name="counter"
+        name="counterTypeScript"
         value="${counter}"
     />
 `;
@@ -28,7 +28,7 @@ export const post: APIRoute = async ({ request, url }) => {
     const decrement = url.searchParams.get("decrement") !== null;
     const increment = url.searchParams.get("increment") !== null;
 
-    let counter = parseNumber(formData.get("counter")?.toString());
+    let counter = parseNumber(formData.get("counterTypeScript")?.toString());
 
     if (decrement) {
         --counter;

@@ -8,7 +8,9 @@
         "start": "astro dev",
         "build": "astro build",
         "preview": "astro preview --host",
-        "deploy": "node ./dist/server/entry.mjs",
+        "deploy": "run-p deploy:* deploy:*:*",
+        "deploy:astro": "node ./dist/server/entry.mjs",
+        "deploy:htmx:rust": "./htmx_rust",
         "astro": "astro"
     },
     "dependencies": {
@@ -22,7 +24,9 @@
         "@astrojs/solid-js": "^2.2.0",
         "@astrojs/svelte": "^3.1.0",
         "@astrojs/tailwind": "^4.0.0",
-        "@astrojs/vue": "^2.2.1"
+        "@astrojs/vue": "^2.2.1",
+        "http-proxy-middleware": "^2.0.6",
+        "npm-run-all": "^4.1.5"
     },
     "devDependencies": {
         "@types/alpinejs": "^3.7.2",

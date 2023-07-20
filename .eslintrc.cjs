@@ -7,7 +7,14 @@ module.exports = {
     //     "**/*.astro",
     //     "**/*.mjs",
     // ],
-    ignorePatterns: ["node_modules", "dist", "build", ".cache", ".git"],
+    ignorePatterns: [
+        "node_modules",
+        "dist",
+        "build",
+        ".cache",
+        ".git",
+        "**/*.rs",
+    ],
     env: {
         browser: true,
         es2021: true,
