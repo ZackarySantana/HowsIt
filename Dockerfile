@@ -11,19 +11,18 @@ COPY package.json package-lock.json ./
 RUN npm install --production=false
 
 # Build the app (minifying too)
-FROM base as build
+FROM deps as build
 
-COPY --from=deps /app/node_modules /app/node_modules
-
-COPY . .
+COPY astro.config.mjs svelte.config.js tailwind.config.cjs tsconfig.json ./
+COPY plugins plugins
+COPY public public
+COPY src src
 RUN npm run build
 
 # Only the production dependancies
-FROM base as production-deps
-ENV NODE_ENV=production
+FROM deps as production-deps
 
-COPY --from=deps /app/package.json /app/package-lock.json ./
-COPY --from=deps /app/node_modules /app/node_modules
+ENV NODE_ENV=production
 RUN npm prune --production
 
 # Starts with the production deps, and grabs the application
@@ -31,8 +30,6 @@ FROM production-deps as astro-build
 
 # Install latest security
 RUN apt-get upgrade
-
-COPY . .
 
 # Built files
 COPY --from=build /app/dist /app/dist
@@ -52,6 +49,10 @@ RUN cargo build --release
 FROM astro-build
 
 # Copy the rust binary
-COPY --from=rust-build /app/target/release/htmx /app/htmx_rust 
+COPY --from=rust-build /app/target/release/htmx /app/rust_htmx 
 
-CMD ["npm", "run", "deploy"]
+RUN apt-get -y update && apt-get -y install nginx
+COPY nginx.conf /app/nginx.conf
+
+# CMD ["nginx", "-c", "/app/nginx.conf", "-g", "daemon off;"]
+CMD ["npm", "run", "localdeploy"]

@@ -50,6 +50,14 @@ All contributions will be made via the PR tab! Create a branch/fork, code your s
 -   Run `npm install` in the root directory with this project's package.json.
 -   Run `npm run dev` to start the project.
 
+You can build it locally with
+
+```
+sudo docker build -t test .
+```
+
+And starting up that docker image.
+
 ## Deployment Web
 
 ```bash

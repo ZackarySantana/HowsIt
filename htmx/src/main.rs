@@ -6,7 +6,7 @@ mod counter;
 async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::default().default_filter_or("info"));
 
-    info!("starting http server at http://localhost:8080");
+    info!("starting http server at http://localhost:3001");
 
     HttpServer::new(|| {
         App::new()
@@ -14,7 +14,7 @@ async fn main() -> std::io::Result<()> {
             .service(counter::post)
             .service(counter::get)
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(("127.0.0.1", 3001))?
     .run()
     .await
 }

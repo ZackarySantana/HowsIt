@@ -8,9 +8,11 @@
         "start": "astro dev",
         "build": "astro build",
         "preview": "astro preview --host",
-        "deploy": "run-p deploy:* deploy:*:*",
-        "deploy:astro": "node ./dist/server/entry.mjs",
-        "deploy:htmx:rust": "./htmx_rust",
+        "deploy": "node ./dist/server/entry.mjs",
+        "localdeploy": "run-p localdeploy:*",
+        "localdeploy:nginx": "nginx -c /app/nginx.conf -g daemon off;",
+        "localdeploy:astro": "npm run deploy",
+        "localdeploy:rust_htmx": "./rust_htmx",
         "astro": "astro"
     },
     "dependencies": {
