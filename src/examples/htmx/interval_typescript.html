@@ -1,13 +1,13 @@
 <div
     hx-trigger="load"
-    hx-get="/htmx/interval"
+    hx-get="/htmx/typescript/interval"
     hx-target="#htmx-element-interval"
     hx-swap="innerHTML"
 >
     <span
         id="htmx-element-interval"
         hx-trigger="every 1s"
-        hx-post="/htmx/interval"
+        hx-post="/htmx/typescript/interval"
         hx-target="this"
         hx-swap="innerHTML"
         hx-include="[name='interval']"

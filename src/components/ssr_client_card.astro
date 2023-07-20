@@ -1,18 +1,20 @@
 ---
 export interface Props {
     type: string;
+    lang?: string;
     title?: string;
     metaTitle?: string;
     typeInfo?: string[];
     exampleInfo?: string[];
 }
 import Card from "./card.astro";
-const { type, title, metaTitle, typeInfo, exampleInfo } = Astro.props;
+const { type, lang, title, metaTitle, typeInfo, exampleInfo } = Astro.props;
 ---
 
 <Card
     isSSRAndClientHydrated={true}
     type={type}
+    lang={lang}
     title={title}
     metaTitle={metaTitle}
     typeInfo={typeInfo}

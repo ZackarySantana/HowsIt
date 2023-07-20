@@ -178,15 +178,22 @@ export function GetTypeInfo(type: string, givenInfo?: string[]): string[] {
     return frameworks[type.toLowerCase()]?.notes ?? [];
 }
 
-export function GetVersion(type: string, metaTitle?: string) {
-    const mt = metaTitle?.toLowerCase() ?? "";
+function GetPreactVersion(metaTitle?: string) {
+    return "_" + (metaTitle?.toLowerCase() ?? "hooks");
+}
 
+function GetHTMXVersion(lang?: string) {
+    return "_" + (lang?.toLowerCase() ?? "typescript");
+}
+
+export function GetVersion(type: string, lang?: string, metaTitle?: string) {
     if (type === "preact") {
-        if (mt.includes("hooks")) {
-            return "";
-        } else if (mt.includes("signals")) {
-            return "_2";
-        }
+        const mt = metaTitle?.substring(1, metaTitle.length - 1);
+        return GetPreactVersion(mt);
+    }
+
+    if (type === "htmx") {
+        return GetHTMXVersion(lang);
     }
 
     return "";
@@ -215,12 +222,16 @@ export function GetCodeAndLines(path: string) {
     return { code, lines };
 }
 
-export function GetEndpointCodeAndLines(type: string, example: string) {
+export function GetEndpointCodeAndLines(
+    type: string,
+    lang: string,
+    example: string,
+) {
     if (type.toLowerCase() !== "htmx") {
         return undefined;
     }
 
-    const path = `src/pages/htmx/${example}.ts`;
+    const path = `src/pages/htmx/${lang}/${example}.ts`;
 
     return {
         ...GetCodeAndLines(path),

@@ -1,6 +1,6 @@
 <div>
     <button
-        hx-post="/htmx/counter?decrement"
+        hx-post="/htmx/typescript/counter?decrement"
         hx-target="#htmx-element-counter"
         hx-swap="innerHTML"
         hx-include="[name='counter']"
@@ -11,13 +11,13 @@
     <span
         id="htmx-element-counter"
         hx-trigger="load"
-        hx-get="/htmx/counter"
+        hx-get="/htmx/typescript/counter"
         hx-target="this"
         hx-swap="innerHTML"
     ></span>
 
     <button
-        hx-post="/htmx/counter?increment"
+        hx-post="/htmx/typescript/counter?increment"
         hx-target="#htmx-element-counter"
         hx-swap="innerHTML"
         hx-include="[name='counter']"

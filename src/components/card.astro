@@ -1,6 +1,7 @@
 ---
 export interface Props {
     type: string;
+    lang?: string;
     title?: string;
     metaTitle?: string;
     typeInfo?: string[];
@@ -22,6 +23,7 @@ import {
 import Icon from "./icon.astro";
 const {
     type,
+    lang,
     title,
     metaTitle,
     typeInfo: givenTypeInfo,
@@ -34,12 +36,22 @@ const {
 const example = Astro.locals.example;
 
 const extension = GetExtension(type);
-const version = GetVersion(type, metaTitle);
+const version = GetVersion(type, lang, metaTitle);
 const typeInfo = GetTypeInfo(type, givenTypeInfo);
 const fullPath = `src/examples/${type}/${example}${version}.${extension}`;
 const { code, lines } = GetCodeAndLines(fullPath);
 
-const endpoint = GetEndpointCodeAndLines(type, example);
+const endpoint = GetEndpointCodeAndLines(type, lang ?? "typescript", example);
+
+let finalMetaTitle = metaTitle;
+
+if (type === "htmx") {
+    if (lang === undefined || lang === "typescript") {
+        finalMetaTitle = "(TypeScript)";
+    } else if (lang === "rust") {
+        finalMetaTitle = "(Rust)";
+    }
+}
 ---
 
 <details class="w-full rounded-xl bg-slate-700 px-8 py-4 text-white shadow-lg">
@@ -51,7 +63,7 @@ const endpoint = GetEndpointCodeAndLines(type, example);
         />
         {title ?? type}
         <!-- </div> -->
-        <span class="italic text-slate-400">{metaTitle}</span>
+        <span class="italic text-slate-400">{finalMetaTitle}</span>
     </summary>
 
     <h1 class="mb-1 mt-4 text-xl text-white">

@@ -6,10 +6,11 @@ import ExampleLayout from "@layouts/ExampleLayout.astro";
 
 import AstroComponent from "@astro/counter.astro";
 import Alpine from "@examples/alpinejs/counter.html";
-import HTMX from "@htmx/counter.html";
+import PreactHooks from "@examples/preact/counter_hooks";
+import PreactSignals from "@examples/preact/counter_signals";
+import HTMXRust from "@htmx/counter_rust.html";
+import HTMXTypeScript from "@htmx/counter_typescript.html";
 import Lit from "@lit/interval";
-import Preact from "@preact/counter";
-import Preact2 from "@preact/counter_2";
 import React from "@react/counter";
 import Solid from "@solid/counter";
 import Svelte from "@svelte/counter.svelte";
@@ -60,12 +61,12 @@ export const prerender = true;
         type="preact"
         metaTitle="(Hooks)"
     >
-        <Preact slot="ssr" />
-        <Preact
+        <PreactHooks slot="ssr" />
+        <PreactHooks
             slot="ch"
             client:load
         />
-        <Preact
+        <PreactHooks
             slot="co"
             client:only="preact"
         />
@@ -74,12 +75,12 @@ export const prerender = true;
         type="preact"
         metaTitle="(Signals)"
     >
-        <Preact2 slot="ssr" />
-        <Preact2
+        <PreactSignals slot="ssr" />
+        <PreactSignals
             slot="ch"
             client:load
         />
-        <Preact2
+        <PreactSignals
             slot="co"
             client:only="preact"
         />
@@ -107,7 +108,13 @@ export const prerender = true;
         />
     </Card>
     <SSRClientCard type="htmx">
-        <HTMX />
+        <HTMXTypeScript />
+    </SSRClientCard>
+    <SSRClientCard
+        type="htmx"
+        lang="rust"
+    >
+        <HTMXRust />
     </SSRClientCard>
     <SSRClientCard type="alpinejs">
         <Alpine />

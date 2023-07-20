@@ -15,6 +15,7 @@
             "@alpinejs/*": ["src/examples/alpinejs/*"],
             "@astro/*": ["src/examples/astro/*"],
             "@htmx/*": ["src/examples/htmx/*"],
+            "@htmx/endpoints/*": ["src/pages/htmx/*"],
             "@lit/*": ["src/examples/lit/*"],
             "@preact/*": ["src/examples/preact/*"],
             "@react/*": ["src/examples/react/*"],
