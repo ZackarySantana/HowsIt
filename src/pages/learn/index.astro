@@ -1,5 +1,5 @@
 ---
-import Link from "@components/link.astro";
+import Links from "@components/interactive/links";
 import PageLayout from "@layouts/PageLayout.astro";
 import { Capitalize } from "@utils";
 import { getCollection } from "astro:content";
@@ -19,19 +19,14 @@ export const prerender = true;
         These go over the fundamentals which <span class="font-bold">all</span> web
         development, regardless of framework or library (with only specific exceptions).
     </p>
-    {
-        learn
+    <Links
+        client:load
+        examples={learn
             .sort((b1, b2) => b1.data.index - b2.data.index)
-            .map((b, i) => (
-                <div class="my-4">
-                    <Link
-                        href={`/learn/${b.slug}`}
-                        class="text-2xl font-bold"
-                    >
-                        {i + 1}. {Capitalize(b.data.title)}
-                    </Link>
-                    <p class="">{b.data.description}</p>
-                </div>
-            ))
-    }
+            .map((b, i) => ({
+                label: `${i + 1}. ${Capitalize(b.data.title)}`,
+                href: `/learn/${b.slug}`,
+                desc: b.data.description,
+            }))}
+    />
 </PageLayout>

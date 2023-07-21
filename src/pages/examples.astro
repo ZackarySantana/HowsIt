@@ -1,4 +1,5 @@
 ---
+import Links from "@components/interactive/links";
 import Link from "@components/link.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import { Capitalize, GetAllExamples, descs } from "@utils";
@@ -21,17 +22,12 @@ export const prerender = true;
         If you want to go over the difference in rendering techniques, runtimes,
         etc, go to <Link href="/learn">Learn</Link> page.
     </p>
-    {
-        examples.map((e, i) => (
-            <div class="my-4">
-                <Link
-                    href={`/examples/${e}`}
-                    class="text-2xl font-bold"
-                >
-                    {i + 1}. {Capitalize(e)}
-                </Link>
-                <p class="">{descs[e]}</p>
-            </div>
-        ))
-    }
+    <Links
+        client:load
+        examples={examples.map((e, i) => ({
+            label: `${i + 1}. ${Capitalize(e)}`,
+            href: `/examples/${e}`,
+            desc: descs[e],
+        }))}
+    />
 </PageLayout>
