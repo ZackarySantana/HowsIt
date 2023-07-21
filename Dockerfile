@@ -17,7 +17,11 @@ COPY astro.config.mjs svelte.config.js tailwind.config.cjs tsconfig.json ./
 COPY plugins plugins
 COPY public public
 COPY src src
+COPY htmx htmx
 RUN npm run build
+
+RUN sed -i "s|parsePathname(pathname, host, port);|pathname;|g" /app/dist/server/entry.mjs 
+
 
 # Only the production dependancies
 FROM deps as production-deps

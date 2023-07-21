@@ -7,7 +7,9 @@ mod interval;
 async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::default().default_filter_or("info"));
 
-    info!("starting http server at http://localhost:3001");
+    info!("starting http server at http://[::]:3001");
+
+    let addr = "[::]:3001".parse::<std::net::SocketAddr>().unwrap();
 
     HttpServer::new(|| {
         App::new()
@@ -17,7 +19,7 @@ async fn main() -> std::io::Result<()> {
             .service(interval::post)
             .service(interval::get)
     })
-    .bind(("127.0.0.1", 3001))?
+    .bind(addr)?
     .run()
     .await
 }

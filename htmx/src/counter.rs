@@ -31,14 +31,14 @@ fn element(index: i32) -> String {
     })
 }
 
-#[get("/counter")]
+#[get("/htmx/rust/counter")]
 pub async fn get(_: HttpRequest) -> HttpResponse {
     return HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
         .body(element(0));
 }
 
-#[post("/counter")]
+#[post("/htmx/rust/counter")]
 pub async fn post(req: HttpRequest, info: web::Form<CounterForm>) -> HttpResponse {
     let counter = info.counter_rust.parse::<i32>().unwrap();
     let delta = get_delta(QString::from(req.query_string()));

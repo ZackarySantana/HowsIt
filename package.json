@@ -8,7 +8,7 @@
         "start": "astro dev",
         "build": "astro build",
         "preview": "astro preview --host",
-        "deploy": "node ./dist/server/entry.mjs",
+        "deploy": "HOST=:: PORT=3000 node ./dist/server/entry.mjs",
         "localdeploy": "run-p localdeploy:*",
         "localdeploy:nginx": "nginx -c /app/nginx.conf -g \"daemon off;\"",
         "localdeploy:astro": "npm run deploy",

@@ -20,14 +20,14 @@ fn element(index: i32) -> String {
     })
 }
 
-#[get("/interval")]
+#[get("/htmx/rust/interval")]
 pub async fn get(_: HttpRequest) -> HttpResponse {
     return HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
         .body(element(0));
 }
 
-#[post("/interval")]
+#[post("/htmx/rust/interval")]
 pub async fn post(_req: HttpRequest, info: web::Form<IntervalForm>) -> HttpResponse {
     let counter = info.interval_rust.parse::<i32>().unwrap();
 
