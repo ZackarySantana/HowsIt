@@ -40,7 +40,7 @@ export default defineConfig({
                 "/htmx/rust": {
                     target: "http://localhost:3001",
                     changeOrigin: true,
-                    rewrite: (path) => path.replace("/htmx/rust", ""),
+                    // Rewrite: (path) => path.replace("/htmx/rust", ""),
                 },
             },
         },
