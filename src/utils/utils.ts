@@ -237,7 +237,11 @@ export function GetEndpointCodeAndLines(
         return undefined;
     }
 
-    const path = `src/pages/htmx/${lang}/${example}.${GetExtension(lang)}`;
+    let path = `src/pages/htmx/${lang}/${example}.ts`;
+
+    if (lang.toLowerCase() === "rust") {
+        path = `htmx/src/${example}.rs`;
+    }
 
     return {
         ...GetCodeAndLines(path),

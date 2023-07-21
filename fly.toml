@@ -10,9 +10,9 @@ kill_timeout = "5s"
   PORT = "3000"
 
 [processes]
-    nginx = "nginx -c /app/nginx.conf"
-    web = "npm run deploy"
-    rust_htmx = "./rust_htmx"
+  nginx = "nginx -c /app/nginx.conf -g \"daemon off;\""
+  web = "npm run deploy"
+  rust_htmx = "./rust_htmx"
 
 [[services]]
   protocol = "tcp"

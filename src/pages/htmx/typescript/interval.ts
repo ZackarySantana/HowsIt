@@ -4,7 +4,7 @@ const element = (interval: number) => `
     ${interval}
     <input 
         type="hidden"
-        name="interval"
+        name="intervalTypeScript"
         value="${interval}"
     />
 `;
@@ -24,7 +24,9 @@ export const get: APIRoute = async () => {
 
 export const post: APIRoute = async ({ request }) => {
     const formData = await request.formData();
-    const interval = parseNumber(formData.get("interval")?.toString());
+    const interval = parseNumber(
+        formData.get("intervalTypeScript")?.toString(),
+    );
 
     return new Response(element(interval + 1), {
         headers: {

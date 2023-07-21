@@ -1,6 +1,7 @@
 use actix_web::{middleware, App, HttpServer};
 use log::info;
 mod counter;
+mod interval;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -13,6 +14,8 @@ async fn main() -> std::io::Result<()> {
             .wrap(middleware::Logger::default())
             .service(counter::post)
             .service(counter::get)
+            .service(interval::post)
+            .service(interval::get)
     })
     .bind(("127.0.0.1", 3001))?
     .run()

@@ -38,7 +38,7 @@ export default defineConfig({
         server: {
             proxy: {
                 "/htmx/rust": {
-                    target: "http://localhost:8080",
+                    target: "http://localhost:3001",
                     changeOrigin: true,
                     rewrite: (path) => path.replace("/htmx/rust", ""),
                 },

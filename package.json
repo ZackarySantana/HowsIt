@@ -10,7 +10,7 @@
         "preview": "astro preview --host",
         "deploy": "node ./dist/server/entry.mjs",
         "localdeploy": "run-p localdeploy:*",
-        "localdeploy:nginx": "nginx -c /app/nginx.conf -g daemon off;",
+        "localdeploy:nginx": "nginx -c /app/nginx.conf -g \"daemon off;\"",
         "localdeploy:astro": "npm run deploy",
         "localdeploy:rust_htmx": "./rust_htmx",
         "astro": "astro"

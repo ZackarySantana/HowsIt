@@ -1,21 +1,10 @@
 use actix_web::{get, post, web, HttpRequest, HttpResponse};
 use leptos::*;
-use qstring::QString;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
-pub struct CounterForm {
-    counter_rust: String,
-}
-
-fn get_delta(query: QString) -> i32 {
-    if query.has("increment") {
-        return 1;
-    }
-    if query.has("decrement") {
-        return -1;
-    }
-    return 0;
+pub struct IntervalForm {
+    interval_rust: String,
 }
 
 fn element(index: i32) -> String {
@@ -24,26 +13,25 @@ fn element(index: i32) -> String {
             {index}
             <input
                 type="hidden"
-                name="counter_rust"
+                name="interval_rust"
                 value="{index}"
             />
         }
     })
 }
 
-#[get("/counter")]
+#[get("/interval")]
 pub async fn get(_: HttpRequest) -> HttpResponse {
     return HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
         .body(element(0));
 }
 
-#[post("/counter")]
-pub async fn post(req: HttpRequest, info: web::Form<CounterForm>) -> HttpResponse {
-    let counter = info.counter_rust.parse::<i32>().unwrap();
-    let delta = get_delta(QString::from(req.query_string()));
+#[post("/interval")]
+pub async fn post(_req: HttpRequest, info: web::Form<IntervalForm>) -> HttpResponse {
+    let counter = info.interval_rust.parse::<i32>().unwrap();
 
     return HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
-        .body(element(counter + delta));
+        .body(element(counter + 1));
 }
