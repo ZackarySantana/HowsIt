@@ -9,6 +9,7 @@ export interface Props {
 }
 import GithubLink from "@components/github_link.astro";
 import Icon from "@components/icon.astro";
+import Tags from "@components/interactive/tags";
 import Link from "@components/link.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import { CollectionEntry, getCollection, getEntries } from "astro:content";
@@ -74,6 +75,11 @@ const { Content } = await entry.render();
             {author.data.name}
         </Link>
     </span>
+    <Tags
+        tags={entry.data.tags?.map((t) => ({
+            label: t,
+        }))}
+    />
     <div class="mt-4 learn-post">
         <Content />
     </div>
