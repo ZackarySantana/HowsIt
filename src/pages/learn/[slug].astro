@@ -1,8 +1,10 @@
 ---
 export interface Props {
-    entry: CollectionEntry<"learn">;
-    nextThreeEntries: CollectionEntry<"learn">[];
-    previousEntry?: CollectionEntry<"learn">;
+    entry: CollectionEntry<"learn"> & { data: { index: number } };
+    nextThreeEntries: (CollectionEntry<"learn"> & {
+        data: { index: number };
+    })[];
+    previousEntry?: CollectionEntry<"learn"> & { data: { index: number } };
     author: CollectionEntry<"authors">;
 }
 import GithubLink from "@components/github_link.astro";
@@ -15,20 +17,28 @@ export const prerender = true;
 export async function getStaticPaths() {
     const entries = await getCollection("learn");
 
+    const ordered = entries.map((e) => ({
+        ...e,
+        data: {
+            ...e.data,
+            index: Number(e.id.split("-")[0].substring(e.id.indexOf("/") + 1)),
+        },
+    }));
+
     const authors = await getEntries(entries.map((entry) => entry.data.author));
 
-    return entries.map((entry) => ({
+    return ordered.map((entry) => ({
         params: { slug: entry.slug },
         props: {
             entry,
-            nextThreeEntries: entries
+            nextThreeEntries: ordered
                 .filter(
                     (e) =>
                         e.data.index - entry.data.index <= 3 &&
                         e.data.index - entry.data.index > 0,
                 )
                 .sort((e1, e2) => e1.data.index - e2.data.index),
-            previousEntry: entries.find(
+            previousEntry: ordered.find(
                 (e) => e.data.index === entry.data.index - 1,
             ),
             author: authors.find(

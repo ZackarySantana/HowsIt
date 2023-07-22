@@ -10,7 +10,7 @@ const ordered = learn.map((b) => ({
     ...b,
     data: {
         ...b.data,
-        index: Number(b.id.split("-")[0].substring(b.id.indexOf("/"))),
+        index: Number(b.id.split("-")[0].substring(b.id.indexOf("/") + 1)),
     },
 }));
 
