@@ -22,7 +22,6 @@ RUN npm run build
 
 RUN sed -i "s|parsePathname(pathname, host, port);|pathname;|g" /app/dist/server/entry.mjs 
 
-
 # Only the production dependancies
 FROM deps as production-deps
 
