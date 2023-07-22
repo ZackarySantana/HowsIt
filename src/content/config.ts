@@ -6,7 +6,7 @@ const learn = defineCollection({
         title: z.string(),
         description: z.string(),
         author: reference("authors"),
-        index: z.number(),
+        tags: z.array(z.string()).optional(),
         relatedPosts: z.array(reference("learn")).optional(),
     }),
 });

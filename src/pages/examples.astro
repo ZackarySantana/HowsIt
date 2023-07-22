@@ -24,6 +24,7 @@ export const prerender = true;
     </p>
     <Links
         client:load
+        placeholder="Fetch, etc"
         examples={examples.map((e, i) => ({
             label: `${i + 1}. ${Capitalize(e)}`,
             href: `/examples/${e}`,
