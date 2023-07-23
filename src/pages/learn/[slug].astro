@@ -9,7 +9,7 @@ export interface Props {
 }
 import GithubLink from "@components/github_link.astro";
 import Icon from "@components/icon.astro";
-import Tags from "@components/interactive/tags";
+import SlugHeader from "@components/interactive/slug_header";
 import Link from "@components/link.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import { CollectionEntry, getCollection, getEntries } from "astro:content";
@@ -113,15 +113,12 @@ const toc = entry.body
             </span>
         )
     }
-    <h1 class="text-3xl font-bold">
-        {entry.data.index + 1}. {entry.data.title}
-    </h1>
-    <span class="italic text-gray-400">
-        By <Link href={author.data.portfolio}>
-            {author.data.name}
-        </Link>
-    </span>
-    <Tags
+    <SlugHeader
+        client:load
+        label={`${entry.data.index + 1}. ${entry.data.title}`}
+        author={author.data.name}
+        href={"/learn/" + entry.slug}
+        authorHref={author.data.portfolio}
         tags={entry.data.tags?.map((t) => ({
             label: t,
         }))}

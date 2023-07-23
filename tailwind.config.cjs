@@ -16,6 +16,17 @@ module.exports = {
         },
     },
     plugins: [
+        plugin(function classes({ addUtilities }) {
+            addUtilities({
+                ".read-post": {
+                    opacity: "0.5",
+                },
+                ".read-post a": {
+                    "text-decoration": "line-through",
+                    "font-style": "italic",
+                },
+            });
+        }),
         plugin(function inputs({ addUtilities, theme }) {
             addUtilities({
                 ".learn-post h1": {

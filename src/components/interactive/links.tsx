@@ -1,7 +1,8 @@
 /** @jsxImportSource solid-js */
 
-import { createSignal } from "solid-js";
+import { createSignal, onMount } from "solid-js";
 import Tags from "./tags";
+import { default as LinkHref } from "./link";
 
 function Link(props: {
     label: string;
@@ -9,16 +10,44 @@ function Link(props: {
     href: string;
     tags?: string[];
 }) {
+    const [read, setRead] = createSignal(
+        typeof localstorage !== "undefined"
+            ? localStorage.getItem(props.href)
+            : false,
+    );
+
+    onMount(() => {
+        const read = localStorage.getItem(props.href);
+        if (read) {
+            setRead(true);
+        }
+    });
+
     return (
-        <div class="my-4">
-            <a
+        <div class={`my-4 transition-all ${read() ? "read-post" : ""}`}>
+            <LinkHref
                 href={props.href}
-                class="text-2xl font-bold text-blue-400"
+                class="text-2xl font-bold"
             >
                 {props.label}
-            </a>
-            <p class="">{props.desc}</p>
+            </LinkHref>
+            <p>{props.desc}</p>
+            <input
+                type="checkbox"
+                class="mr-2 mt-2"
+                checked={read()}
+                onChange={(e) => {
+                    setRead(e.currentTarget.checked);
+                    console.log(props.href);
+                    if (!e.currentTarget.checked) {
+                        localStorage.removeItem(props.href);
+                        return;
+                    }
+                    localStorage.setItem(props.href, e.currentTarget.checked);
+                }}
+            />
             <Tags
+                inline
                 tags={props.tags?.map((t) => ({
                     label: t,
                 }))}

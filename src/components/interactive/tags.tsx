@@ -15,13 +15,14 @@ export function Tag(props: { label: string; color?: string }) {
 }
 
 export default function Tags(props: {
+    inline?: boolean;
     tags?: { label: string; color?: string }[];
 }) {
     if (!props.tags) {
         return <></>;
     }
     return (
-        <div class="flex flex-wrap">
+        <div class={`${props.inline ? "inline-flex" : "flex"} flex-wrap`}>
             <For each={props.tags}>
                 {(t) => (
                     <Tag
