@@ -4,6 +4,84 @@ import { createSignal, onMount } from "solid-js";
 import Tags from "./tags";
 import { default as LinkHref } from "./link";
 
+function TagsLink(props: {
+    label: string;
+    desc: string;
+    href: string;
+    read: string;
+    setRead: (read: boolean) => void;
+    tags: string[];
+}) {
+    return (
+        <div class={`my-4 transition-all ${props.read() ? "read-post" : ""}`}>
+            <LinkHref
+                href={props.href}
+                class="text-2xl font-bold"
+            >
+                {props.label}
+            </LinkHref>
+            <p>{props.desc}</p>
+            <input
+                type="checkbox"
+                class="mr-2 mt-2"
+                checked={props.read()}
+                onChange={(e) => {
+                    props.setRead(e.currentTarget.checked);
+                    if (!e.currentTarget.checked) {
+                        localStorage.removeItem(props.href);
+                        return;
+                    }
+                    localStorage.setItem(props.href, e.currentTarget.checked);
+                }}
+            />
+            <Tags
+                inline
+                tags={props.tags?.map((t) => ({
+                    label: t,
+                }))}
+            />
+        </div>
+    );
+}
+
+function NoTagsLink(props: {
+    label: string;
+    desc: string;
+    href: string;
+    read: string;
+    setRead: (read: boolean) => void;
+}) {
+    return (
+        <div class={`my-4 transition-all ${props.read() ? "read-post" : ""}`}>
+            <LinkHref
+                href={props.href}
+                class="text-2xl font-bold"
+            >
+                {props.label}
+            </LinkHref>
+            <div>
+                <input
+                    type="checkbox"
+                    class="mr-2 mt-2"
+                    checked={props.read()}
+                    onChange={(e) => {
+                        props.setRead(e.currentTarget.checked);
+                        if (!e.currentTarget.checked) {
+                            localStorage.removeItem(props.href);
+                            return;
+                        }
+                        localStorage.setItem(
+                            props.href,
+                            e.currentTarget.checked,
+                        );
+                    }}
+                />
+                <p class="inline">{props.desc}</p>
+            </div>
+        </div>
+    );
+}
+
 function Link(props: {
     label: string;
     desc: string;
@@ -23,36 +101,27 @@ function Link(props: {
         }
     });
 
-    return (
-        <div class={`my-4 transition-all ${read() ? "read-post" : ""}`}>
-            <LinkHref
+    if (props.tags && props.tags.length !== 0) {
+        return (
+            <TagsLink
+                label={props.label}
+                desc={props.desc}
                 href={props.href}
-                class="text-2xl font-bold"
-            >
-                {props.label}
-            </LinkHref>
-            <p>{props.desc}</p>
-            <input
-                type="checkbox"
-                class="mr-2 mt-2"
-                checked={read()}
-                onChange={(e) => {
-                    setRead(e.currentTarget.checked);
-                    console.log(props.href);
-                    if (!e.currentTarget.checked) {
-                        localStorage.removeItem(props.href);
-                        return;
-                    }
-                    localStorage.setItem(props.href, e.currentTarget.checked);
-                }}
+                read={read}
+                setRead={setRead}
+                tags={props.tags}
             />
-            <Tags
-                inline
-                tags={props.tags?.map((t) => ({
-                    label: t,
-                }))}
-            />
-        </div>
+        );
+    }
+
+    return (
+        <NoTagsLink
+            label={props.label}
+            desc={props.desc}
+            href={props.href}
+            setRead={setRead}
+            read={read}
+        />
     );
 }
 
