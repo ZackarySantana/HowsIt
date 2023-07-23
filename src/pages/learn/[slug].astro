@@ -51,6 +51,52 @@ export async function getStaticPaths() {
 
 const { entry, author, nextThreeEntries, previousEntry } = Astro.props;
 const { Content } = await entry.render();
+
+type Toc = {
+    label: string;
+    href: string;
+    children: Toc[];
+};
+
+const createHref = (label: string) =>
+    label
+        .toLowerCase()
+        .replace(/ /g, "-")
+        .replace(/[^a-z0-9-]/g, "");
+
+const toc = entry.body
+    .split("\n")
+    .filter((l) => l.startsWith("#"))
+    .map((l) => l.substring(1).trim())
+    .reduce<Toc[]>((acc, curr) => {
+        if (!curr.startsWith("#")) {
+            acc.push({
+                label: curr,
+                href: `#${createHref(curr)}`,
+                children: [],
+            });
+        } else {
+            const depth = curr.indexOf(" ");
+            const label = curr.substring(depth + 1);
+            if (curr.startsWith("# ")) {
+                acc[acc.length - 1].children.push({
+                    label,
+                    href: `#${createHref(label)}`,
+                    children: [],
+                });
+            }
+            if (curr.startsWith("## ")) {
+                acc[acc.length - 1].children[
+                    acc[acc.length - 1].children.length - 1
+                ].children.push({
+                    label,
+                    href: `#${createHref(label)}`,
+                    children: [],
+                });
+            }
+        }
+        return acc;
+    }, []);
 ---
 
 <PageLayout
@@ -81,6 +127,36 @@ const { Content } = await entry.render();
         }))}
     />
     <div class="mt-4 learn-post">
+        <h1 class="learn post">Table of conents</h1>
+        <ul class="mb-4">
+            {
+                toc.map((t) => (
+                    <li>
+                        <Link href={t.href}>{t.label}</Link>
+                        {t.children.length > 0 && (
+                            <ul>
+                                {t.children.map((c) => (
+                                    <li>
+                                        <Link href={c.href}>{c.label}</Link>
+                                        {c.children.length > 0 && (
+                                            <ul>
+                                                {c.children.map((cc) => (
+                                                    <li>
+                                                        <Link href={cc.href}>
+                                                            {cc.label}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </li>
+                ))
+            }
+        </ul>
         <Content />
     </div>
     <div class="mt-8">

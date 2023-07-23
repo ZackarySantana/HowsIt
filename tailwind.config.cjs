@@ -19,19 +19,19 @@ module.exports = {
         plugin(function inputs({ addUtilities, theme }) {
             addUtilities({
                 ".learn-post h1": {
-                    "font-size": theme("fontSize.3xl"),
-                    "font-weight": theme("fontWeight.semibold"),
-                    "margin-top": theme("spacing.4"),
-                    "margin-bottom": theme("spacing.1"),
-                },
-                ".learn-post h2": {
                     "font-size": theme("fontSize.2xl"),
                     "font-weight": theme("fontWeight.semibold"),
                     "margin-top": theme("spacing.4"),
                     "margin-bottom": theme("spacing.1"),
                 },
-                ".learn-post h3": {
+                ".learn-post h2": {
                     "font-size": theme("fontSize.xl"),
+                    "font-weight": theme("fontWeight.semibold"),
+                    "margin-top": theme("spacing.4"),
+                    "margin-bottom": theme("spacing.1"),
+                },
+                ".learn-post h3": {
+                    "font-size": theme("fontSize.lg"),
                     "font-weight": theme("fontWeight.semibold"),
                     "margin-top": theme("spacing.4"),
                     "margin-bottom": theme("spacing.1"),
@@ -53,6 +53,14 @@ module.exports = {
                 ".learn-post ul": {
                     "margin-left": theme("spacing.8"),
                     "list-style-type": "decimal",
+                },
+                // A tag
+                ".learn-post a": {
+                    color: theme("colors.blue.400"),
+                    transition: "color 0.15s ease",
+                    "&:hover": {
+                        color: theme("colors.blue.600"),
+                    },
                 },
             });
         }),
