@@ -28,8 +28,8 @@ export const prerender = true;
         development, regardless of framework or library (with only specific exceptions).
     </p>
     <Links
-        placeholder="Languages, React, etc"
         client:load
+        placeholder="Languages, React, etc"
         examples={ordered
             .sort((b1, b2) => b1.data.index - b2.data.index)
             .map((b, i) => ({
