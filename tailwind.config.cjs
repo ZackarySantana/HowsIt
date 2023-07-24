@@ -13,6 +13,16 @@ module.exports = {
                 ts: "#007acc",
                 jsdoc: "#006cb7",
             },
+            animation: {
+                disappear: "disappear 1s forwards",
+            },
+            keyframes: {
+                disappear: {
+                    from: { opacity: "0.5", height: "auto" },
+                    "90%": { height: "auto" },
+                    to: { opacity: "0", height: 0 },
+                },
+            },
         },
     },
     plugins: [
@@ -21,7 +31,7 @@ module.exports = {
                 ".read-post": {
                     opacity: "0.5",
                 },
-                ".read-post a": {
+                ".read-post .title": {
                     "text-decoration": "line-through",
                     "font-style": "italic",
                 },

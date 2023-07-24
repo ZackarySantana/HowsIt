@@ -1,42 +1,53 @@
 /** @jsxImportSource solid-js */
 
-import { createSignal, onMount } from "solid-js";
+import { For, createSignal, createEffect } from "solid-js";
 import Tags from "./tags";
 import { default as LinkHref } from "./link";
+import useShowFallback from "./useShowFallback";
 
-function TagsLink(props: {
+type Example = {
     label: string;
     desc: string;
     href: string;
-    read: string;
-    setRead: (read: boolean) => void;
-    tags: string[];
+    tags?: string[];
+    read: boolean;
+};
+
+function TagsLink(props: {
+    example: Example;
+    recompute: () => void;
+    blur: boolean;
 }) {
+    const blurClasses = () => (props.blur ? "blur-sm" : "");
+    const markedReadClasses = () => (props.example.read ? "read-post" : "");
     return (
-        <div class={`my-4 transition-all ${props.read() ? "read-post" : ""}`}>
+        <div
+            class={`my-4 transition-all ${blurClasses()} ${markedReadClasses()}`}
+        >
             <LinkHref
-                href={props.href}
-                class="text-2xl font-bold"
+                href={props.example.href}
+                class="text-2xl font-bold title"
             >
-                {props.label}
+                {props.example.label}
             </LinkHref>
-            <p>{props.desc}</p>
+            <p>{props.example.desc}</p>
             <input
                 type="checkbox"
                 class="mr-2 mt-2"
-                checked={props.read()}
+                checked={props.example.read}
                 onChange={(e) => {
-                    props.setRead(e.currentTarget.checked);
-                    if (!e.currentTarget.checked) {
-                        localStorage.removeItem(props.href);
-                        return;
+                    const c = e.currentTarget.checked;
+                    if (!c) {
+                        localStorage.removeItem(props.example.href);
+                    } else {
+                        localStorage.setItem(props.example.href, c);
                     }
-                    localStorage.setItem(props.href, e.currentTarget.checked);
+                    props.recompute();
                 }}
             />
             <Tags
                 inline
-                tags={props.tags?.map((t) => ({
+                tags={props.example.tags?.map((t) => ({
                     label: t,
                 }))}
             />
@@ -45,99 +56,116 @@ function TagsLink(props: {
 }
 
 function NoTagsLink(props: {
-    label: string;
-    desc: string;
-    href: string;
-    read: string;
-    setRead: (read: boolean) => void;
+    example: Example;
+    recompute: () => void;
+    blur: boolean;
 }) {
+    const blurClasses = () => (props.blur ? "blur-sm" : "");
+    const markedReadClasses = () => (props.example.read ? "read-post" : "");
     return (
-        <div class={`my-4 transition-all ${props.read() ? "read-post" : ""}`}>
+        <div
+            class={`my-4 transition-all ${blurClasses()} ${markedReadClasses()}`}
+        >
             <LinkHref
-                href={props.href}
-                class="text-2xl font-bold"
+                href={props.example.href}
+                class="text-2xl font-bold title"
             >
-                {props.label}
+                {props.example.label}
             </LinkHref>
             <div>
                 <input
                     type="checkbox"
                     class="mr-2 mt-2"
-                    checked={props.read()}
+                    checked={props.example.read}
                     onChange={(e) => {
-                        props.setRead(e.currentTarget.checked);
-                        if (!e.currentTarget.checked) {
-                            localStorage.removeItem(props.href);
-                            return;
+                        const c = e.currentTarget.checked;
+                        if (!c) {
+                            localStorage.removeItem(props.example.href);
+                        } else {
+                            localStorage.setItem(props.example.href, c);
                         }
-                        localStorage.setItem(
-                            props.href,
-                            e.currentTarget.checked,
-                        );
+                        props.recompute();
                     }}
                 />
-                <p class="inline">{props.desc}</p>
+                <p class="inline">{props.example.desc}</p>
             </div>
         </div>
     );
 }
 
 function Link(props: {
-    label: string;
-    desc: string;
-    href: string;
-    tags?: string[];
+    example: Example;
+    blur: boolean;
+    recompute: () => void;
 }) {
-    const [read, setRead] = createSignal(
-        typeof localstorage !== "undefined"
-            ? localStorage.getItem(props.href)
-            : false,
-    );
-
-    onMount(() => {
-        const read = localStorage.getItem(props.href);
-        if (read) {
-            setRead(true);
-        }
-    });
-
     if (props.tags && props.tags.length !== 0) {
         return (
             <TagsLink
-                label={props.label}
-                desc={props.desc}
-                href={props.href}
-                read={read}
-                setRead={setRead}
-                tags={props.tags}
+                example={props.example}
+                recompute={props.recompute}
+                blur={props.blur}
             />
         );
     }
 
     return (
         <NoTagsLink
-            label={props.label}
-            desc={props.desc}
-            href={props.href}
-            setRead={setRead}
-            read={read}
+            example={props.example}
+            recompute={props.recompute}
+            blur={props.blur}
         />
     );
 }
 
+function filterExamples(examples: Omit<Example, "read">[], filter: string) {
+    return examples.filter(
+        (e) =>
+            e.label.toLowerCase().includes(filter) ||
+            e.desc.toLowerCase().includes(filter) ||
+            e.tags?.some((t) => t.toLowerCase().includes(filter)),
+    );
+}
+
+function markedRead(examples: Omit<Example, "read">[]) {
+    if (typeof localStorage === "undefined") {
+        return examples.map((e) => ({
+            ...e,
+            read: false,
+        }));
+    }
+    return examples.map((e) => ({
+        ...e,
+        read: localStorage.getItem(e.href) === "true",
+    }));
+}
+
+function sortByRead(examples: Example[]) {
+    return [...examples].sort((a, b) => {
+        if (a.read && !b.read) {
+            return 1;
+        }
+        if (!a.read && b.read) {
+            return -1;
+        }
+        return 0;
+    });
+}
+
 export default function Links(props: {
-    examples: { label: string; desc: string; href: string; tags?: string[] }[];
+    examples: Omit<Example, "read">[];
     placeholder: string;
 }) {
     const [filter, setFilter] = createSignal("");
+    const [recompute, setRecompute] = createSignal(false);
+    const [examples, setExamples] = createSignal(props.examples);
+    const [showFallback] = useShowFallback();
 
-    const examples = () =>
-        props.examples.filter(
-            (e) =>
-                e.label.toLowerCase().includes(filter()) ||
-                e.desc.toLowerCase().includes(filter()) ||
-                e.tags?.some((t) => t.toLowerCase().includes(filter())),
+    createEffect(() => {
+        setExamples(
+            sortByRead(filterExamples(markedRead(props.examples), filter())),
         );
+        recompute();
+    });
 
     return (
         <>
@@ -158,14 +186,16 @@ export default function Links(props: {
                     }
                 />
             </div>
-            {examples().map((e) => (
-                <Link
-                    label={e.label}
-                    desc={e.desc}
-                    href={e.href}
-                    tags={e.tags}
-                />
-            ))}
+            <For each={examples()}>
+                {(e) => (
+                    <Link
+                        example={e}
+                        recompute={() => setRecompute(!recompute())}
+                        examples={examples()}
+                        blur={showFallback()}
+                    />
+                )}
+            </For>
         </>
     );
 }

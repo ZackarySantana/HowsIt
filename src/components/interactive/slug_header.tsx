@@ -25,7 +25,7 @@ export default function SlugHeader(props: {
 
     return (
         <div class={`my-4 transition-all ${read() ? "read-post" : ""}`}>
-            <h1 class="text-3xl font-bold">{props.label}</h1>
+            <h1 class="text-3xl font-bold title">{props.label}</h1>
             <span class="italic text-gray-400">
                 By <Link href={props.authorHref}>{props.author}</Link>
             </span>
