@@ -98,7 +98,7 @@ function Link(props: {
     blur: boolean;
     recompute: () => void;
 }) {
-    if (props.tags && props.tags.length !== 0) {
+    if (props.example.tags && props.example.tags.length !== 0) {
         return (
             <TagsLink
                 example={props.example}
