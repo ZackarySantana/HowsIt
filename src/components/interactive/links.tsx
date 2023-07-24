@@ -18,7 +18,7 @@ function TagsLink(props: {
     recompute: () => void;
     blur: boolean;
 }) {
-    const blurClasses = () => (props.blur ? "blur-sm" : "");
+    const blurClasses = () => (props.blur ? "blur-sm" : "blur-0");
     const markedReadClasses = () => (props.example.read ? "read-post" : "");
     return (
         <div
@@ -151,6 +151,17 @@ function sortByRead(examples: Example[]) {
     });
 }
 
+function SearchLabel() {
+    return (
+        <label
+            for="search"
+            class="text-2xl font-semibold"
+        >
+            Search
+        </label>
+    );
+}
+
 export default function Links(props: {
     examples: Omit<Example, "read">[];
     placeholder: string;
@@ -161,6 +172,9 @@ export default function Links(props: {
     const [showFallback] = useShowFallback();
 
     createEffect(() => {
+        if (showFallback()) {
+            return;
+        }
         setExamples(
             sortByRead(filterExamples(markedRead(props.examples), filter())),
         );
@@ -170,12 +184,7 @@ export default function Links(props: {
     return (
         <>
             <div class="mt-8">
-                <label
-                    for="search"
-                    class="text-2xl font-semibold"
-                >
-                    Search
-                </label>
+                <SearchLabel />
                 <input
                     id="search"
                     type="text"

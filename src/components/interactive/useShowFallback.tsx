@@ -4,7 +4,9 @@ export default function useShowFallback() {
     const [showFallback, setShowFallback] = createSignal(true);
 
     onMount(() => {
-        setShowFallback(false);
+        setTimeout(() => {
+            setShowFallback(false);
+        }, 200);
     });
 
     return [showFallback, setShowFallback];
