@@ -3,6 +3,12 @@ on:
     push:
         branches:
             - main
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+
+
 jobs:
     deploy_to_production:
         name: Deploying to production
