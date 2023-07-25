@@ -52,7 +52,7 @@ RUN cargo build --release
 FROM astro-build
 
 # Copy the rust htmx binary
-COPY --from=rust-htmx-build /app/target/release/rust/htmx /app/rust_htmx 
+COPY --from=rust-htmx-build /app/target/release/htmx /app/rust_htmx 
 
 RUN apt-get -y update && apt-get -y install nginx
 COPY nginx.conf /app/nginx.conf
