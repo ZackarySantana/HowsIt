@@ -240,7 +240,7 @@ export function GetEndpointCodeAndLines(
     let path = `src/pages/htmx/${lang}/${example}.ts`;
 
     if (lang.toLowerCase() === "rust") {
-        path = `htmx/src/${example}.rs`;
+        path = `rust/htmx/src/${example}.rs`;
     }
 
     return {
