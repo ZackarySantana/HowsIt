@@ -6,7 +6,7 @@ Dockerfile
 # Local development files
 node_modules
 dist
-htmx/target
+target
 .astro
 .vscode
 

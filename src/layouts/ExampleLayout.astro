@@ -1,4 +1,5 @@
 ---
+import NetworkRequests from "@components/interactive/network_requests";
 import { Capitalize } from "@utils";
 import Layout from "./Layout.astro";
 
@@ -12,4 +13,5 @@ const desc = Astro.locals.desc;
     mainClasses="flex flex-col gap-4"
 >
     <slot />
+    <NetworkRequests client:load />
 </Layout>

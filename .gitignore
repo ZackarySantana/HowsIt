@@ -1,6 +1,6 @@
 # build output
 dist/
-htmx/target
+target
 
 # generated types
 .astro/

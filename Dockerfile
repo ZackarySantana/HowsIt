@@ -17,7 +17,7 @@ COPY astro.config.mjs svelte.config.js tailwind.config.cjs tsconfig.json ./
 COPY plugins plugins
 COPY public public
 COPY src src
-COPY htmx htmx
+COPY rust/htmx rust/htmx
 RUN npm run build
 
 RUN sed -i "s|parsePathname(pathname, host, port);|pathname;|g" /app/dist/server/entry.mjs 
@@ -39,20 +39,20 @@ COPY --from=build /app/dist /app/dist
 COPY --from=build /app/public /app/public
 
 # Build rust binary
-FROM rust as rust-build
+FROM rust as rust-htmx-build
 
 RUN mkdir /app
 WORKDIR /app
 
-COPY htmx .
+COPY rust/htmx .
 
 RUN cargo build --release
 
 # Final image
 FROM astro-build
 
-# Copy the rust binary
-COPY --from=rust-build /app/target/release/htmx /app/rust_htmx 
+# Copy the rust htmx binary
+COPY --from=rust-htmx-build /app/target/release/rust/htmx /app/rust_htmx 
 
 RUN apt-get -y update && apt-get -y install nginx
 COPY nginx.conf /app/nginx.conf
