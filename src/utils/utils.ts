@@ -171,6 +171,9 @@ export function GetExtension(type: string) {
     if (type === "rust") {
         return "rs";
     }
+    if (type === "go") {
+        return "go";
+    }
     if (type === "typescript") {
         return "ts";
     }
@@ -241,6 +244,11 @@ export function GetEndpointCodeAndLines(
 
     if (lang.toLowerCase() === "rust") {
         path = `rust/htmx/src/${example}.rs`;
+    }
+
+    if (lang.toLowerCase() === "go") {
+        path = `go/htmx/${example}/index.go`;
+        console.log(path);
     }
 
     return {

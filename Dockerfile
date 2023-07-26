@@ -18,6 +18,7 @@ COPY plugins plugins
 COPY public public
 COPY src src
 COPY rust/htmx rust/htmx
+COPY go/htmx go/htmx
 RUN npm run build
 
 RUN sed -i "s|parsePathname(pathname, host, port);|pathname;|g" /app/dist/server/entry.mjs 

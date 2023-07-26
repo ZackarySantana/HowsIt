@@ -6,6 +6,7 @@ import ExampleLayout from "@layouts/ExampleLayout.astro";
 import Alpine from "@examples/alpinejs/counter.html";
 import PreactHooks from "@examples/preact/counter_hooks";
 import PreactSignals from "@examples/preact/counter_signals";
+import HTMXGo from "@htmx/counter_go.html";
 import HTMXRust from "@htmx/counter_rust.html";
 import HTMXTypeScript from "@htmx/counter_typescript.html";
 import Lit from "@lit/interval";
@@ -114,6 +115,13 @@ export const prerender = true;
     >
         <HTMXRust />
     </SSRClientCard>
+    <SSRClientCard
+        type="htmx"
+        lang="go"
+    >
+        <HTMXGo />
+    </SSRClientCard>
+
     <SSRClientCard type="alpinejs">
         <Alpine />
     </SSRClientCard>
