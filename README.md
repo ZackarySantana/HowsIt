@@ -41,6 +41,7 @@ All contributions will be made via the PR tab! Create a branch/fork, code your s
 
 -   [Astro](https://astro.build/) - Main Framework
 -   [Rust](https://www.rust-lang.org/) - Used in htmx examples
+-   [Go](https://golang.org/) - Used in htmx examples
 
 ### Deployment
 
