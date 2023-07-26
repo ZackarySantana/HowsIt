@@ -42,6 +42,11 @@ export default defineConfig({
                     changeOrigin: true,
                     // Rewrite: (path) => path.replace("/htmx/rust", ""),
                 },
+                "/htmx/go": {
+                    target: "http://localhost:3002",
+                    changeOrigin: true,
+                    // Rewrite: (path) => path.replace("/htmx/go", ""),
+                },
             },
         },
     },

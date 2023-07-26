@@ -38,24 +38,39 @@ RUN apt-get upgrade
 COPY --from=build /app/dist /app/dist
 COPY --from=build /app/public /app/public
 
-# Build rust binary
-FROM rust as rust-htmx-build
+# Build rust binary(s)
+FROM rust as rust-build
 
 RUN mkdir /app
 WORKDIR /app
 
-COPY rust/htmx .
+COPY rust/htmx htmx
 
+WORKDIR /app/htmx
 RUN cargo build --release
+
+# Build go binary(s)
+FROM golang as go-build
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY go/htmx htmx
+
+WORKDIR /app/htmx
+RUN go build -o htmx
 
 # Final image
 FROM astro-build
 
-# Copy the rust htmx binary
-COPY --from=rust-htmx-build /app/target/release/htmx /app/rust_htmx 
+# Copy the rust binary(s)
+COPY --from=rust-build /app/htmx/target/release/htmx /app/rust_htmx 
+
+# Copy the go binary(s)
+COPY --from=go-build /app/htmx/htmx /app/go_htmx
 
 RUN apt-get -y update && apt-get -y install nginx
 COPY nginx.conf /app/nginx.conf
 
 # CMD ["nginx", "-c", "/app/nginx.conf", "-g", "daemon off;"]
-CMD ["npm", "run", "localdeploy"]
+# CMD ["npm", "run", "localdeploy"]

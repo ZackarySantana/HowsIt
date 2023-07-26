@@ -13,6 +13,7 @@ PORT = "3000"
 nginx = "nginx -c /app/nginx.conf -g \"daemon off;\""
 web = "npm run deploy"
 rust_htmx = "./rust_htmx"
+go_htmx = "./go_htmx"
 
 [[services]]
 protocol = "tcp"
@@ -60,7 +61,7 @@ restart_limit = 0
 [[services]]
 protocol = "tcp"
 internal_port = 3001
-processes = ["rust_htmx"]
+processes = ["go_htmx"]
 
 [services.concurrency]
 type = "connections"

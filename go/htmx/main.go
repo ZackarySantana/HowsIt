@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"htmx/counter"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	fmt.Println("Hello, world!")
+	r := gin.Default()
+	r.GET("/htmx/go/counter", counter.CounterGet)
+	r.Run(":3002")
 }
