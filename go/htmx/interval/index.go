@@ -1,4 +1,4 @@
-package counter
+package interval
 
 import (
 	"fmt"
@@ -7,21 +7,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type counterForm struct {
-	Index int `form:"counter_go"`
+type intervalForm struct {
+	Index int `form:"interval_go"`
 }
 
 const elementTemplate = `
 %d
 <input
 	type="hidden"
-	name="counter_go"
+	name="interval_go"
 	value="%d"
 />
 `
 
-func element(i int) string {
-	return fmt.Sprintf(elementTemplate, i, i)
+func element(index int) string {
+	return fmt.Sprintf(elementTemplate, index, index)
 }
 
 func Get(c *gin.Context) {
@@ -29,22 +29,12 @@ func Get(c *gin.Context) {
 }
 
 func Post(c *gin.Context) {
-	counter := counterForm{}
+	counter := intervalForm{}
 	if err := c.Bind(&counter); err != nil {
 		return
 	}
 
-	delta := 0
-
-	if _, exists := c.GetQuery("increment"); exists {
-		delta += 1
-	}
-
-	if _, exists := c.GetQuery("decrement"); exists {
-		delta -= 1
-	}
-
-	e := element(counter.Index + delta)
+	e := element(counter.Index + 1)
 
 	c.Data(http.StatusOK, "text/html; charset=utf-8", []byte(e))
 }

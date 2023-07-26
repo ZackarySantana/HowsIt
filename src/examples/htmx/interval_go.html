@@ -1,0 +1,15 @@
+<div
+    hx-trigger="load"
+    hx-get="/htmx/go/interval"
+    hx-target="#htmx-interval-go"
+    hx-swap="innerHTML"
+>
+    <span
+        id="htmx-interval-go"
+        hx-trigger="every 1s"
+        hx-post="/htmx/go/interval"
+        hx-target="this"
+        hx-swap="innerHTML"
+        hx-include="[name='interval_go']"
+    ></span>
+</div>
