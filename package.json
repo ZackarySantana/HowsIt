@@ -10,7 +10,8 @@
         "localdeploy": "run-p localdeploy:*",
         "localdeploy:nginx": "nginx -c /app/nginx.conf -g \"daemon off;\"",
         "localdeploy:astro": "npm run deploy",
-        "localdeploy:rust_htmx": "./rust_htmx"
+        "localdeploy:rust_htmx": "./rust_htmx",
+        "localdeploy:go_htmx": "./go_htmx"
     },
     "dependencies": {
         "@astrojs/alpinejs": "^0.2.2",
