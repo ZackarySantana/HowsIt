@@ -60,7 +60,7 @@ restart_limit = 0
 
 [[services]]
 protocol = "tcp"
-internal_port = 3001
+internal_port = 3002
 processes = ["go_htmx"]
 
 [services.concurrency]
