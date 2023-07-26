@@ -34,7 +34,17 @@ func CounterPost(c *gin.Context) {
 		return
 	}
 
-	e := element(counter.Counter + 1)
+	delta := 0
+
+	if _, ok := c.GetQuery("increment"); ok {
+		delta += 1
+	}
+
+	if _, ok := c.GetQuery("decrement"); ok {
+		delta -= 1
+	}
+
+	e := element(counter.Counter + delta)
 
 	c.Data(http.StatusOK, "text/html; charset=utf-8", []byte(e))
 }
