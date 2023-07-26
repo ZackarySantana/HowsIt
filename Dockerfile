@@ -73,5 +73,4 @@ COPY --from=go-build /app/htmx/htmx /app/go_htmx
 RUN apt-get -y update && apt-get -y install nginx
 COPY nginx.conf /app/nginx.conf
 
-# CMD ["nginx", "-c", "/app/nginx.conf", "-g", "daemon off;"]
-# CMD ["npm", "run", "localdeploy"]
+CMD ["npm", "run", "localdeploy"]
