@@ -188,11 +188,17 @@ export function GetTypeInfo(type: string, givenInfo?: string[]): string[] {
 }
 
 function GetPreactVersion(metaTitle?: string) {
-    return "_" + (metaTitle?.toLowerCase() ?? "hooks");
+    if (!metaTitle) {
+        return "";
+    }
+    return "_" + metaTitle.toLowerCase();
 }
 
 function GetHTMXVersion(lang?: string) {
-    return "_" + (lang?.toLowerCase() ?? "typescript");
+    if (!lang) {
+        return "";
+    }
+    return "_" + lang.toLowerCase();
 }
 
 export function GetVersion(type: string, lang?: string, metaTitle?: string) {
