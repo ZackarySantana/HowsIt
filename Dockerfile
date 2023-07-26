@@ -50,7 +50,7 @@ WORKDIR /app/htmx
 RUN cargo build --release
 
 # Build go binary(s)
-FROM golang as go-build
+FROM golang:1.18 as go-build
 
 RUN mkdir /app
 WORKDIR /app
