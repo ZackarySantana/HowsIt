@@ -248,7 +248,6 @@ export function GetEndpointCodeAndLines(
 
     if (lang.toLowerCase() === "go") {
         path = `go/htmx/${example}/index.go`;
-        console.log(path);
     }
 
     return {
