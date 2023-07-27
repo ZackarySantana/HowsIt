@@ -8,6 +8,7 @@ export const descs: {
         "An interactive counter with a decrement and increment button. Note that for SSR, the counter will not be interactive.",
     interval:
         "A 1 second interval (timer) that updates a number by 1. Note that for SSR, the number will not update.",
+    todo: "A todo list that allows you to add and remove items. Note that for SSR, the list will not be interactive.",
 };
 
 export type Framework = {

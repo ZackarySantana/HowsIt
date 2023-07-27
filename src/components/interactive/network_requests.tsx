@@ -8,8 +8,10 @@ export default function NetworkRequests() {
             list.getEntries().forEach((entry) => {
                 const request = entry.responseStart - entry.requestStart;
                 if (request > 0) {
-                    console.log(`${entry.name}: Request time: ${request}ms`);
-                    console.log(entry);
+                    /*
+                     * Console.log(`${entry.name}: Request time: ${request}ms`);
+                     * console.log(entry);
+                     */
                 }
             });
         });
@@ -23,7 +25,7 @@ export default function NetworkRequests() {
             this.addEventListener(
                 "progress",
                 function () {
-                    console.log("Loading. Here you can intercept...");
+                    // Console.log("Loading. Here you can intercept...");
                 },
                 false,
             );

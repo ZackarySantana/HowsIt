@@ -26,6 +26,56 @@ module.exports = {
         },
     },
     plugins: [
+        plugin(function todos({ addUtilities, theme }) {
+            addUtilities({
+                ".todo-container": {
+                    width: "90%",
+                    "@media (min-width: 800px)": {
+                        width: "50%",
+                    },
+                    "input, button": {
+                        "background-color": theme("colors.gray.400"),
+                        color: theme("colors.gray.900"),
+                        "padding-inline": theme("spacing.1"),
+                        "border-radius": theme("borderRadius.sm"),
+                    },
+                    "input:hover, button:hover": {
+                        "background-color": theme("colors.gray.300"),
+                    },
+                    "button:active": {
+                        "background-color": theme("colors.gray.400"),
+                        "box-shadow":
+                            "inset 0 0 3px 2px " + theme("colors.gray.500"),
+                    },
+                },
+                ".todo-parent, .todo-header, .todo-item": {
+                    display: "flex",
+                    gap: theme("spacing.2"),
+                },
+                ".todo-parent": {
+                    "flex-direction": "column",
+                },
+                ".todo-header, .todo-parent": {
+                    width: "100%",
+                },
+                ".todo-header input": {
+                    width: "100%",
+                },
+                ".todo-header": {
+                    "margin-bottom": theme("spacing.4"),
+                },
+                ".todo-item span": {
+                    "word-break": "break-all",
+                },
+                ".todo-item span + button": {
+                    "margin-left": "auto",
+                },
+                ".todo-completed": {
+                    "text-decoration": "line-through",
+                    "font-style": "italic",
+                },
+            });
+        }),
         plugin(function classes({ addUtilities }) {
             addUtilities({
                 ".read-post": {
