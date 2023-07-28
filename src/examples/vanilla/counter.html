@@ -1,18 +1,17 @@
 <script>
     let counterAmount = 0;
     function decrement() {
-        const counter = document.querySelector("#vanilla-element-counter");
+        const counter = document.querySelector("#vanilla-counter");
         counterAmount--;
         counter.innerHTML = counterAmount;
     }
     function increment() {
-        const counter = document.querySelector("#vanilla-element-counter");
+        const counter = document.querySelector("#vanilla-counter");
         counterAmount++;
         counter.innerHTML = counterAmount;
     }
 </script>
+
 <button onclick="decrement()">-</button>
-
-<span id="vanilla-element-counter">0</span>
-
+<span id="vanilla-counter">0</span>
 <button onclick="increment()">+</button>
