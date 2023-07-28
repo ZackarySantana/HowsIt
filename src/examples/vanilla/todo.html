@@ -1,9 +1,68 @@
-<div class="todo-container">
+<div
+    class="todo-container"
+    id="vanilla-todo-container"
+>
     <div class="todo-header">
-        <input type="text" />
-        <button>Clear</button>
+        <input
+            type="text"
+            id="vanilla-todo-input"
+        />
+        <button id="vanilla-todo-clear">Clear</button>
     </div>
-    <ul class="todo-parent"></ul>
+    <ul
+        class="todo-parent"
+        id="vanilla-todo-parent"
+    ></ul>
 </div>
 
-<script></script>
+<script>
+    const todoParent = document.querySelector("#vanilla-todo-parent");
+
+    function AddTodo(text, completed) {
+        const todoItem = document.createElement("li");
+        todoItem.classList.add("todo-item");
+
+        const textElement = document.createElement("span");
+        if (completed) {
+            textElement.classList.add("todo-completed");
+        }
+        textElement.innerHTML = text;
+
+        const toggleButton = document.createElement("button");
+        toggleButton.innerHTML = "Toggle";
+        toggleButton.addEventListener("click", () => {
+            textElement.classList.toggle("todo-completed");
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = "Delete";
+        deleteButton.addEventListener("click", () => {
+            todoItem.remove();
+        });
+
+        todoItem.appendChild(textElement);
+        todoItem.appendChild(toggleButton);
+        todoItem.appendChild(deleteButton);
+
+        todoParent.appendChild(todoItem);
+    }
+
+    const clearButton = document.querySelector("#vanilla-todo-clear");
+
+    clearButton.addEventListener("click", () => {
+        todoParent.innerHTML = "";
+        renderTodos();
+    });
+
+    const input = document.querySelector("#vanilla-todo-input");
+
+    input.addEventListener("keyup", (e) => {
+        if (e.key === "Enter") {
+            AddTodo(input.value, false);
+            input.value = "";
+        }
+    });
+
+    AddTodo("Learn web dev", true);
+    AddTodo("learn Vanilla JS", false);
+</script>

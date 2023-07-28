@@ -37,8 +37,8 @@ function TodoItem(props: {
     delete_: () => void;
 }) {
     return (
-        <li class="todo-item">
-            <span class={props.completed ? "todo-completed" : ""}>
+        <li className="todo-item">
+            <span className={props.completed ? "todo-completed" : ""}>
                 {props.text}
             </span>
             <button onClick={props.toggle}>Toggle</button>
@@ -66,15 +66,15 @@ export default function Preact() {
     }, []);
 
     return (
-        <div class="todo-container">
-            <div class="todo-header">
+        <div className="todo-container">
+            <div className="todo-header">
                 <input
                     type="text"
                     onChange={addAction}
                 />
                 <button onClick={clearAction}>Clear</button>
             </div>
-            <ul class="todo-parent">
+            <ul className="todo-parent">
                 {todos.map((todo, index) => (
                     <TodoItem
                         key={index}
