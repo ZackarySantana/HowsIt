@@ -1,11 +1,12 @@
 /** @jsxImportSource preact */
 
-import { effect, signal } from "@preact/signals";
+import { signal } from "@preact/signals";
+import { useEffect } from "preact/hooks"
 
 export default function Preact() {
     const count = signal(0);
 
-    effect(() => {
+    useEffect(() => {
         const id = setInterval(() => {
             count.value++;
         }, 1000);
