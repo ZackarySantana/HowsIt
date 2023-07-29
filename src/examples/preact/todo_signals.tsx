@@ -1,6 +1,6 @@
 /** @jsxImportSource preact */
 
-import { signal, effect } from "@preact/signals";
+import { signal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
 
 function TodoItem(props: {
@@ -20,8 +20,30 @@ function TodoItem(props: {
     );
 }
 
+function Todos(props: {
+    todos: {
+        value: { text: string; completed: boolean };
+        toggle: (i: number) => () => void;
+        delete_: (index) => () => void;
+    }[];
+}) {
+    return (
+        <ul class="todo-parent">
+            {props.todos.value.map((todo, index) => (
+                <TodoItem
+                    key={index}
+                    text={todo.text}
+                    completed={todo.completed}
+                    toggle={props.toggle(index)}
+                    delete_={props.delete_(index)}
+                />
+            ))}
+        </ul>
+    );
+}
+
 export default function Preact() {
-    const todos = signal([{ text: "test", completed: false }]);
+    const todos = signal([]);
 
     const addTodo = (text, completed) =>
         (todos.value = [...todos.value, { text, completed }]);
@@ -33,23 +55,17 @@ export default function Preact() {
     };
     const clearAction = () => (todos.value = []);
     const deleteAction = (index) => () =>
-        (todos.value = todos.value.splice(index, 1));
+        (todos.value = todos.value.filter((_, i) => i !== index));
 
     const addAction = (e) => {
-        console.log(todos.value);
         addTodo(e.target.value, false);
         e.target.value = "";
-        console.log(todos.value);
     };
 
     useEffect(() => {
         addTodo("Learn web dev", true);
         addTodo("Learn Preact", false);
     }, []);
-
-    effect(() => {
-        console.log("effect", todos.value);
-    });
 
     return (
         <div class="todo-container">
@@ -61,15 +77,11 @@ export default function Preact() {
                 <button onClick={clearAction}>Clear</button>
             </div>
             <ul class="todo-parent">
-                {todos.value.map((todo, index) => (
-                    <TodoItem
-                        key={index}
-                        text={todo.text}
-                        completed={todo.completed}
-                        toggle={toggleAction(index)}
-                        delete_={deleteAction(index)}
-                    />
-                ))}
+                <Todos
+                    todos={todos}
+                    toggle={toggleAction}
+                    delete_={deleteAction}
+                />
             </ul>
         </div>
     );
