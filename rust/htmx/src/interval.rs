@@ -10,7 +10,7 @@ pub struct IntervalForm {
 fn element(index: i32) -> String {
     leptos::ssr::render_to_string(move |cx| {
         view! { cx,
-            index
+            {index}
             <input
                 type="hidden"
                 name="interval_rust"

@@ -21,7 +21,7 @@ fn get_delta(query: QString) -> i32 {
 fn element(index: i32) -> String {
     leptos::ssr::render_to_string(move |cx| {
         view! { cx,
-            index
+            {index}
             <input
                 type="hidden"
                 name="counter_rust"
