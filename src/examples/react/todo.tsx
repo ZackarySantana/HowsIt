@@ -47,22 +47,26 @@ function TodoItem(props: {
     );
 }
 
-export default function Preact() {
+export default function React() {
     const [todos, dispatch] = useReducer(reducer, initialState);
+
+    const clearAction = () => dispatch({ type: CLEAR });
+    const addAction = (e) => {
+        if (e.key !== "Enter") {
+            return;
+        }
+        dispatch({ type: ADD_TODO, text: e.target.value });
+        e.target.value = "";
+    };
 
     const toggleAction = (index) => () =>
         dispatch({ type: TOGGLE_TODO, index });
     const deleteAction = (index) => () =>
         dispatch({ type: DELETE_TODO, index });
-    const clearAction = () => dispatch({ type: CLEAR });
-    const addAction = (e) => {
-        dispatch({ type: ADD_TODO, text: e.target.value });
-        e.target.value = "";
-    };
 
     useEffect(() => {
         dispatch({ type: ADD_COMPLETED_TODO, text: "Learn web dev" });
-        dispatch({ type: ADD_TODO, text: "Learn Preact" });
+        dispatch({ type: ADD_TODO, text: "Learn React" });
     }, []);
 
     return (
@@ -70,7 +74,7 @@ export default function Preact() {
             <div className="todo-header">
                 <input
                     type="text"
-                    onChange={addAction}
+                    onKeyUp={addAction}
                 />
                 <button onClick={clearAction}>Clear</button>
             </div>
