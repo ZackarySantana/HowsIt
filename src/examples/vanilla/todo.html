@@ -2,6 +2,7 @@
     class="todo-container"
     id="vanilla-todo-container"
 >
+    <p id="vanilla-todo-completed">Completed: 0</p>
     <div class="todo-header">
         <input
             type="text"
@@ -17,6 +18,9 @@
 
 <script>
     const todoParent = document.querySelector("#vanilla-todo-parent");
+    const todoCompleted = document.querySelector("#vanilla-todo-completed");
+
+    let completedAmount = 0;
 
     function AddTodo(text, completed) {
         const todoItem = document.createElement("li");
@@ -25,6 +29,8 @@
         const textElement = document.createElement("span");
         if (completed) {
             textElement.classList.add("todo-completed");
+            completedAmount++;
+            todoCompleted.innerHTML = `Completed: ${completedAmount}`;
         }
         textElement.innerHTML = text;
 
@@ -32,12 +38,20 @@
         toggleButton.innerHTML = "Toggle";
         toggleButton.addEventListener("click", () => {
             textElement.classList.toggle("todo-completed");
+            const isCompleted =
+                textElement.classList.contains("todo-completed");
+            completedAmount += isCompleted ? 1 : -1;
+            todoCompleted.innerHTML = `Completed: ${completedAmount}`;
         });
 
         const deleteButton = document.createElement("button");
         deleteButton.innerHTML = "Delete";
         deleteButton.addEventListener("click", () => {
             todoItem.remove();
+            const isCompleted =
+                textElement.classList.contains("todo-completed");
+            completedAmount += isCompleted ? -1 : 0;
+            todoCompleted.innerHTML = `Completed: ${completedAmount}`;
         });
 
         todoItem.appendChild(textElement);
