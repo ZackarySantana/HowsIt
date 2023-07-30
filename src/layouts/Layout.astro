@@ -11,7 +11,10 @@ const { title, desc, mainClasses } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html
+    lang="en"
+    hx-ext="reset-on-success"
+>
     <head>
         <meta charset="UTF-8" />
         <meta
@@ -33,6 +36,7 @@ const { title, desc, mainClasses } = Astro.props;
             content={desc}
         />
         <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+        <script src="/htmx_extensions.js"></script>
     </head>
     <body class="min-h-screen w-full bg-slate-600 px-2 py-4 sm:px-10 sm:py-8">
         <Header />
