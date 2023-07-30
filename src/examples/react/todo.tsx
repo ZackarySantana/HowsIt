@@ -49,6 +49,7 @@ function TodoItem(props: {
 
 export default function React() {
     const [todos, dispatch] = useReducer(reducer, initialState);
+    const completedAmount = todos.filter((todo) => todo.completed).length;
 
     const clearAction = () => dispatch({ type: CLEAR });
     const addAction = (e) => {
@@ -71,6 +72,7 @@ export default function React() {
 
     return (
         <div className="todo-container">
+            <p>Completed: {completedAmount}</p>
             <div className="todo-header">
                 <input
                     type="text"
