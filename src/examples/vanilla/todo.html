@@ -57,10 +57,12 @@
     const input = document.querySelector("#vanilla-todo-input");
 
     input.addEventListener("keyup", (e) => {
-        if (e.key === "Enter") {
-            AddTodo(input.value, false);
-            input.value = "";
+        if (e.key !== "Enter") {
+            return;
         }
+
+        AddTodo(input.value, false);
+        input.value = "";
     });
 
     AddTodo("Learn web dev", true);
