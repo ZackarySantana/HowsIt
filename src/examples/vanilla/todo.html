@@ -22,6 +22,15 @@
 
     let completedAmount = 0;
 
+    function CompletedChanged(hasNewCompleted) {
+        if (hasNewCompleted) {
+            completedAmount++;
+        } else {
+            completedAmount--;
+        }
+        todoCompleted.innerHTML = `Completed: ${completedAmount}`;
+    }
+
     function AddTodo(text, completed) {
         const todoItem = document.createElement("li");
         todoItem.classList.add("todo-item");
@@ -29,8 +38,7 @@
         const textElement = document.createElement("span");
         if (completed) {
             textElement.classList.add("todo-completed");
-            completedAmount++;
-            todoCompleted.innerHTML = `Completed: ${completedAmount}`;
+            CompletedChanged(true);
         }
         textElement.innerHTML = text;
 
@@ -38,20 +46,16 @@
         toggleButton.innerHTML = "Toggle";
         toggleButton.addEventListener("click", () => {
             textElement.classList.toggle("todo-completed");
-            const isCompleted =
-                textElement.classList.contains("todo-completed");
-            completedAmount += isCompleted ? 1 : -1;
-            todoCompleted.innerHTML = `Completed: ${completedAmount}`;
+            CompletedChanged(textElement.classList.contains("todo-completed"));
         });
 
         const deleteButton = document.createElement("button");
         deleteButton.innerHTML = "Delete";
         deleteButton.addEventListener("click", () => {
             todoItem.remove();
-            const isCompleted =
-                textElement.classList.contains("todo-completed");
-            completedAmount += isCompleted ? -1 : 0;
-            todoCompleted.innerHTML = `Completed: ${completedAmount}`;
+            if (textElement.classList.contains("todo-completed")) {
+                CompletedChanged(false);
+            }
         });
 
         todoItem.appendChild(textElement);
@@ -65,7 +69,8 @@
 
     clearButton.addEventListener("click", () => {
         todoParent.innerHTML = "";
-        renderTodos();
+        completedAmount = 0;
+        todoCompleted.innerHTML = `Completed: ${completedAmount}`;
     });
 
     const input = document.querySelector("#vanilla-todo-input");
