@@ -49,6 +49,7 @@ function TodoItem(props: {
 
 export default function Preact() {
     const [todos, dispatch] = useReducer(reducer, initialState);
+    const completedAmount = todos.filter((todo) => todo.completed).length;
 
     const toggleAction = (index) => () =>
         dispatch({ type: TOGGLE_TODO, index });
@@ -67,6 +68,7 @@ export default function Preact() {
 
     return (
         <div class="todo-container">
+            <p>Completed: {completedAmount}</p>
             <div class="todo-header">
                 <input
                     type="text"

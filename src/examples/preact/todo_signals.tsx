@@ -1,6 +1,6 @@
 /** @jsxImportSource preact */
 
-import { signal } from "@preact/signals";
+import { signal, computed } from "@preact/signals";
 import { useEffect } from "preact/hooks";
 
 function TodoItem(props: {
@@ -44,6 +44,7 @@ function Todos(props: {
 
 export default function Preact() {
     const todos = signal([]);
+    const completedamount = computed(() => todos.value.filter((todo) => todo.completed).length);
 
     const addTodo = (text, completed) =>
         (todos.value = [...todos.value, { text, completed }]);
@@ -69,6 +70,7 @@ export default function Preact() {
 
     return (
         <div class="todo-container">
+            <p>Completed: {completedamount}</p>
             <div class="todo-header">
                 <input
                     type="text"
