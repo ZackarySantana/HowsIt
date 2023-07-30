@@ -82,7 +82,6 @@ function parseNumber(value: string | undefined): number {
 }
 
 export const get: APIRoute = async () => {
-    console.log("GET")
     return new Response(container(0), {
         headers: {
             "content-type": "text/html",
@@ -91,7 +90,6 @@ export const get: APIRoute = async () => {
 };
 
 export const post: APIRoute = async ({ request, url }) => {
-    console.log("POST")
     const formData = await request.formData();
     const completedAmount = parseNumber(
         formData.get("todoCompletedAmountTypeScript")?.toString(),
@@ -127,7 +125,6 @@ export const post: APIRoute = async ({ request, url }) => {
 };
 
 export const del: APIRoute = async ({ request, url }) => {
-    console.log("DEL")
     const deleteAll = url.searchParams.get("all") !== null;
 
     if (deleteAll) {
