@@ -9,6 +9,7 @@ export interface Props {
     isSSRAndClientHydrated?: boolean;
     hideClientHydrated?: boolean;
     hideClientRendered?: boolean;
+    open?: boolean;
 }
 import Code from "@components/code.astro";
 import GithubLink from "@components/github_link.astro";
@@ -31,6 +32,7 @@ const {
     isSSRAndClientHydrated,
     hideClientHydrated,
     hideClientRendered,
+    open,
 } = Astro.props;
 
 const example = Astro.locals.example;
@@ -56,7 +58,10 @@ if (type === "htmx") {
 }
 ---
 
-<details class="w-full rounded-xl bg-slate-700 px-8 py-4 text-white shadow-lg">
+<details
+    class="w-full rounded-xl bg-slate-700 px-8 py-4 text-white shadow-lg"
+    open={open}
+>
     <summary class="cursor-pointer text-3xl font-bold capitalize">
         <!-- <div class="flex"> -->
         <Icon
