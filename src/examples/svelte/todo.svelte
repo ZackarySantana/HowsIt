@@ -21,7 +21,7 @@
         todos = [];
     }
 
-    function toggleCompleted(i) {
+    function toggle(i) {
         return () => {
             todos = todos.map((todo, index) => {
                 return {
@@ -32,7 +32,7 @@
         };
     }
 
-    function deleteTodo(i) {
+    function delete_(i) {
         return () => {
             todos = todos.filter((_, index) => i !== index);
         };
@@ -55,8 +55,8 @@
                 <span class={todo.completed ? "todo-completed" : ""}>
                     {todo.text}
                 </span>
-                <button on:click={toggleCompleted(i)}>Toggle</button>
-                <button on:click={deleteTodo(i)}>Delete</button>
+                <button on:click={toggle(i)}>Toggle</button>
+                <button on:click={delete_(i)}>Delete</button>
             </li>
         {/each}
     </ul>
