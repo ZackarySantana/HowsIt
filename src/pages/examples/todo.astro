@@ -6,6 +6,8 @@ import ExampleLayout from "@layouts/ExampleLayout.astro";
 import Alpine from "@examples/alpinejs/interval.html";
 import PreactHooks from "@examples/preact/todo_hooks";
 import PreactSignals from "@examples/preact/todo_signals";
+import HTMXGo from "@htmx/todo_go.html";
+import HTMXRust from "@htmx/todo_rust.html";
 import HTMXTypeScript from "@htmx/todo_typescript.html";
 import Lit from "@lit/interval";
 import React from "@react/todo";
@@ -110,7 +112,18 @@ export const prerender = true;
     >
         <HTMXTypeScript />
     </SSRClientCard>
-
+    <SSRClientCard
+        type="htmx"
+        lang="rust"
+    >
+        <HTMXRust />
+    </SSRClientCard>
+    <SSRClientCard
+        type="htmx"
+        lang="go"
+    >
+        <HTMXGo />
+    </SSRClientCard>
     <SSRClientCard type="alpinejs">
         <Alpine />
     </SSRClientCard>
