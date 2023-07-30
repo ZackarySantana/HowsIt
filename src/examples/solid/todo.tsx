@@ -47,31 +47,33 @@ function TodoItem(props: {
 
 export default function Solid() {
     const [todos, setTodos] = createStore([]);
+    const completedAmount = () => todos.filter((todo) => todo.completed).length;
 
-    const addUncompleted = (text) => () => addUncompletedTodo(setTodos, text);
-    const addCompleted = (text) => () => addCompletedTodo(setTodos, text);
-    const toggle = (index) => () => toggleTodo(setTodos, index);
-    const delete_ = (index) => () => deleteTodo(setTodos, index);
-    const clearTodos = () => () => setTodos([]);
-
-    const addAction = () => (e) => {
-        addUncompleted(e.target.value)();
+    const addUncompleted = (text) => addUncompletedTodo(setTodos, text);
+    const addCompleted = (text) => addCompletedTodo(setTodos, text);
+    const clearTodos = () => setTodos([]);
+    const addAction = (e) => {
+        addUncompleted(e.target.value);
         e.target.value = "";
     };
 
+    const toggle = (index) => () => toggleTodo(setTodos, index);
+    const delete_ = (index) => () => deleteTodo(setTodos, index);
+
     onMount(() => {
-        addCompleted("Learn web dev")();
-        addUncompleted("Learn Solid")();
+        addCompleted("Learn web dev");
+        addUncompleted("Learn Solid");
     });
 
     return (
         <div class="todo-container">
+            <p>Completed: {completedAmount}</p>
             <div class="todo-header">
                 <input
                     type="text"
-                    onChange={addAction()}
+                    onChange={addAction}
                 />
-                <button onClick={clearTodos()}>Clear</button>
+                <button onClick={clearTodos}>Clear</button>
             </div>
             <ul class="todo-parent">
                 <For each={todos}>
