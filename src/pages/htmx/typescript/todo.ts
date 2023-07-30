@@ -1,5 +1,18 @@
 import type { APIRoute } from "astro";
 
+const input = (excludeSwap?: boolean) => `
+    <input
+        ${!excludeSwap ? 'hx-swap-oob="true"' : ""}
+        type="text"
+        name="todoTypeScript"
+        id="htmx-todo-main-input-typescript"
+        hx-post="/htmx/typescript/todo"
+        hx-target="#htmx-todo-parent-typescript"
+        hx-swap="beforeend"
+        hx-include="#htmx-todo-completed-input-typescript"
+    />
+`;
+
 const completedCounter = (completedAmount: number, excludeSwap?: boolean) => `
     <p
         ${!excludeSwap ? 'hx-swap-oob="true"' : ""}
@@ -19,15 +32,7 @@ const completedCounter = (completedAmount: number, excludeSwap?: boolean) => `
 const container = () => `
     ${completedCounter(0, true)}
     <div class="todo-header">
-        <input
-            type="text"
-            name="todoTypeScript"
-            hx-post="/htmx/typescript/todo"
-            hx-target="#htmx-todo-parent-typescript"
-            hx-swap="beforeend"
-            hx-include="#htmx-todo-completed-input-typescript"
-            hx-reset-on-success
-        />
+        ${input(true)}
         <button
             hx-delete="/htmx/typescript/todo?all"
             hx-target="#htmx-todo-container-typescript"
@@ -47,6 +52,7 @@ const todoitem = (
     completedAmount: number,
 ) => `
     ${completedCounter(completedAmount)}
+    ${input()}
     <li class="todo-item">
         <span${completed ? ' class="todo-completed"' : ""}>${text}</span>
         <button
@@ -76,7 +82,7 @@ function parseNumber(value: string | undefined): number {
 }
 
 export const get: APIRoute = async () => {
-    console.log("GET");
+    console.log("GET")
     return new Response(container(0), {
         headers: {
             "content-type": "text/html",
@@ -85,7 +91,7 @@ export const get: APIRoute = async () => {
 };
 
 export const post: APIRoute = async ({ request, url }) => {
-    console.log("POST");
+    console.log("POST")
     const formData = await request.formData();
     const completedAmount = parseNumber(
         formData.get("todoCompletedAmountTypeScript")?.toString(),
@@ -98,7 +104,7 @@ export const post: APIRoute = async ({ request, url }) => {
         const newCompletedAmount = completedAmount + (isCompleted ? 1 : -1);
 
         return new Response(
-            todoItem(textQuery, isCompleted, newCompletedAmount),
+            todoitem(textQuery, isCompleted, newCompletedAmount),
             {
                 headers: {
                     "content-type": "text/html",
@@ -121,7 +127,7 @@ export const post: APIRoute = async ({ request, url }) => {
 };
 
 export const del: APIRoute = async ({ request, url }) => {
-    console.log("DEL");
+    console.log("DEL")
     const deleteAll = url.searchParams.get("all") !== null;
 
     if (deleteAll) {
