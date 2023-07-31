@@ -94,6 +94,104 @@ fn completed_counter(completed_amount: i32, exclude_swap: bool) -> String {
     })
 }
 
+#[component]
+fn TodoItem(cx: Scope, text: String, completed: bool) -> impl IntoView {
+    let toggle_path = "/htmx/rust/todo?toggle=".to_owned()
+        + if completed { "off" } else { "on" }
+        + "&text="
+        + text.as_str();
+    let delete_path = "/htmx/rust/todo".to_owned() + if completed { "?completed" } else { "" };
+    view! { cx,
+        <li class="todo-item">
+            <span class:todo-completed={move || completed}>
+                {text}
+            </span>
+            <button
+                hx-post=toggle_path
+                hx-target="closest li"
+                hx-swap="outerHTML"
+                hx-include="#htmx-todo-completed-input-rust"
+            >
+                "Toggle"
+            </button>
+            <button
+                hx-delete=delete_path
+                hx-target="closest li"
+                hx-swap="outerHTML"
+                hx-include="#htmx-todo-completed-input-rust"
+            >
+                "Delete"
+            </button>
+        </li>
+    }
+}
+
+#[component]
+fn TodoItemSwap(cx: Scope, text: String, completed: bool, completed_amount: i32) -> impl IntoView {
+    let toggle_path = "/htmx/rust/todo?toggle=".to_owned()
+        + if completed { "off" } else { "on" }
+        + "&text="
+        + text.as_str();
+    let delete_path = "/htmx/rust/todo".to_owned() + if completed { "?completed" } else { "" };
+    view! { cx,
+        <CompletedCounterSwap completed_amount=completed_amount />
+        <InputSwap />
+        <li class="todo-item">
+            <span class:todo-completed={move || completed}>
+                {text}
+            </span>
+            <button
+                hx-post=toggle_path
+                hx-target="closest li"
+                hx-swap="outerHTML"
+                hx-include="#htmx-todo-completed-input-rust"
+            >
+                "Toggle"
+            </button>
+            <button
+                hx-delete=delete_path
+                hx-target="closest li"
+                hx-swap="outerHTML"
+                hx-include="#htmx-todo-completed-input-rust"
+            >
+                "Delete"
+            </button>
+        </li>
+    }
+}
+
+fn todo_item(text: String, completed: bool, completed_amount: i32) -> String {
+    leptos::ssr::render_to_string(move |cx| {
+        view! { cx,
+            <TodoItemSwap text=text completed=completed completed_amount=completed_amount />
+        }
+    })
+}
+
+fn container_initial() -> String {
+    leptos::ssr::render_to_string(move |cx| {
+        view! { cx,
+            <CompletedCounter completed_amount=1 />
+            <div class="todo-header">
+                <Input />
+                <button
+                    hx-delete="/htmx/rust/todo?all"
+                    hx-target="#htmx-todo-container-rust"
+                >
+                    "Clear"
+                </button>
+            </div>
+            <ul
+                class="todo-parent"
+                id="htmx-todo-parent-rust"
+            >
+                <TodoItem text="Learn web dev".to_string() completed=true />
+                <TodoItem text="Hello".to_string() completed=false />
+            </ul>
+        }
+    })
+}
+
 fn container() -> String {
     leptos::ssr::render_to_string(move |cx| {
         view! { cx,
@@ -115,46 +213,11 @@ fn container() -> String {
     })
 }
 
-fn todo_item(text: String, completed: bool, completed_amount: i32) -> String {
-    let toggle_path = "/htmx/rust/todo?toggle=".to_owned()
-        + if completed { "off" } else { "on" }
-        + "&text="
-        + text.as_str();
-    let delete_path = "/htmx/rust/todo".to_owned() + if completed { "?completed" } else { "" };
-    leptos::ssr::render_to_string(move |cx| {
-        view! { cx,
-            <CompletedCounterSwap completed_amount=completed_amount />
-            <InputSwap />
-            <li class="todo-item">
-                <span class:todo-completed={move || completed}>
-                    {text}
-                </span>
-                <button
-                    hx-post=toggle_path
-                    hx-target="closest li"
-                    hx-swap="outerHTML"
-                    hx-include="#htmx-todo-completed-input-rust"
-                >
-                    "Toggle"
-                </button>
-                <button
-                    hx-delete=delete_path
-                    hx-target="closest li"
-                    hx-swap="outerHTML"
-                    hx-include="#htmx-todo-completed-input-rust"
-                >
-                    "Delete"
-                </button>
-            </li>
-        }
-    })
-}
-
 #[get("htmx/rust/todo")]
 pub async fn get(_: HttpRequest) -> HttpResponse {
     return HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
-        .body(container());
+        .body(container_initial());
 }
 
 #[post("htmx/rust/todo")]
