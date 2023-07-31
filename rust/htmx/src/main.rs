@@ -2,6 +2,7 @@ use actix_web::{middleware, App, HttpServer};
 use log::info;
 mod counter;
 mod interval;
+mod todo;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -18,6 +19,9 @@ async fn main() -> std::io::Result<()> {
             .service(counter::get)
             .service(interval::post)
             .service(interval::get)
+            .service(todo::get)
+            .service(todo::post)
+            .service(todo::delete)
     })
     .bind(addr)?
     .run()
