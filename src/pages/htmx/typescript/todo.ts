@@ -29,30 +29,13 @@ const completedCounter = (completedAmount: number, excludeSwap?: boolean) => `
     />
 `;
 
-const container = () => `
-    ${completedCounter(0, true)}
-    <div class="todo-header">
-        ${input(true)}
-        <button
-            hx-delete="/htmx/typescript/todo?all"
-            hx-target="#htmx-todo-container-typescript"
-        >
-            Clear
-        </button>
-    </div>
-    <ul
-        class="todo-parent"
-        id="htmx-todo-parent-typescript"
-    ></ul>
-`;
-
 const todoitem = (
     text: string,
     completed: boolean,
-    completedAmount: number,
+    completedAmount?: number,
 ) => `
-    ${completedCounter(completedAmount)}
-    ${input()}
+    ${completedAmount !== undefined ? completedCounter(completedAmount) : ""}
+    ${completedAmount !== undefined ? input() : ""}
     <li class="todo-item">
         <span${completed ? ' class="todo-completed"' : ""}>${text}</span>
         <button
@@ -76,13 +59,33 @@ const todoitem = (
     </li>
 `;
 
+const container = (initial?: boolean) => `
+    ${completedCounter(initial ? 1 : 0, true)}
+    <div class="todo-header">
+        ${input(true)}
+        <button
+            hx-delete="/htmx/typescript/todo?all"
+            hx-target="#htmx-todo-container-typescript"
+        >
+            Clear
+        </button>
+    </div>
+    <ul
+        class="todo-parent"
+        id="htmx-todo-parent-typescript"
+    >${initial ? `
+        ${todoitem("Learn web dev", true)}
+        ${todoitem("Learn TypeScript", false)}
+    ` : ""}</ul>
+`
+
 function parseNumber(value: string | undefined): number {
     const i = Number(value);
     return isNaN(i) ? 0 : i;
 }
 
 export const get: APIRoute = async () => {
-    return new Response(container(0), {
+    return new Response(container(true), {
         headers: {
             "content-type": "text/html",
         },

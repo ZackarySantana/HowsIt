@@ -186,7 +186,7 @@ fn container_initial() -> String {
                 id="htmx-todo-parent-rust"
             >
                 <TodoItem text="Learn web dev".to_string() completed=true />
-                <TodoItem text="Hello".to_string() completed=false />
+                <TodoItem text="Learn Rust".to_string() completed=false />
             </ul>
         }
     })
