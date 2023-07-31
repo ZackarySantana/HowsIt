@@ -14,25 +14,10 @@ pub struct TodoDeleteForm {
     todo_completed_amount_rust: String,
 }
 
-fn input(exclude_swap: bool) -> String {
+#[component]
+fn Input(cx: Scope, exclude_swap: bool) -> impl IntoView {
     if exclude_swap {
-        return leptos::ssr::render_to_string(move |cx| {
-            view! { cx,
-                <input
-                    type="text"
-                    name="todo_rust"
-                    id="htmx-todo-main-input-rust"
-                    hx-post="/htmx/rust/todo"
-                    hx-target="#htmx-todo-parent-rust"
-                    hx-swap="beforeend"
-                    hx-include="#htmx-todo-completed-input-rust"
-                />
-            }
-        });
-    }
-
-    leptos::ssr::render_to_string(move |cx| {
-        view! { cx,
+        return view! { cx,
             <input
                 type="text"
                 name="todo_rust"
@@ -41,47 +26,64 @@ fn input(exclude_swap: bool) -> String {
                 hx-target="#htmx-todo-parent-rust"
                 hx-swap="beforeend"
                 hx-include="#htmx-todo-completed-input-rust"
-                hx-swap-oob="true"
             />
-        }
-    })
-}
-
-fn completed_counter(completed_amount: i32, exclude_swap: bool) -> String {
-    if exclude_swap {
-        return leptos::ssr::render_to_string(move |cx| {
-            view! { cx,
-                <p
-                    {swap}
-                    id="htmx-todo-completed-rust"
-                >
-                    Completed: {completed_amount}
-                </p>
-                <input
-                    type="hidden"
-                    name="todo_completed_amount_rust"
-                    id="htmx-todo-completed-input-rust"
-                    value=completed_amount
-                />
-            }
-        });
+        };
     }
 
-    leptos::ssr::render_to_string(move |cx| {
-        view! { cx,
+    view! { cx,
+        <input
+            type="text"
+            name="todo_rust"
+            id="htmx-todo-main-input-rust"
+            hx-post="/htmx/rust/todo"
+            hx-target="#htmx-todo-parent-rust"
+            hx-swap="beforeend"
+            hx-include="#htmx-todo-completed-input-rust"
+            hx-swap-oob="true"
+        />
+    }
+}
+
+#[component]
+fn CompletedCounter(cx: Scope, completed_amount: i32, exclude_swap: bool) -> impl IntoView {
+    if exclude_swap {
+        return view! { cx,
             <p
-                hx-swap-oob="true"
+                {swap}
                 id="htmx-todo-completed-rust"
             >
-                Completed: {completed_amount}
+                "Completed: " {completed_amount}
             </p>
             <input
                 type="hidden"
                 name="todo_completed_amount_rust"
                 id="htmx-todo-completed-input-rust"
                 value=completed_amount
-                hx-swap-oob="true"
             />
+        };
+    }
+
+    view! { cx,
+        <p
+            hx-swap-oob="true"
+            id="htmx-todo-completed-rust"
+        >
+            "Completed: " {completed_amount}
+        </p>
+        <input
+            type="hidden"
+            name="todo_completed_amount_rust"
+            id="htmx-todo-completed-input-rust"
+            value=completed_amount
+            hx-swap-oob="true"
+        />
+    }
+}
+
+fn completed_counter(completed_amount: i32, exclude_swap: bool) -> String {
+    leptos::ssr::render_to_string(move |cx| {
+        view! { cx,
+            <CompletedCounter completed_amount=completed_amount exclude_swap=exclude_swap />
         }
     })
 }
@@ -89,14 +91,14 @@ fn completed_counter(completed_amount: i32, exclude_swap: bool) -> String {
 fn container() -> String {
     leptos::ssr::render_to_string(move |cx| {
         view! { cx,
-            {completed_counter(0, true)}
+            <CompletedCounter completed_amount=0 exclude_swap=true />
             <div class="todo-header">
-                {input(true)}
+                <Input exclude_swap=true />
                 <button
                     hx-delete="/htmx/rust/todo?all"
                     hx-target="#htmx-todo-container-rust"
                 >
-                    Clear
+                    "Clear"
                 </button>
             </div>
             <ul
@@ -114,8 +116,8 @@ fn todo_item(text: String, completed: bool, completed_amount: i32) -> String {
         + text.as_str();
     leptos::ssr::render_to_string(move |cx| {
         view! { cx,
-            {completed_counter(completed_amount, false)}
-            {input(false)}
+            <CompletedCounter completed_amount=completed_amount exclude_swap=false />
+            <Input exclude_swap=false />
             <li class="todo-item">
                 <span {todo_completed}
                     class:todo-completed={move || completed}
@@ -126,7 +128,7 @@ fn todo_item(text: String, completed: bool, completed_amount: i32) -> String {
                     hx-swap="outerHTML"
                     hx-include="#htmx-todo-completed-input-rust"
                 >
-                    Toggle
+                    "Toggle"
                 </button>
                 <button
                     hx-delete="/htmx/rust/todo".to_owned() + if completed { "?completed" } else { "" }
@@ -134,7 +136,7 @@ fn todo_item(text: String, completed: bool, completed_amount: i32) -> String {
                     hx-swap="outerHTML"
                     hx-include="#htmx-todo-completed-input-rust"
                 >
-                    Delete
+                    "Delete"
                 </button>
             </li>
         }
