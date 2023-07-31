@@ -5,13 +5,13 @@ use serde::Deserialize;
 
 #[derive(Deserialize)]
 pub struct TodoAddForm {
-    todo_rust: String,
+    todo_rust: Option<String>,
     todo_completed_amount_rust: String,
 }
 
 #[derive(Deserialize)]
 pub struct TodoDeleteForm {
-    todo_completed_amount_rust: String,
+    todo_completed_amount_rust: Option<String>,
 }
 
 #[component]
@@ -124,7 +124,7 @@ fn todo_item(text: String, completed: bool, completed_amount: i32) -> String {
                 >{text}</span>
                 <button
                     hx-post=toggle_path
-                    hx-target="#htmx-todo-container-rust"
+                    hx-target="closest li"
                     hx-swap="outerHTML"
                     hx-include="#htmx-todo-completed-input-rust"
                 >
@@ -132,7 +132,7 @@ fn todo_item(text: String, completed: bool, completed_amount: i32) -> String {
                 </button>
                 <button
                     hx-delete="/htmx/rust/todo".to_owned() + if completed { "?completed" } else { "" }
-                    hx-target="#htmx-todo-container-rust"
+                    hx-target="closest li"
                     hx-swap="outerHTML"
                     hx-include="#htmx-todo-completed-input-rust"
                 >
@@ -161,7 +161,7 @@ pub async fn post(_req: HttpRequest, info: web::Form<TodoAddForm>) -> HttpRespon
         let new_completed_amount = if completed {
             completed_amount + 1
         } else {
-            completed_amount
+            completed_amount - 1
         };
 
         return HttpResponse::Ok()
@@ -169,7 +169,7 @@ pub async fn post(_req: HttpRequest, info: web::Form<TodoAddForm>) -> HttpRespon
             .body(todo_item(text.to_string(), completed, new_completed_amount));
     }
 
-    let text = info.todo_rust.clone();
+    let text = info.todo_rust.clone().unwrap_or("Error".to_string());
 
     return HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
@@ -187,7 +187,7 @@ pub async fn delete(_req: HttpRequest, info: web::Form<TodoDeleteForm>) -> HttpR
             .body(container());
     }
 
-    let completed_amount = info.todo_completed_amount_rust.parse::<i32>().unwrap();
+    let completed_amount = info.todo_completed_amount_rust.as_ref().unwrap().parse::<i32>().unwrap();
     let completed = query.has("completed");
 
     let new_completed_amount = if completed {
