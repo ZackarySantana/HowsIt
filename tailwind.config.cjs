@@ -155,6 +155,9 @@ module.exports = {
                 "justify-content": "center",
             };
             addUtilities({
+                html: {
+                    "scroll-behavior": "smooth",
+                },
                 ":not(.learn-post)": {
                     body: {
                         color: theme("colors.primary-text"),
