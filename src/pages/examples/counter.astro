@@ -13,12 +13,12 @@ import Lit from "@lit/interval";
 import React from "@react/counter";
 import Solid from "@solid/counter";
 import Svelte from "@svelte/counter.svelte";
-import { descs } from "@utils";
+import { examples } from "@utils";
 import Vanilla from "@vanilla/counter.html";
 import Vue from "@vue/counter.vue";
 
 const example = "counter";
-const desc = descs[example];
+const desc = examples[example].desc;
 Astro.locals.example = example;
 Astro.locals.desc = desc;
 

@@ -13,12 +13,12 @@ import Lit from "@lit/interval";
 import React from "@react/todo";
 import Solid from "@solid/todo";
 import Svelte from "@svelte/todo.svelte";
-import { descs } from "@utils";
+import { examples } from "@utils";
 import Vanilla from "@vanilla/todo.html";
 import Vue from "@vue/todo.vue";
 
 const example = "todo";
-const desc = descs[example];
+const desc = examples[example].desc;
 Astro.locals.example = example;
 Astro.locals.desc = desc;
 

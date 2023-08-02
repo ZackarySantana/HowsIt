@@ -2,9 +2,14 @@
 import Links from "@components/interactive/links";
 import Link from "@components/link.astro";
 import PageLayout from "@layouts/PageLayout.astro";
-import { Capitalize, GetAllExamples, descs } from "@utils";
+import {
+    Capitalize,
+    GetAllExampleTags,
+    GetAllExamples,
+    examples,
+} from "@utils";
 
-const examples = GetAllExamples();
+const e = GetAllExamples();
 
 export const prerender = true;
 ---
@@ -12,23 +17,28 @@ export const prerender = true;
 <PageLayout
     title="How's It - Examples"
     desc="View different examples of implementations"
+    excludeMain={true}
 >
-    <h1 class="text-3xl font-bold">Examples</h1>
-    <p>
-        These have implementations for different common use cases in apps, to
-        show you an easy direct comparision!
-    </p>
-    <p class="mt-2">
-        If you want to go over the difference in rendering techniques, runtimes,
-        etc, go to <Link href="/learn">Learn</Link> page.
-    </p>
+    <main>
+        <h1 class="text-3xl font-bold">Examples</h1>
+        <p>
+            These have implementations for different common use cases in apps,
+            to show you an easy direct comparision!
+        </p>
+        <p class="mt-2">
+            If you want to go over the difference in rendering techniques,
+            runtimes, etc, go to <Link href="/learn">Learn</Link> page.
+        </p>
+    </main>
     <Links
         client:load
         placeholder="Fetch, etc"
-        examples={examples.map((e, i) => ({
+        tags={GetAllExampleTags()}
+        examples={e.map((e, i) => ({
             label: `${i + 1}. ${Capitalize(e)}`,
             href: `/examples/${e}`,
-            desc: descs[e],
+            desc: examples[e].desc,
+            tags: examples[e].tags,
         }))}
     />
 </PageLayout>

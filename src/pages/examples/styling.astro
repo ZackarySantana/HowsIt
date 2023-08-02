@@ -11,12 +11,12 @@ import Preact from "@preact/styling";
 import React from "@react/styling";
 import Solid from "@solid/styling";
 import Svelte from "@svelte/styling.svelte";
-import { descs } from "@utils";
+import { examples } from "@utils";
 import Vanilla from "@vanilla/styling.html";
 import Vue from "@vue/styling.vue";
 
 const example = "styling";
-const desc = descs[example];
+const desc = examples[example].desc;
 Astro.locals.example = example;
 Astro.locals.desc = desc;
 

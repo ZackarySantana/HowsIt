@@ -21,8 +21,8 @@ function TagsLink(props: {
     const blurClasses = () => (props.blur ? "blur-sm" : "blur-0");
     const markedReadClasses = () => (props.example.read ? "read-post" : "");
     return (
-        <div
-            class={`my-4 transition-all ${blurClasses()} ${markedReadClasses()}`}
+        <section
+            class={`my-2 !py-5 transition-all ${blurClasses()} ${markedReadClasses()}`}
         >
             <LinkHref
                 href={props.example.href}
@@ -51,7 +51,7 @@ function TagsLink(props: {
                     label: t,
                 }))}
             />
-        </div>
+        </section>
     );
 }
 
@@ -117,13 +117,25 @@ function Link(props: {
     );
 }
 
-function filterExamples(examples: Omit<Example, "read">[], filter: string) {
+function searchExamples(examples: Omit<Example, "read">[], filter: string) {
     return examples.filter(
         (e) =>
             e.label.toLowerCase().includes(filter) ||
             e.desc.toLowerCase().includes(filter) ||
             e.tags?.some((t) => t.toLowerCase().includes(filter)),
     );
+}
+
+function filterExamples(examples: Example[], filter: string[]) {
+    if (filter.length === 0) {
+        return examples;
+    }
+    return examples.filter((e) => {
+        if (!e.tags) {
+            return false;
+        }
+        return filter.some((f) => e.tags?.includes(f));
+    });
 }
 
 function markedRead(examples: Omit<Example, "read">[]) {
@@ -162,11 +174,40 @@ function SearchLabel() {
     );
 }
 
+function FilterLabel() {
+    return (
+        <label
+            for="filter"
+            class="mt-2 block text-2xl font-semibold"
+        >
+            Filter
+        </label>
+    );
+}
+
+function Tag(props: { label: string; onClick: () => void; active: boolean }) {
+    return (
+        <button
+            class={`${
+                props.active
+                    ? "bg-secondary-background hover:drop-shadow-[0_0_3px_rgba(0,0,0,0.8)]"
+                    : "bg-primary-background drop-shadow-[0_0_3px_rgba(0,0,0,0.8)] hover:bg-secondary-background"
+            } rounded-md px-2 py-1 text-gray-100 transition-all`}
+            onClick={props.onClick}
+        >
+            {props.label}
+        </button>
+    );
+}
+
+// eslint-disable-next-line max-lines-per-function
 export default function Links(props: {
     examples: Omit<Example, "read">[];
     placeholder: string;
+    tags: string[];
 }) {
     const [filter, setFilter] = createSignal("");
+    const [tagFilter, setTagFilter] = createSignal<string[]>([]);
     const [recompute, setRecompute] = createSignal(false);
     const [examples, setExamples] = createSignal(props.examples);
     const [showFallback] = useShowFallback();
@@ -176,14 +217,19 @@ export default function Links(props: {
             return;
         }
         setExamples(
-            sortByRead(filterExamples(markedRead(props.examples), filter())),
+            sortByRead(
+                filterExamples(
+                    searchExamples(markedRead(props.examples), filter()),
+                    tagFilter(),
+                ),
+            ),
         );
         recompute();
     });
 
     return (
         <>
-            <div class="mt-8">
+            <section class="mb-2 mt-6 !py-5">
                 <SearchLabel />
                 <input
                     id="search"
@@ -194,7 +240,29 @@ export default function Links(props: {
                         setFilter(e.currentTarget.value.toLowerCase())
                     }
                 />
-            </div>
+                <FilterLabel />
+                <div class="mt-2 flex gap-2">
+                    <For each={props.tags}>
+                        {(t) => (
+                            <Tag
+                                label={t}
+                                onClick={() => {
+                                    if (tagFilter().includes(t)) {
+                                        setTagFilter(
+                                            tagFilter().filter(
+                                                (tt) => tt !== t,
+                                            ),
+                                        );
+                                    } else {
+                                        setTagFilter([...tagFilter(), t]);
+                                    }
+                                }}
+                                active={tagFilter().includes(t)}
+                            />
+                        )}
+                    </For>
+                </div>
+            </section>
             <For each={examples()}>
                 {(e) => (
                     <Link

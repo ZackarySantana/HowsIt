@@ -14,22 +14,33 @@ const ordered = learn.map((b) => ({
     },
 }));
 
+const tags = ordered
+    .map((b) => b.data.tags)
+    .flat()
+    .filter((t) => t !== undefined) as string[];
+
 export const prerender = true;
 ---
 
 <PageLayout
     title="How's It - Articles"
     desc="Understand and master the web. Or at least try :)"
+    excludeMain={true}
 >
-    <h1 class="text-3xl font-bold">Let's Learn!</h1>
-    <p>
-        These don't go in to <span class="italic">how</span> to implement things.
-        These go over the fundamentals which <span class="font-bold">all</span> web
-        development, regardless of framework or library (with only specific exceptions).
-    </p>
+    <main>
+        <h1 class="text-3xl font-bold">Let's Learn!</h1>
+        <p>
+            These don't go in to <span class="italic">how</span> to implement things.
+            These go over the fundamentals which <span class="font-bold">
+                all
+            </span> web development, regardless of framework or library (with only
+            specific exceptions).
+        </p>
+    </main>
     <Links
         client:load
         placeholder="Languages, React, etc"
+        tags={tags}
         examples={ordered
             .sort((b1, b2) => b1.data.index - b2.data.index)
             .map((b, i) => ({

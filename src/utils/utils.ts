@@ -1,14 +1,28 @@
 import fs from "fs";
 
-export const descs: {
-    [key: string]: string;
+export const examples: {
+    [key: string]: {
+        desc: string;
+        tags: string[];
+    };
+    descs;
 } = {
-    styling: "How custom styling styling can be done in every framework.",
-    counter:
-        "An interactive counter with a decrement and increment button. Note that for SSR, the counter will not be interactive.",
-    interval:
-        "A 1 second interval (timer) that updates a number by 1. Note that for SSR, the number will not update.",
-    todo: "A todo list that allows you to add and remove items. Note that for SSR, the list will not be interactive.",
+    styling: {
+        desc: "How custom styling styling can be done in every framework.",
+        tags: ["Frontend"],
+    },
+    counter: {
+        desc: "An interactive counter with a decrement and increment button. Note that for SSR, the counter will not be interactive.",
+        tags: ["Frontend"],
+    },
+    interval: {
+        desc: "A 1 second interval (timer) that updates a number by 1. Note that for SSR, the number will not update.",
+        tags: ["Frontend"],
+    },
+    todo: {
+        desc: "A todo list that allows you to add and remove items. Note that for SSR, the list will not be interactive.",
+        tags: ["Frontend"],
+    },
 };
 
 export type Framework = {
@@ -264,9 +278,23 @@ export function GetEndpointCodeAndLines(
 }
 
 export function GetAllExamples(): string[] {
-    return Object.keys(descs);
+    return Object.keys(examples);
 }
 
 export function Capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function GetAllExampleTags() {
+    const tags: string[] = [];
+
+    for (const example of Object.values(examples)) {
+        for (const tag of example.tags) {
+            if (!tags.includes(tag)) {
+                tags.push(tag);
+            }
+        }
+    }
+
+    return tags;
 }
