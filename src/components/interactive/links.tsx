@@ -191,7 +191,7 @@ function Tag(props: { label: string; onClick: () => void; active: boolean }) {
             class={`${
                 props.active
                     ? "bg-secondary-background hover:drop-shadow-[0_0_3px_rgba(0,0,0,0.8)]"
-                    : "bg-primary-background drop-shadow-[0_0_3px_rgba(0,0,0,0.8)] hover:bg-secondary-background"
+                    : "bg-primary-background drop-shadow-[0_0_3px_rgba(0,0,0,0.8)] hover:bg-thirdary-background"
             } rounded-md px-2 py-1 text-gray-100 transition-all`}
             onClick={props.onClick}
         >
