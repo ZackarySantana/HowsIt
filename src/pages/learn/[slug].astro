@@ -160,10 +160,10 @@ const toc = entry.body
             }
         </ul>
     </section>
-    <section class="mt-4">
+    <section class="mt-4 !pb-0">
         <Content />
         <GithubLink
-            class="mt-8 flex items-center gap-1 text-sm italic"
+            class="mb-6 mt-8 flex items-center gap-1 text-sm italic"
             path={`src/content/learn/${entry.id}`}
         >
             <Icon src="github" />
@@ -171,14 +171,14 @@ const toc = entry.body
         </GithubLink>
     </section>
     <section class="mt-8">
-        <div class="mt-1">
+        <div>
             <h1
                 class="text-2xl font-bold"
                 id="bottom"
             >
                 Next
             </h1>
-            <ul class="mb-4 ml-4 mt-2">
+            <ul class="ml-4 mt-2">
                 {
                     nextThreeEntries.map((e, i) => (
                         <li>
