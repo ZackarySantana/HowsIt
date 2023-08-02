@@ -1,13 +1,15 @@
 ---
+import Footer from "./Footer.astro";
 import Header from "./Header.astro";
 
 export interface Props {
     title: string;
     desc: string;
+    excludeMain?: boolean;
     mainClasses?: string;
 }
 
-const { title, desc, mainClasses } = Astro.props;
+const { title, desc, mainClasses, excludeMain } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -39,10 +41,17 @@ const { title, desc, mainClasses } = Astro.props;
         <!-- HTMX Extensions in general are not working... Idk why -->
         <!-- <script src="/htmx_extensions.js"></script> -->
     </head>
-    <body class="min-h-screen w-full bg-slate-600 px-2 py-4 sm:px-10 sm:py-8">
+    <body>
         <Header />
-        <main class={"py-4 text-white w-full " + mainClasses}>
-            <slot />
-        </main>
+
+        {excludeMain && <slot />}
+        {
+            !excludeMain && (
+                <main class={mainClasses}>
+                    <slot />
+                </main>
+            )
+        }
+        <Footer />
     </body>
 </html>

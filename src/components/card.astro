@@ -59,7 +59,7 @@ if (type === "htmx") {
 ---
 
 <details
-    class="w-full rounded-xl bg-slate-700 px-8 py-4 text-white shadow-lg"
+    class="w-full rounded-xl !py-5 px-8 text-white shadow-lg section"
     open={open}
 >
     <summary class="cursor-pointer text-3xl font-bold capitalize">
@@ -73,15 +73,15 @@ if (type === "htmx") {
         <span class="italic text-slate-400">{finalMetaTitle}</span>
     </summary>
 
-    <h1 class="mb-1 mt-4 text-xl text-white">
+    <h2 class="mb-1 mt-4 text-xl text-white">
         {
             isSSRAndClientHydrated
                 ? "SSR + Client Hydrated"
                 : "Server Side Rendered"
         }
-    </h1>
+    </h2>
     <div
-        class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-zinc-300"
+        class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300"
     >
         <slot name="ssr" />
     </div>
@@ -89,10 +89,10 @@ if (type === "htmx") {
     {
         !hideClientHydrated && !isSSRAndClientHydrated && (
             <>
-                <h1 class="mb-1 mt-4 text-xl text-white">
+                <h2 class="mb-1 mt-4 text-xl text-white">
                     SSR + Client Hydrated
-                </h1>
-                <div class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-zinc-300">
+                </h2>
+                <div class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300">
                     <slot name="ch" />
                 </div>
             </>
@@ -102,22 +102,24 @@ if (type === "htmx") {
     {
         !hideClientRendered && !isSSRAndClientHydrated && (
             <>
-                <h1 class="mb-1 mt-4 text-xl text-white">Client Rendered</h1>
-                <div class="flex w-full items-center justify-center rounded-xl bg-slate-900 px-3 py-10 text-zinc-300">
+                <h2 class="mb-1 mt-4 text-xl text-white">Client Rendered</h2>
+                <div class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300">
                     <slot name="co" />
                 </div>
             </>
         )
     }
 
-    <h1 class="mb-1 mt-4 text-xl text-white">
+    <h2 class="mb-1 mt-4 text-xl text-white">
         Code
         <span class="text-md italic">
             <GithubLink path={fullPath}>(GitHub)</GithubLink>
         </span>
-    </h1>
+    </h2>
 
-    <div class="flex rounded-xl bg-slate-800 p-4 text-sm text-slate-300">
+    <div
+        class="flex rounded-xl bg-secondary-background p-4 text-sm text-slate-300"
+    >
         <p class="select-none whitespace-pre">{lines}</p>
         <p class="overflow-x-auto">
             <Code>{code}</Code>
@@ -127,13 +129,13 @@ if (type === "htmx") {
     {
         endpoint !== undefined && (
             <>
-                <h1 class="mb-1 mt-4 text-xl text-white">
+                <h2 class="mb-1 mt-4 text-xl text-white">
                     Endpoint
                     <span class="text-md italic">
                         <GithubLink path={endpoint.path}>(GitHub)</GithubLink>
                     </span>
-                </h1>
-                <div class="flex rounded-xl bg-slate-800 p-4 text-sm text-slate-300">
+                </h2>
+                <div class="flex rounded-xl bg-secondary-background p-4 text-sm text-slate-300">
                     <p class="select-none whitespace-pre">{endpoint.lines}</p>
                     <p class="overflow-x-auto">
                         <Code>{endpoint.code}</Code>
@@ -146,7 +148,7 @@ if (type === "htmx") {
     {
         exampleInfo && exampleInfo.length > 0 && (
             <>
-                <h1 class="mb-1 mt-4 text-xl text-white">Example Notes</h1>
+                <h2 class="mb-1 mt-4 text-xl text-white">Example Notes</h2>
                 <ul class="ml-4 list-decimal">
                     {exampleInfo.map((item: string, i: number) => (
                         <li class="ml-5 text-zinc-300">
@@ -170,9 +172,9 @@ if (type === "htmx") {
     {
         typeInfo && typeInfo.length > 0 && (
             <>
-                <h1 class="mb-1 mt-4 text-xl text-white">
+                <h2 class="mb-1 mt-4 text-xl text-white">
                     <span class="capitalize">{type}</span> Notes
-                </h1>
+                </h2>
                 <ul class="ml-4 list-decimal">
                     {typeInfo.map((item: string, i: number) => (
                         <li class="ml-5 text-zinc-300">

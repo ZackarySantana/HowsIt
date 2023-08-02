@@ -1,0 +1,54 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+
+const { href, class: className, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+const isActive =
+    (href != "/" &&
+        pathname
+            .toLowerCase()
+            .startsWith(href?.toString().toLowerCase() ?? "")) ||
+    (href == "/" && pathname.toLowerCase() == href.toLowerCase());
+const isInternal =
+    href?.toString().startsWith("/") || href?.toString().startsWith("#");
+---
+
+<>
+    {
+        isInternal && (
+            <a
+                href={href?.toString().toLowerCase()}
+                class:list={[
+                    "transition-colors",
+                    "hover:text-blue-600",
+                    className,
+                    { active: isActive },
+                ]}
+                {...props}
+            >
+                <slot />
+            </a>
+        )
+    }
+    {
+        !isInternal && (
+            <a
+                href={href?.toString().toLowerCase()}
+                class:list={[
+                    "transition-colors",
+                    "hover:text-blue-600",
+                    className,
+                    { active: isActive },
+                ]}
+                target="_blank"
+                rel="noopener noreferrer"
+                {...props}
+            >
+                <slot />
+            </a>
+        )
+    }
+</>

@@ -10,8 +10,13 @@ const desc = Astro.locals.desc;
 <Layout
     title={"Example - " + Capitalize(example)}
     desc={desc}
-    mainClasses="flex flex-col gap-4"
+    excludeMain={true}
 >
-    <slot />
+    <main>
+        <slot name="header" />
+    </main>
+    <div class="mt-4 flex w-full flex-col items-center justify-center gap-4">
+        <slot />
+    </div>
     <NetworkRequests client:load />
 </Layout>

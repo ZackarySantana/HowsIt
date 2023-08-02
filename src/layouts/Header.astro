@@ -1,11 +1,33 @@
 ---
-import NavbarDesktop from "./NavbarDesktop.astro";
-import NavbarMobile from "./NavbarMobile.astro";
+import Icon from "@components/icon.astro";
+import HeaderLink from "./HeaderLink.astro";
+
+const navbar = ["Learn", "Examples"];
 ---
 
-<header class="mb-6">
-    <nav>
-        <NavbarDesktop />
-        <NavbarMobile />
+<header class="my-5 flex w-full flex-col items-center bg-primary-background">
+    <h1 class="font-bold">How's It</h1>
+    <nav class="flex w-main justify-between lg:w-semimain">
+        <HeaderLink href="/">Home</HeaderLink>
+        {
+            navbar.map((name) => (
+                <HeaderLink href={`/${name}`}>{name}</HeaderLink>
+            ))
+        }
+        <HeaderLink
+            target="_blank"
+            href="https://github.com/ZackarySantana/howsit/"
+        >
+            <Icon
+                src="github"
+                class="h-5 w-5"
+            />
+        </HeaderLink>
     </nav>
 </header>
+<style>
+    header {
+        padding-block: theme(spacing.4);
+        padding-inline: theme(spacing.2);
+    }
+</style>

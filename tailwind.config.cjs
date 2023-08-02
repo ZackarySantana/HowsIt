@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 /** @type {import('tailwindcss').Config} */
 
 import plugin from "tailwindcss/plugin";
@@ -7,11 +8,22 @@ module.exports = {
     theme: {
         extend: {
             colors: {
+                "primary-background": "#313131",
+                "secondary-background": "#1e1e1e",
+                "primary-text": "#ffffde",
+                "secondary-text": "#e0e0e0",
+                "link-text": "#ff8f00",
+                "link-visited": "#8e32dc",
+                "metadata-text": "#8a8a8a",
                 html: "#f16524",
                 css: "#2965f1",
                 js: "#f0db4f",
                 ts: "#007acc",
                 jsdoc: "#006cb7",
+            },
+            width: {
+                main: "90%",
+                semimain: "60%",
             },
             animation: {
                 disappear: "disappear 1s forwards",
@@ -131,6 +143,76 @@ module.exports = {
                     transition: "color 0.15s ease",
                     "&:hover": {
                         color: theme("colors.blue.600"),
+                    },
+                },
+            });
+        }),
+        plugin(function classes({ addUtilities, theme }) {
+            const flexAlignCenter = {
+                display: "flex",
+                "flex-direction": "column",
+                "align-items": "center",
+                "justify-content": "center",
+            };
+            addUtilities({
+                ":not(.learn-post)": {
+                    body: {
+                        color: theme("colors.primary-text"),
+                        "background-color": theme(
+                            "colors.secondary-background",
+                        ),
+                        "max-width": "100vw",
+                        ...flexAlignCenter,
+                    },
+                    "h1, h2, h3": {
+                        color: theme("colors.secondary-text"),
+                    },
+                    h1: {
+                        "font-size": "2rem",
+                    },
+                    h2: {
+                        "font-size": "1.5rem",
+                    },
+                    h3: {
+                        "font-size": "1.25rem",
+                    },
+                    hr: {
+                        "border-top": `1px solid ${theme(
+                            "colors.secondary-text",
+                        )} `,
+                        "margin-block": theme("spacing.3"),
+                    },
+                    a: {
+                        color: theme("colors.link-text"),
+                    },
+                    "a.active": {
+                        color: theme("colors.primary-text"),
+                        "font-weight": "bold",
+                        "text-decoration": "underline",
+                    },
+                    "a.has-visited:visited": {
+                        color: theme("colors.link-visited"),
+                        "font-style": "italic",
+                    },
+                    "main, section, .section": {
+                        "background-color": theme("colors.primary-background"),
+                        "padding-block": theme("spacing.10"),
+                        "padding-inline": theme("spacing.5"),
+                        "border-radius": theme("borderRadius.2xl"),
+                        "max-width": theme("width.main"),
+                        width: theme("width.main"),
+                        "@media (min-width: 1024px)": {
+                            "padding-inline": theme("spacing.10"),
+                            "max-width": theme("width.semimain"),
+                            width: theme("width.semimain"),
+                        },
+                    },
+                    time: {
+                        color: theme("colors.metadata-text"),
+                        "font-style": "italic",
+                    },
+                    "article h1:first-child": {
+                        "margin-block": theme("spacing.2"),
                     },
                 },
             });
