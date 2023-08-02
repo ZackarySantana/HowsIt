@@ -243,7 +243,7 @@ pub async fn post(_req: HttpRequest, info: web::Form<TodoAddForm>) -> HttpRespon
 
     return HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
-        .body(todo_item(text, completed, completed_amount));
+        .body(todo_item(text, false, completed_amount));
 }
 
 #[delete("htmx/rust/todo")]

@@ -29,12 +29,12 @@ func Get(c *gin.Context) {
 }
 
 func Post(c *gin.Context) {
-	counter := intervalForm{}
-	if err := c.Bind(&counter); err != nil {
+	interval := intervalForm{}
+	if err := c.Bind(&interval); err != nil {
 		return
 	}
 
-	e := element(counter.Index + 1)
+	e := element(interval.Index + 1)
 
 	c.Data(http.StatusOK, "text/html; charset=utf-8", []byte(e))
 }
