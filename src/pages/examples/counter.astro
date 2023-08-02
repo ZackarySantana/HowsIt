@@ -26,11 +26,12 @@ export const prerender = true;
 ---
 
 <ExampleLayout>
-    <h1 class="text-3xl font-bold capitalize">
-        {example} Example
-    </h1>
-    <p>{desc}</p>
-    <hr class="w-full border-t-2 border-solid border-white" />
+    <div slot="header">
+        <h1 class="text-3xl font-bold capitalize">
+            {example} Example
+        </h1>
+        <p>{desc}</p>
+    </div>
     <SSRClientCard type="vanilla">
         <Vanilla />
     </SSRClientCard>
