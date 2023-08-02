@@ -41,7 +41,7 @@ const { title, desc, mainClasses, excludeMain } = Astro.props;
         <!-- HTMX Extensions in general are not working... Idk why -->
         <!-- <script src="/htmx_extensions.js"></script> -->
     </head>
-    <body>
+    <body id="top">
         <Header />
 
         {excludeMain && <slot />}

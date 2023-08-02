@@ -189,7 +189,7 @@ export default function Links(props: {
                     id="search"
                     type="text"
                     placeholder={props.placeholder}
-                    class="mt-2 block w-full rounded-md border border-slate-950 bg-slate-800 px-4 py-2 text-gray-100 outline-none focus:border-slate-400 sm:w-[50%]"
+                    class="mt-2 block w-full rounded-md border border-slate-950 bg-secondary-background px-4 py-2 text-gray-100 outline-none focus:border-slate-400 sm:w-[50%]"
                     onInput={(e) =>
                         setFilter(e.currentTarget.value.toLowerCase())
                     }

@@ -4,6 +4,22 @@ import { createSignal, onMount } from "solid-js";
 import Tags from "./tags";
 import Link from "./link";
 
+function useRead(href: string) {
+    const [read, setRead] = createSignal(
+        typeof localstorage !== "undefined"
+            ? localStorage.getItem(href)
+            : false,
+    );
+
+    onMount(() => {
+        if (localStorage.getItem(href)) {
+            setRead(true);
+        }
+    });
+
+    return [read, setRead];
+}
+
 export default function SlugHeader(props: {
     label: string;
     author: string;
@@ -11,17 +27,7 @@ export default function SlugHeader(props: {
     href: string;
     tags?: { label: string; color?: string }[];
 }) {
-    const [read, setRead] = createSignal(
-        typeof localstorage !== "undefined"
-            ? localStorage.getItem(props.href)
-            : false,
-    );
-
-    onMount(() => {
-        if (localStorage.getItem(props.href)) {
-            setRead(true);
-        }
-    });
+    const [read, setRead] = useRead(props.href);
 
     return (
         <div class={`my-4 transition-all ${read() ? "read-post" : ""}`}>

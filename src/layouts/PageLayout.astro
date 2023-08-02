@@ -4,14 +4,16 @@ import Layout from "./Layout.astro";
 export interface Props {
     title: string;
     desc: string;
+    excludeMain?: boolean;
 }
 
-const { title, desc } = Astro.props;
+const { title, desc, excludeMain } = Astro.props;
 ---
 
 <Layout
     title={title}
     desc={desc}
+    excludeMain={excludeMain}
 >
     <slot />
 </Layout>

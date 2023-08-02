@@ -9,6 +9,7 @@ export interface Props {
 }
 import GithubLink from "@components/github_link.astro";
 import Icon from "@components/icon.astro";
+import Goto from "@components/interactive/goto";
 import SlugHeader from "@components/interactive/slug_header";
 import Link from "@components/link.astro";
 import PageLayout from "@layouts/PageLayout.astro";
@@ -102,28 +103,32 @@ const toc = entry.body
 <PageLayout
     title={entry.data.title}
     desc={entry.data.description}
+    excludeMain={true}
 >
-    {
-        previousEntry && (
-            <span class="italic text-gray-400">
-                Go back to {previousEntry.data.index + 1}.{" "}
-                <Link href={`/learn/${previousEntry.slug}`}>
-                    {previousEntry.data.title}
-                </Link>
-            </span>
-        )
-    }
-    <SlugHeader
-        client:load
-        label={`${entry.data.index + 1}. ${entry.data.title}`}
-        author={author.data.name}
-        href={"/learn/" + entry.slug}
-        authorHref={author.data.portfolio}
-        tags={entry.data.tags?.map((t) => ({
-            label: t,
-        }))}
-    />
-    <div class="mt-4 learn-post">
+    <Goto client:load />
+    <main class="!pb-4">
+        {
+            previousEntry && (
+                <span class="italic text-gray-400">
+                    Go back to {previousEntry.data.index + 1}.{" "}
+                    <Link href={`/learn/${previousEntry.slug}`}>
+                        {previousEntry.data.title}
+                    </Link>
+                </span>
+            )
+        }
+        <SlugHeader
+            client:load
+            label={`${entry.data.index + 1}. ${entry.data.title}`}
+            author={author.data.name}
+            href={"/learn/" + entry.slug}
+            authorHref={author.data.portfolio}
+            tags={entry.data.tags?.map((t) => ({
+                label: t,
+            }))}
+        />
+    </main>
+    <section class="mt-4 !py-4 learn-post">
         <h1 class="learn post">Table of contents</h1>
         <ul class="mb-4">
             {
@@ -154,28 +159,37 @@ const toc = entry.body
                 ))
             }
         </ul>
+    </section>
+    <section class="mt-4">
         <Content />
-    </div>
-    <div class="mt-8">
         <GithubLink
-            class="flex items-center gap-1 text-sm italic"
+            class="mt-8 flex items-center gap-1 text-sm italic"
             path={`src/content/learn/${entry.id}`}
         >
             <Icon src="github" />
             Edit me on GitHub
         </GithubLink>
-    </div>
-    <div class="mt-1">
-        <h2 class="text-2xl font-bold">Next</h2>
-        <ul class="mt-2">
-            {
-                nextThreeEntries.map((e, i) => (
-                    <li class="mt-2">
-                        <span class="text-gray-400">{e.data.index + 1}.</span>
-                        <Link href={`/learn/${e.slug}`}>{e.data.title}</Link>
-                    </li>
-                ))
-            }
-        </ul>
-    </div>
+    </section>
+    <section class="mt-8">
+        <div class="mt-1">
+            <h1
+                class="text-2xl font-bold"
+                id="bottom"
+            >
+                Next
+            </h1>
+            <ul class="mb-4 ml-4 mt-2">
+                {
+                    nextThreeEntries.map((e, i) => (
+                        <li>
+                            <span class="select-none">{e.data.index + 1}.</span>
+                            <Link href={`/learn/${e.slug}`}>
+                                {e.data.title}
+                            </Link>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+    </section>
 </PageLayout>
