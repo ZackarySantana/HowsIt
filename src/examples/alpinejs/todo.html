@@ -1,0 +1,57 @@
+<div
+    x-data="{
+        todos: [],
+        completedAmount() {
+            return this.todos.filter(todo => todo.completed).length;
+        },
+        addTodo(text, completed) {
+            this.todos.push({
+                text: text,
+                completed: completed,
+            });
+        },
+        remove(index) {
+            this.todos.splice(index, 1);
+        },
+        toggle(index) {
+            this.todos[index].completed = !this.todos[index].completed;
+        },
+        clear() {
+            this.todos = [];
+        },
+        init() {
+            this.addTodo('Learn web dev\', true);
+            this.addTodo('Learn Alpine.js\', false);
+        },
+        inputEvent(event) {
+            if (event.key !== 'Enter') {
+                return;
+            }
+
+            this.addTodo(event.target.value, false);
+            event.target.value = '';
+        }
+    }"
+    class="todo-container"
+>
+    <p x-text="'Completed: ' + completedAmount()"></p>
+    <div class="todo-header">
+        <input
+            type="text"
+            @keyup="inputEvent"
+        />
+        <button @click="clear">Clear</button>
+    </div>
+    <ul class="todo-parent">
+        <template x-for="(todo, index) in todos">
+            <li class="todo-item">
+                <span
+                    x-text="todo.text"
+                    :class="{ 'todo-completed': todo.completed }"
+                ></span>
+                <button @click="toggle(index)">Toggle</button>
+                <button @click="remove(index)">Delete</button>
+            </li>
+        </template>
+    </ul>
+</div>
