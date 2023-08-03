@@ -17,73 +17,79 @@
 </div>
 
 <script>
-    const todoParent = document.querySelector("#vanilla-todo-parent");
-    const todoCompleted = document.querySelector("#vanilla-todo-completed");
+    function Vanilla_todo() {
+        const todoParent = document.querySelector("#vanilla-todo-parent");
+        const todoCompleted = document.querySelector("#vanilla-todo-completed");
 
-    let completedAmount = 0;
+        let completedAmount = 0;
 
-    function CompletedChanged(hasNewCompleted) {
-        if (hasNewCompleted) {
-            completedAmount++;
-        } else {
-            completedAmount--;
-        }
-        todoCompleted.innerHTML = `Completed: ${completedAmount}`;
-    }
-
-    function AddTodo(text, completed) {
-        const todoItem = document.createElement("li");
-        todoItem.classList.add("todo-item");
-
-        const textElement = document.createElement("span");
-        if (completed) {
-            textElement.classList.add("todo-completed");
-            CompletedChanged(true);
-        }
-        textElement.innerHTML = text;
-
-        const toggleButton = document.createElement("button");
-        toggleButton.innerHTML = "Toggle";
-        toggleButton.addEventListener("click", () => {
-            textElement.classList.toggle("todo-completed");
-            CompletedChanged(textElement.classList.contains("todo-completed"));
-        });
-
-        const deleteButton = document.createElement("button");
-        deleteButton.innerHTML = "Delete";
-        deleteButton.addEventListener("click", () => {
-            todoItem.remove();
-            if (textElement.classList.contains("todo-completed")) {
-                CompletedChanged(false);
+        function CompletedChanged(hasNewCompleted) {
+            if (hasNewCompleted) {
+                completedAmount++;
+            } else {
+                completedAmount--;
             }
-        });
-
-        todoItem.appendChild(textElement);
-        todoItem.appendChild(toggleButton);
-        todoItem.appendChild(deleteButton);
-
-        todoParent.appendChild(todoItem);
-    }
-
-    const clearButton = document.querySelector("#vanilla-todo-clear");
-
-    clearButton.addEventListener("click", () => {
-        todoParent.innerHTML = "";
-        completedAmount = 0;
-        todoCompleted.innerHTML = `Completed: ${completedAmount}`;
-    });
-
-    const input = document.querySelector("#vanilla-todo-input");
-
-    input.addEventListener("keyup", (e) => {
-        if (e.key !== "Enter") {
-            return;
+            todoCompleted.innerHTML = `Completed: ${completedAmount}`;
         }
 
-        AddTodo(input.value, false);
-        input.value = "";
-    });
+        function AddTodo(text, completed) {
+            const todoItem = document.createElement("li");
+            todoItem.classList.add("todo-item");
 
-    AddTodo("Learn web dev", true);
-    AddTodo("learn Vanilla JS", false);
+            const textElement = document.createElement("span");
+            if (completed) {
+                textElement.classList.add("todo-completed");
+                CompletedChanged(true);
+            }
+            textElement.innerHTML = text;
+
+            const toggleButton = document.createElement("button");
+            toggleButton.innerHTML = "Toggle";
+            toggleButton.addEventListener("click", () => {
+                textElement.classList.toggle("todo-completed");
+                CompletedChanged(
+                    textElement.classList.contains("todo-completed"),
+                );
+            });
+
+            const deleteButton = document.createElement("button");
+            deleteButton.innerHTML = "Delete";
+            deleteButton.addEventListener("click", () => {
+                todoItem.remove();
+                if (textElement.classList.contains("todo-completed")) {
+                    CompletedChanged(false);
+                }
+            });
+
+            todoItem.appendChild(textElement);
+            todoItem.appendChild(toggleButton);
+            todoItem.appendChild(deleteButton);
+
+            todoParent.appendChild(todoItem);
+        }
+
+        const clearButton = document.querySelector("#vanilla-todo-clear");
+
+        clearButton.addEventListener("click", () => {
+            todoParent.innerHTML = "";
+            completedAmount = 0;
+            todoCompleted.innerHTML = `Completed: ${completedAmount}`;
+        });
+
+        const input = document.querySelector("#vanilla-todo-input");
+
+        input.addEventListener("keyup", (e) => {
+            if (e.key !== "Enter") {
+                return;
+            }
+
+            AddTodo(input.value, false);
+            input.value = "";
+        });
+
+        AddTodo("Learn web dev", true);
+        AddTodo("learn Vanilla JS", false);
+    }
+
+    Vanilla_todo();
 </script>
