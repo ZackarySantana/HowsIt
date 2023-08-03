@@ -1,37 +1,43 @@
-<div
-    x-data="{
-        todos: [],
-        completedAmount() {
-            return this.todos.filter(todo => todo.completed).length;
-        },
-        addTodo(text, completed) {
-            this.todos.push({
-                text: text,
-                completed: completed,
-            });
-        },
-        remove(index) {
-            this.todos.splice(index, 1);
-        },
-        toggle(index) {
-            this.todos[index].completed = !this.todos[index].completed;
-        },
-        clear() {
-            this.todos = [];
-        },
-        init() {
-            this.addTodo('Learn web dev\', true);
-            this.addTodo('Learn Alpine.js\', false);
-        },
-        inputEvent(event) {
-            if (event.key !== 'Enter') {
-                return;
-            }
+<script>
+    function Alpinejs_todo() {
+        return {
+            todos: [],
+            completedAmount() {
+                return this.todos.filter((todo) => todo.completed).length;
+            },
+            addTodo: function (text, completed) {
+                this.todos.push({
+                    text: text,
+                    completed: completed,
+                });
+            },
+            remove: function (index) {
+                this.todos.splice(index, 1);
+            },
+            toggle: function (index) {
+                this.todos[index].completed = !this.todos[index].completed;
+            },
+            clear: function () {
+                this.todos = [];
+            },
+            init: function () {
+                this.addTodo("Learn web dev", true);
+                this.addTodo("Learn Alpine.js", false);
+            },
+            inputEvent: function (event) {
+                if (event.key !== "Enter") {
+                    return;
+                }
 
-            this.addTodo(event.target.value, false);
-            event.target.value = '';
-        }
-    }"
+                this.addTodo(event.target.value, false);
+                event.target.value = "";
+            },
+        };
+    }
+</script>
+
+<div
+    x-data="Alpinejs_todo()"
     class="todo-container"
 >
     <p x-text="'Completed: ' + completedAmount()"></p>
