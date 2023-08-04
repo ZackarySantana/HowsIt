@@ -81,7 +81,7 @@ if (type === "htmx") {
         }
     </h2>
     <div
-        class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300"
+        class="example flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300"
     >
         <slot name="ssr" />
     </div>
@@ -92,7 +92,7 @@ if (type === "htmx") {
                 <h2 class="mb-1 mt-4 text-xl text-white">
                     SSR + Client Hydrated
                 </h2>
-                <div class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300">
+                <div class="example flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300">
                     <slot name="ch" />
                 </div>
             </>
@@ -103,7 +103,7 @@ if (type === "htmx") {
         !hideClientRendered && !isSSRAndClientHydrated && (
             <>
                 <h2 class="mb-1 mt-4 text-xl text-white">Client Rendered</h2>
-                <div class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300">
+                <div class="example flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300">
                     <slot name="co" />
                 </div>
             </>
