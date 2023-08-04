@@ -4,18 +4,18 @@ import SSRClientCard from "@components/ssr_client_card.astro";
 import ExampleLayout from "@layouts/ExampleLayout.astro";
 
 import Alpine from "@examples/alpinejs/todo.html";
-import PreactHooks from "@examples/preact/todo_hooks";
-import PreactSignals from "@examples/preact/todo_signals";
+import PreactHooks from "@examples/preact/fetch_hooks";
+import PreactSignals from "@examples/preact/fetch_signals";
 import HTMXGo from "@htmx/todo_go.html";
 import HTMXRust from "@htmx/todo_rust.html";
 import HTMXTypeScript from "@htmx/todo_typescript.html";
 import Lit from "@lit/interval";
-import React from "@react/todo";
-import Solid from "@solid/todo";
-import Svelte from "@svelte/todo.svelte";
+import React from "@react/fetch";
+import Solid from "@solid/fetch";
+import Svelte from "@svelte/fetch.svelte";
 import { examples } from "@utils";
-import Vanilla from "@vanilla/todo.html";
-import Vue from "@vue/todo.vue";
+import Vanilla from "@vanilla/fetch.html";
+import Vue from "@vue/fetch.vue";
 
 const example = "fetch";
 const desc = examples[example].desc;

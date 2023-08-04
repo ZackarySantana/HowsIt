@@ -1,0 +1,28 @@
+<div class="fetch">
+    <button id="vanilla-fetch-button">New quote</button>
+    <div id="vanilla-fetch"></div>
+</div>
+
+<script>
+    async function Vanilla_fetch() {
+        async function getData() {
+            return fetch("/api/fetch").then((response) => response.json());
+        }
+
+        const data = await getData();
+        const parent = document.querySelector("#vanilla-fetch");
+
+        function render() {
+            const r = Math.random() * data.length;
+            parent.innerHTML = data[Math.floor(r)];
+        }
+
+        render();
+
+        document
+            .querySelector("#vanilla-fetch-button")
+            .addEventListener("click", render);
+    }
+
+    Vanilla_fetch();
+</script>
