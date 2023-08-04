@@ -73,11 +73,15 @@ const container = (initial?: boolean) => `
     <ul
         class="todo-parent"
         id="htmx-todo-parent-typescript"
-    >${initial ? `
+    >${
+        initial
+            ? `
         ${todoitem("Learn web dev", true)}
         ${todoitem("Learn TypeScript", false)}
-    ` : ""}</ul>
-`
+    `
+            : ""
+    }</ul>
+`;
 
 function parseNumber(value: string | undefined): number {
     const i = Number(value);
