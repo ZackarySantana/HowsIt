@@ -89,7 +89,7 @@ module.exports = {
                 },
             });
         }),
-        plugin(function classes({ addUtilities }) {
+        plugin(function classes({ addUtilities, theme }) {
             addUtilities({
                 ".read-post": {
                     opacity: "0.5",
@@ -97,6 +97,26 @@ module.exports = {
                 ".read-post .title": {
                     "text-decoration": "line-through",
                     "font-style": "italic",
+                },
+                ".example button": {
+                    "background-color": theme("colors.gray.400"),
+                    color: theme("colors.gray.900"),
+                    "padding-inline": theme("spacing.1"),
+                    "border-radius": theme("borderRadius.sm"),
+                    "&:hover": {
+                        "background-color": theme("colors.gray.300"),
+                    },
+                    "&:active": {
+                        "background-color": theme("colors.gray.400"),
+                        "box-shadow":
+                            "inset 0 0 3px 2px " + theme("colors.gray.500"),
+                    },
+                },
+                ".fetch": {
+                    display: "flex",
+                    "flex-direction": "column",
+                    width: "100%",
+                    gap: theme("spacing.2"),
                 },
             });
         }),
