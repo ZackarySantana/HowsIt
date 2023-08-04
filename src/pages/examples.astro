@@ -33,7 +33,7 @@ export const prerender = true;
     <Links
         client:load
         placeholder="Fetch, etc"
-        tags={GetAllExampleTags()}
+        tags={GetAllExampleTags().sort((a, b) => a.localeCompare(b))}
         examples={e.map((e, i) => ({
             label: `${i + 1}. ${
                 examples[e].name ? examples[e].name : Capitalize(e)

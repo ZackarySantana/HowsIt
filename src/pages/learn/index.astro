@@ -40,7 +40,7 @@ export const prerender = true;
     <Links
         client:load
         placeholder="Languages, React, etc"
-        tags={tags}
+        tags={tags.sort((a, b) => a.localeCompare(b))}
         examples={ordered
             .sort((b1, b2) => b1.data.index - b2.data.index)
             .map((b, i) => ({
