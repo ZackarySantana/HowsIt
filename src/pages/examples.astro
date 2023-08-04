@@ -35,9 +35,11 @@ export const prerender = true;
         placeholder="Fetch, etc"
         tags={GetAllExampleTags()}
         examples={e.map((e, i) => ({
-            label: `${i + 1}. ${Capitalize(e)}`,
+            label: `${i + 1}. ${
+                examples[e].name ? examples[e].name : Capitalize(e)
+            }`,
             href: `/examples/${e}`,
-            desc: examples[e].desc,
+            desc: examples[e].shortDesc,
             tags: examples[e].tags,
         }))}
     />

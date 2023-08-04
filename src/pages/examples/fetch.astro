@@ -1,0 +1,145 @@
+---
+import Card from "@components/card.astro";
+import SSRClientCard from "@components/ssr_client_card.astro";
+import ExampleLayout from "@layouts/ExampleLayout.astro";
+
+import Alpine from "@examples/alpinejs/todo.html";
+import PreactHooks from "@examples/preact/todo_hooks";
+import PreactSignals from "@examples/preact/todo_signals";
+import HTMXGo from "@htmx/todo_go.html";
+import HTMXRust from "@htmx/todo_rust.html";
+import HTMXTypeScript from "@htmx/todo_typescript.html";
+import Lit from "@lit/interval";
+import React from "@react/todo";
+import Solid from "@solid/todo";
+import Svelte from "@svelte/todo.svelte";
+import { examples } from "@utils";
+import Vanilla from "@vanilla/todo.html";
+import Vue from "@vue/todo.vue";
+
+const example = "fetch";
+const desc = examples[example].desc;
+Astro.locals.example = example;
+Astro.locals.desc = desc;
+
+export const prerender = true;
+---
+
+<ExampleLayout>
+    <div slot="header">
+        <h1 class="text-3xl font-bold capitalize">
+            {example} Example
+        </h1>
+        <p>{desc}</p>
+    </div>
+    <SSRClientCard type="vanilla">
+        <Vanilla />
+    </SSRClientCard>
+    <Card type="react">
+        <React slot="ssr" />
+        <React
+            slot="ch"
+            client:load
+        />
+        <React
+            slot="co"
+            client:only="react"
+        />
+    </Card>
+    <Card type="solid">
+        <Solid slot="ssr" />
+        <Solid
+            slot="ch"
+            client:load
+        />
+        <Solid
+            slot="co"
+            client:only="solid"
+        />
+    </Card>
+    <Card
+        type="preact"
+        metaTitle="(Hooks)"
+    >
+        <PreactHooks slot="ssr" />
+        <PreactHooks
+            slot="ch"
+            client:load
+        />
+        <PreactHooks
+            slot="co"
+            client:only="preact"
+        />
+    </Card>
+    <Card
+        type="preact"
+        metaTitle="(Signals)"
+    >
+        <PreactSignals slot="ssr" />
+        <PreactSignals
+            slot="ch"
+            client:load
+        />
+        <PreactSignals
+            slot="co"
+            client:only="preact"
+        />
+    </Card>
+    <Card type="svelte">
+        <Svelte slot="ssr" />
+        <Svelte
+            slot="ch"
+            client:load
+        />
+        <Svelte
+            slot="co"
+            client:only="svelte"
+        />
+    </Card>
+    <Card type="vue">
+        <Vue slot="ssr" />
+        <Vue
+            slot="ch"
+            client:load
+        />
+        <Vue
+            slot="co"
+            client:only="vue"
+        />
+    </Card>
+    <SSRClientCard
+        type="htmx"
+        lang="typescript"
+    >
+        <HTMXTypeScript />
+    </SSRClientCard>
+    <SSRClientCard
+        type="htmx"
+        lang="rust"
+    >
+        <HTMXRust />
+    </SSRClientCard>
+    <SSRClientCard
+        type="htmx"
+        lang="go"
+    >
+        <HTMXGo />
+    </SSRClientCard>
+    <SSRClientCard type="alpinejs">
+        <Alpine />
+    </SSRClientCard>
+    <Card
+        type="lit"
+        metaTitle="(Broken)"
+    >
+        <Lit slot="ssr" />
+        <Lit
+            slot="ch"
+            client:load
+        />
+        <Lit
+            slot="co"
+            client:only="lit"
+        />
+    </Card>
+</ExampleLayout>
