@@ -1,11 +1,14 @@
 use actix_web::{middleware, App, HttpServer};
+use dotenv::dotenv;
 use log::info;
 mod counter;
+mod fetch;
 mod interval;
 mod todo;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv().ok();
     env_logger::init_from_env(env_logger::Env::default().default_filter_or("info"));
 
     info!("starting http server at http://[::]:3001");
@@ -22,6 +25,7 @@ async fn main() -> std::io::Result<()> {
             .service(todo::get)
             .service(todo::post)
             .service(todo::delete)
+            .service(fetch::get)
     })
     .bind(addr)?
     .run()

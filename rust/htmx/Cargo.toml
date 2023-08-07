@@ -8,9 +8,12 @@ edition = "2021"
 [dependencies]
 actix-web = "4.3.1"
 axum = "0.6.19"
+dotenv = "0.15.0"
 env_logger = "0.10.0"
 leptos = "0.4.5"
 log = "0.4.19"
 qstring = "0.7.2"
+rand = "0.8.5"
+reqwest = "0.11.18"
 serde = "1.0.173"
 tokio = { version = "1.29.1", features = ["full"] }
