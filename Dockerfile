@@ -70,7 +70,7 @@ COPY --from=rust-build /app/htmx/target/release/htmx /app/rust_htmx
 # Copy the go binary(s)
 COPY --from=go-build /app/htmx/htmx /app/go_htmx
 
-RUN apt-get -y update && apt-get -y install nginx
+RUN apt-get -y update && apt-get -y install nginx curl
 COPY nginx.conf /app/nginx.conf
 
 CMD ["npm", "run", "localdeploy"]
