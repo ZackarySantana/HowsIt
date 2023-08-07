@@ -1,0 +1,11 @@
+<div class="fetch">
+    <button
+        hx-get="/htmx/rust/fetch"
+        hx-target="#htmx-fetch-rust"
+        hx-trigger="click, load"
+        hx-swap="innerHTML"
+    >
+        New quote
+    </button>
+    <div id="htmx-fetch-rust"></div>
+</div>
