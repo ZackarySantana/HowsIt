@@ -21,7 +21,6 @@ pub async fn get(_: HttpRequest) -> HttpResponse {
         .trim_end_matches(']')
         .split("\",\"")
         .map(|s| s.to_string())
-        .map(|s| s.trim_start_matches('"').trim_end_matches('"').to_string())
         .collect::<Vec<String>>();
     let item = items.choose(&mut rand::thread_rng()).unwrap().to_string();
     return HttpResponse::Ok()

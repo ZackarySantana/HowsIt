@@ -1,0 +1,11 @@
+<div class="fetch">
+    <button
+        hx-get="/htmx/go/fetch"
+        hx-target="#htmx-fetch-go"
+        hx-trigger="click, load"
+        hx-swap="innerHTML"
+    >
+        New quote
+    </button>
+    <div id="htmx-fetch-go"></div>
+</div>
