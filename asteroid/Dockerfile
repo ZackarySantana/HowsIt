@@ -17,8 +17,6 @@ COPY astro.config.mjs svelte.config.js tailwind.config.cjs tsconfig.json ./
 COPY plugins plugins
 COPY public public
 COPY src src
-COPY rust/htmx rust/htmx
-COPY go/htmx go/htmx
 RUN npm run build
 
 RUN sed -i "s|parsePathname(pathname, host, port);|pathname;|g" /app/dist/server/entry.mjs 
@@ -39,38 +37,4 @@ RUN apt-get upgrade
 COPY --from=build /app/dist /app/dist
 COPY --from=build /app/public /app/public
 
-# Build rust binary(s)
-FROM rust as rust-build
-
-RUN mkdir /app
-WORKDIR /app
-
-COPY rust/htmx htmx
-
-WORKDIR /app/htmx
-RUN cargo build --release
-
-# Build go binary(s)
-FROM golang:1.18 as go-build
-
-RUN mkdir /app
-WORKDIR /app
-
-COPY go/htmx htmx
-
-WORKDIR /app/htmx
-RUN go build -o htmx
-
-# Final image
-FROM astro-build
-
-# Copy the rust binary(s)
-COPY --from=rust-build /app/htmx/target/release/htmx /app/rust_htmx 
-
-# Copy the go binary(s)
-COPY --from=go-build /app/htmx/htmx /app/go_htmx
-
-RUN apt-get -y update && apt-get -y install nginx curl
-COPY nginx.conf /app/nginx.conf
-
-CMD ["npm", "run", "localdeploy"]
+CMD ["npm", "run", "deploy"]

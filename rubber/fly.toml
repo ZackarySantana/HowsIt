@@ -1,0 +1,23 @@
+# fly.toml app configuration file generated for rubber on 2023-08-10T00:48:04+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "rubber"
+primary_region = "mia"
+
+[build]
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 3001
+  processes = ["app"]
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "1s"

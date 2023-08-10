@@ -1,13 +1,12 @@
-name: Fly deploy 
+name: Fly deploy
 on:
     push:
         branches:
-            - main
+            - main-cancel
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
     cancel-in-progress: true
-
 
 jobs:
     deploy_to_production:

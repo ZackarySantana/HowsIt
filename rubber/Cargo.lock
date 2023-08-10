@@ -994,24 +994,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "htmx"
-version = "0.1.0"
-dependencies = [
- "actix-web",
- "axum",
- "dotenv",
- "env_logger",
- "leptos",
- "log",
- "qstring",
- "rand",
- "reqwest",
- "serde",
- "serde_json",
- "tokio",
-]
-
-[[package]]
 name = "http"
 version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1933,6 +1915,24 @@ dependencies = [
  "syn 2.0.26",
  "syn_derive",
  "thiserror",
+]
+
+[[package]]
+name = "rubber"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "axum",
+ "dotenv",
+ "env_logger",
+ "leptos",
+ "log",
+ "qstring",
+ "rand",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tokio",
 ]
 
 [[package]]

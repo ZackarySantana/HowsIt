@@ -1,17 +1,15 @@
 # Deployment files
+
 fly.toml
 Dockerfile
 .dockerignore
 
 # Local development files
-node_modules
-dist
+
 target
-.astro
-.vscode
 
 # Misc
-.vscode
-.git
+
+.env
 .gitignore
 README.md

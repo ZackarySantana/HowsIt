@@ -7,7 +7,6 @@ export const examples: {
         shortDesc: string;
         tags: string[];
     };
-    descs;
 } = {
     styling: {
         desc: "How custom styling styling can be done in every framework.",
@@ -286,11 +285,11 @@ export function GetEndpointCodeAndLines(
     let path = `src/pages/htmx/${lang}/${example}.ts`;
 
     if (lang.toLowerCase() === "rust") {
-        path = `rust/htmx/src/${example}.rs`;
+        path = `../rubber/src/${example}.rs`;
     }
 
     if (lang.toLowerCase() === "go") {
-        path = `go/htmx/${example}/index.go`;
+        path = `../grit/${example}/index.go`;
     }
 
     return {

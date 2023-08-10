@@ -1,0 +1,11 @@
+# Deployment files
+
+fly.toml
+Dockerfile
+.dockerignore
+
+# Misc
+
+.env
+.gitignore
+README.md

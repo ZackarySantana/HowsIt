@@ -12,6 +12,8 @@ All contributions will be made via the PR tab! Create a branch/fork, code your s
 
 -   [Node](https://nodejs.org/en/) v19.3.0
 -   NPM v9.2.0 (Comes with Node)
+-   [Golang](https://golang.org/) v1.20,3 (Backend examples)
+-   [Rust](https://www.rust-lang.org/) v1.69.0 (Backend examples)
 
 ### Not required
 
@@ -40,8 +42,8 @@ All contributions will be made via the PR tab! Create a branch/fork, code your s
 ### Backend:
 
 -   [Astro](https://astro.build/) - Main Framework
--   [Rust](https://www.rust-lang.org/) - Used in htmx examples
--   [Go](https://golang.org/) - Used in htmx examples
+-   [Rust](https://www.rust-lang.org/) - Used in backend/htmx examples
+-   [Go](https://golang.org/) - Used in backend/htmx examples
 
 ### Deployment
 
@@ -66,7 +68,7 @@ And starting up that docker image.
 
 ## Deployment Web
 
-Every time a commit happens on main, deployment will happen automatically. If you need to manually deploy:
+Every time a commit happens on main, deployment will happen automatically. If you need to manually deploy, go to the directories with a `fly.toml` and run:
 
 ```bash
 flyctl deploy
