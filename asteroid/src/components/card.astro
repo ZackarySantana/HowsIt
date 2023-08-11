@@ -76,12 +76,12 @@ if (type === "htmx") {
     <h2 class="mb-1 mt-4 text-xl text-white">
         {
             isSSRAndClientHydrated
-                ? "SSR + Client Hydrated"
+                ? "SSR + Client Hydrated (Hybrid)"
                 : "Server Side Rendered"
         }
     </h2>
     <div
-        class="example flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300"
+        class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300 example"
     >
         <slot name="ssr" />
     </div>
@@ -90,9 +90,9 @@ if (type === "htmx") {
         !hideClientHydrated && !isSSRAndClientHydrated && (
             <>
                 <h2 class="mb-1 mt-4 text-xl text-white">
-                    SSR + Client Hydrated
+                    SSR + Client Hydrated (Hybrid)
                 </h2>
-                <div class="example flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300">
+                <div class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300 example">
                     <slot name="ch" />
                 </div>
             </>
@@ -103,7 +103,7 @@ if (type === "htmx") {
         !hideClientRendered && !isSSRAndClientHydrated && (
             <>
                 <h2 class="mb-1 mt-4 text-xl text-white">Client Rendered</h2>
-                <div class="example flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300">
+                <div class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300 example">
                     <slot name="co" />
                 </div>
             </>
