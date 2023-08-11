@@ -1,5 +1,7 @@
 /** @jsxImportSource solid-js */
 
+import type { JSX } from "solid-js/jsx-runtime";
+
 export default function Link(props: {
     href: string;
     class?: string;

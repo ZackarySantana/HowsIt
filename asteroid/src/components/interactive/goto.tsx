@@ -1,6 +1,6 @@
 /** @jsxImportSource solid-js */
 
-import { createSignal, onMount } from "solid-js";
+import { Show, createSignal, onMount } from "solid-js";
 
 function showTop() {
     const [show, setShow] = createSignal(false);

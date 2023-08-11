@@ -1,12 +1,12 @@
 /** @jsxImportSource solid-js */
 
 import { createSignal, onMount } from "solid-js";
-import Tags from "./tags";
 import Link from "./link";
+import Tags from "./tags";
 
 function useRead(href: string) {
     const [read, setRead] = createSignal(
-        typeof localstorage !== "undefined"
+        typeof localStorage !== "undefined"
             ? localStorage.getItem(href)
             : false,
     );
@@ -17,7 +17,7 @@ function useRead(href: string) {
         }
     });
 
-    return [read, setRead];
+    return [read, setRead] as const;
 }
 
 export default function SlugHeader(props: {
@@ -39,7 +39,7 @@ export default function SlugHeader(props: {
                 <input
                     type="checkbox"
                     class="mr-2 mt-2"
-                    checked={read()}
+                    checked={read() === true}
                     onChange={(e) => {
                         setRead(e.currentTarget.checked);
                         if (!e.currentTarget.checked) {
@@ -48,7 +48,7 @@ export default function SlugHeader(props: {
                         }
                         localStorage.setItem(
                             props.href,
-                            e.currentTarget.checked,
+                            e.currentTarget.checked + "",
                         );
                     }}
                 />
