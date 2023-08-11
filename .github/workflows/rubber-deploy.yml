@@ -18,7 +18,7 @@ jobs:
             run:
                 working-directory: ./rubber
         steps:
-            - name: checkout
+            - name: Checkout
               uses: actions/checkout@v3
 
             - name: Setup flyctl
