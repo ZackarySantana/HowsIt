@@ -1,8 +1,8 @@
 /** @jsxImportSource solid-js */
 
-import { For, createSignal, createEffect } from "solid-js";
-import Tags from "./tags";
+import { For, createEffect, createSignal } from "solid-js";
 import { default as LinkHref } from "./link";
+import Tags from "./tags";
 import useShowFallback from "./useShowFallback";
 
 type Example = {
@@ -40,7 +40,7 @@ function TagsLink(props: {
                     if (!c) {
                         localStorage.removeItem(props.example.href);
                     } else {
-                        localStorage.setItem(props.example.href, c);
+                        localStorage.setItem(props.example.href, c + "");
                     }
                     props.recompute();
                 }}
@@ -82,7 +82,7 @@ function NoTagsLink(props: {
                         if (!c) {
                             localStorage.removeItem(props.example.href);
                         } else {
-                            localStorage.setItem(props.example.href, c);
+                            localStorage.setItem(props.example.href, c + "");
                         }
                         props.recompute();
                     }}
@@ -117,7 +117,7 @@ function Link(props: {
     );
 }
 
-function searchExamples(examples: Omit<Example, "read">[], filter: string) {
+function searchExamples(examples: Example[], filter: string) {
     return examples.filter(
         (e) =>
             e.label.toLowerCase().includes(filter) ||
@@ -209,7 +209,9 @@ export default function Links(props: {
     const [filter, setFilter] = createSignal("");
     const [tagFilter, setTagFilter] = createSignal<string[]>([]);
     const [recompute, setRecompute] = createSignal(false);
-    const [examples, setExamples] = createSignal(props.examples);
+    const [examples, setExamples] = createSignal(
+        props.examples.map((e) => ({ ...e, read: false })),
+    );
     const [showFallback] = useShowFallback();
 
     createEffect(() => {
@@ -219,7 +221,12 @@ export default function Links(props: {
         setExamples(
             sortByRead(
                 filterExamples(
-                    searchExamples(markedRead(props.examples), filter()),
+                    searchExamples(
+                        markedRead(
+                            props.examples.map((e) => ({ ...e, read: false })),
+                        ),
+                        filter(),
+                    ),
                     tagFilter(),
                 ),
             ),
@@ -268,7 +275,6 @@ export default function Links(props: {
                     <Link
                         example={e}
                         recompute={() => setRecompute(!recompute())}
-                        examples={examples()}
                         blur={showFallback()}
                     />
                 )}
