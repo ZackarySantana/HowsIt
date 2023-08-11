@@ -1,6 +1,8 @@
 import { createSignal, onMount } from "solid-js";
 
-export default function useShowFallback() {
+export default function useShowFallback(): ReturnType<
+    typeof createSignal<boolean>
+> {
     const [showFallback, setShowFallback] = createSignal(true);
 
     onMount(() => {
