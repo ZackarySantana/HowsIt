@@ -33,8 +33,14 @@ export const examples: {
         tags: ["Frontend", "Interactive"],
     },
     fetch: {
-        desc: "Async call to fetch some data from an API. Since this is async, the data will not be fetched when SSR.",
-        shortDesc: "Async call to fetch some data from an API.",
+        desc: "Async call on each button click to fetch some data from an API. Since this is async, the data will not be fetched when SSR.",
+        shortDesc:
+            "Async call on each button click to fetch some data from an API.",
+        tags: ["Frontend", "Async"],
+    },
+    persistent_fetch: {
+        desc: "Async call to fetch some data from an API when mounted, and then it will use the data from the initial call on each future render. Since this is async, the data will not be fetched when SSR.",
+        shortDesc: "Async call to fetch some data from an API when mounted.",
         tags: ["Frontend", "Async"],
     },
     crud: {
@@ -304,6 +310,13 @@ export function GetAllExamples(): string[] {
 
 export function Capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function PrettyName(str: string) {
+    return str
+        .split("_")
+        .map((s) => Capitalize(s))
+        .join(" ");
 }
 
 export function GetAllExampleTags() {

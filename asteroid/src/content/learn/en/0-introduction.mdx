@@ -6,7 +6,27 @@ author: zackary
 tags: ["Start Here!"]
 ---
 
-This will go over the basics of the web, it tries to assume you're a beginner with little experience.
+import Interval from "@solid/interval";
+
+<table>
+    <tr>
+        <th>Server Side Rendered</th>
+        <th>Client Rendered</th>
+        <th>Hybrid Rendered</th>
+    </tr>
+    <tr>
+        <td>
+            <Interval />
+        </td>
+        <td>
+            <Interval client:only="solid" />
+        </td>
+        <td>
+            <Interval client:load />
+        </td>
+    </tr>
+</table>
+(This demonstrates rendering techniques, continue reading to learn more!)
 
 # What is the web?
 
@@ -31,7 +51,26 @@ Some developers choose frontend, backend, or "full-stack" (both). This can help 
 # Some key terms
 
 -   **Program** - Some code, a set of instructions that computers can understand
--   **Runtime** - A program that runs code. The browser is a runtime for JavaScript, but the server has many runtimes for many languages.
+-   **Runtime** - A program that runs code. The browser is a runtime for JavaScript, but the server has many runtimes for many languages
+-   **Content Delivery Network (CDN)** - A cheap and reliable way to host static files, or files that don't change over time at all
+
+## Rendering Techniques
+
+At the top of the article, there is a table that demonstrates the three rendering techniques in a simple number interval example. You'll notice: SSR doesn't update (it doesn't run code on the 'client' or browser), CSR flashes when you reload the page but then works as expected. Hybrid rendering doesn't flash and works as intended, the best of both worlds.
+
+-   **Server Side Rendering (SSR)** - When a server generates (either when requested by a browser or before the server even starts) HTML and CSS before sending it to the client. Then the client recieves the HTML and CSS and displays it. This is the traditional way of rendering a website
+    -   Each future page request requires another page reload; known as server side routing
+    -   The server has to do a lot of work to generate the HTML and CSS
+    -   You must have a server running rather than serving static files (files that don't require a server to generate them)
+-   **Client Side Rendering (CSR)** - When a server sends barely any HTML and CSS to the client but rather a large amount of JavaScript. The client runs the JavaScript to generate the rest of the HTML and CSS. Sometimes the CSS is pre-generated like in SSR. This became popular with React pioneering it
+    -   Each future page request just replaces the page with new HTML and CSS; known as client side routing
+    -   The server doesn't have to do any work; cheaper hosting!
+    -   You can serve static files rather than having a server running. There are many services that do this for free, like CDN's (Content Delivery Networks)
+    -   It more difficult to make your application secure
+-   **Hybrid Rendering (or Server Side Rendered + Client Hydrated)** - When a server generates a full page of HTML and CSS but might have some of the components 'Hydrated' with JavaScript
+    -   Can use client side routing (smoother transitions between pages)
+    -   The server doesn't have to do all the work to generate the page
+    -   You can have some files served static and some served via a server
 
 ## Frontend related
 
@@ -40,6 +79,7 @@ Some developers choose frontend, backend, or "full-stack" (both). This can help 
 -   **CSS** - "Cascading Style Sheets", the style of a website
 -   **JavaScript** - The language that provides interactivity in the web
 -   **Browser** - A program designed to view websites. It displays HTML, styles the HTML with CSS, and runs JavaScript (for clients)
+-   **Mounted** - When a component is rendered on to the screen. This means it cannot be 'mounted' when it is created on the server
 
 ## Backend related
 

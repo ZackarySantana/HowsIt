@@ -158,12 +158,21 @@ module.exports = {
                     "margin-left": theme("spacing.8"),
                     "list-style-type": "decimal",
                 },
-                // A tag
                 ".learn-post a": {
                     color: theme("colors.blue.400"),
                     transition: "color 0.15s ease",
                     "&:hover": {
                         color: theme("colors.blue.600"),
+                    },
+                },
+                // Tables take the whole width
+                ".learn-post table": {
+                    width: "100%",
+                    "td, th": {
+                        "text-align": "start",
+                        border: "1px solid " + theme("colors.gray.400"),
+                        "padding-inline": theme("spacing.2"),
+                        "padding-block": theme("spacing-4"),
                     },
                 },
             });
