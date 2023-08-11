@@ -18,7 +18,7 @@ function TagsLink(props: {
     recompute: () => void;
     blur: boolean;
 }) {
-    const blurClasses = () => (props.blur ? "blur-sm" : "blur-0");
+    const blurClasses = () => (props.blur ? "blur-sm select-none" : "blur-0");
     const markedReadClasses = () => (props.example.read ? "read-post" : "");
     return (
         <section
@@ -27,13 +27,15 @@ function TagsLink(props: {
             <LinkHref
                 href={props.example.href}
                 class="text-2xl font-bold title"
+                disabled={props.blur}
             >
                 {props.example.label}
             </LinkHref>
             <p>{props.example.desc}</p>
             <input
                 type="checkbox"
-                class="mr-2 mt-2"
+                class="mr-2 mt-2 cursor-pointer"
+                disabled={props.blur}
                 checked={props.example.read}
                 onChange={(e) => {
                     const c = e.currentTarget.checked;
@@ -60,7 +62,7 @@ function NoTagsLink(props: {
     recompute: () => void;
     blur: boolean;
 }) {
-    const blurClasses = () => (props.blur ? "blur-sm" : "");
+    const blurClasses = () => (props.blur ? "blur-sm select-none" : "");
     const markedReadClasses = () => (props.example.read ? "read-post" : "");
     return (
         <div
@@ -69,13 +71,15 @@ function NoTagsLink(props: {
             <LinkHref
                 href={props.example.href}
                 class="text-2xl font-bold title"
+                disabled={props.blur}
             >
                 {props.example.label}
             </LinkHref>
             <div>
                 <input
                     type="checkbox"
-                    class="mr-2 mt-2"
+                    class="mr-2 mt-2 cursor-pointer"
+                    disabled={props.blur}
                     checked={props.example.read}
                     onChange={(e) => {
                         const c = e.currentTarget.checked;

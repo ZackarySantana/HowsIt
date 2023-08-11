@@ -38,7 +38,7 @@ export default function SlugHeader(props: {
             <div>
                 <input
                     type="checkbox"
-                    class="mr-2 mt-2"
+                    class="mr-2 mt-2 cursor-pointer"
                     checked={read() === true}
                     onChange={(e) => {
                         setRead(e.currentTarget.checked);
