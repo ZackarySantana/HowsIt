@@ -1,21 +1,29 @@
-/** @jsxImportSource react */
+/** @jsxImportSource preact */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "preact/hooks";
 
-export default function React() {
+export default function Preact() {
+    const [data, setData] = useState([]);
     const [currentItem, setCurrentItem] = useState("");
     const [delta, setDelta] = useState(0);
 
-    const setRandom = async () => {
+    const setRandom = () => {
         const tick = new Date().getTime();
-        const data = await fetch("/api/fetch").then((r) => r.json());
         setCurrentItem(data[Math.floor(Math.random() * data.length)]);
         setDelta(new Date().getTime() - tick);
     };
 
     useEffect(() => {
-        setRandom();
-    }, [setCurrentItem]);
+        fetch("/api/fetch")
+            .then((r) => r.json())
+            .then(setData);
+    }, [setData]);
+
+    useEffect(() => {
+        if (data.length > 0) {
+            setRandom();
+        }
+    }, [data, setCurrentItem]);
 
     return (
         <div className="fetch">

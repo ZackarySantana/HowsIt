@@ -10,18 +10,21 @@
 export default {
     data() {
         return {
+            items: [],
             currentItem: "",
             delta: 0,
         };
     },
     mounted() {
-        this.newItem();
+        fetch("/api/fetch")
+            .then((r) => r.json())
+            .then((items) => (this.items = items) && this.newItem());
     },
     methods: {
-        async newItem() {
+        newItem() {
             const tick = new Date().getTime();
-            const items = await fetch("/api/fetch").then((r) => r.json());
-            this.currentItem = items[Math.floor(Math.random() * items.length)];
+            this.currentItem =
+                this.items[Math.floor(Math.random() * this.items.length)];
             this.delta = new Date().getTime() - tick;
         },
     },

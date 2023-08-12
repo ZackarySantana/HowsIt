@@ -5,15 +5,17 @@
 </div>
 
 <script>
-    async function Vanilla_fetch() {
+    async function Vanilla_persistent_fetch() {
+        async function getData() {
+            return fetch("/api/fetch").then((response) => response.json());
+        }
+
+        const data = await getData();
         const parent = document.querySelector("#vanilla-fetch");
         const delta = document.querySelector("#vanilla-fetch-delta");
 
-        async function render() {
+        function render() {
             const tick = new Date().getTime();
-            const data = await fetch("/api/fetch").then((response) =>
-                response.json(),
-            );
             const r = Math.random() * data.length;
             parent.innerHTML = data[Math.floor(r)];
             const tock = new Date().getTime();
@@ -27,5 +29,5 @@
             .addEventListener("click", render);
     }
 
-    Vanilla_fetch();
+    Vanilla_persistent_fetch();
 </script>

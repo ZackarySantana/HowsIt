@@ -1,24 +1,26 @@
 /** @jsxImportSource solid-js */
 
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createResource, createSignal } from "solid-js";
 
 function getData() {
     return fetch("/api/fetch").then((res) => res.json());
 }
 
 export default function Solid() {
+    const [data] = createResource("", getData);
     const [currentItem, setCurrentItem] = createSignal("");
     const [delta, setDelta] = createSignal(0);
 
-    const setRandom = async () => {
+    const setRandom = () => {
         const tick = new Date().getTime();
-        const data = await getData();
-        setCurrentItem(data[Math.floor(Math.random() * data.length)]);
+        setCurrentItem(data()[Math.floor(Math.random() * data().length)]);
         setDelta(new Date().getTime() - tick);
     };
 
     createEffect(() => {
-        setRandom();
+        if (data.loading === false) {
+            setRandom();
+        }
     });
 
     return (

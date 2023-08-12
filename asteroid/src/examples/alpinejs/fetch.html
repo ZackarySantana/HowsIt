@@ -1,0 +1,27 @@
+<script>
+    function Alpinejs_fetch() {
+        return {
+            currentItem: "",
+            delta: 0,
+            newItem: async function () {
+                const tick = new Date().getTime();
+                const items = await fetch("/api/fetch").then((r) => r.json());
+                this.currentItem =
+                    items[Math.floor(Math.random() * items.length)];
+                this.delta = new Date().getTime() - tick;
+            },
+            init: function () {
+                this.newItem();
+            },
+        };
+    }
+</script>
+
+<div
+    x-data="Alpinejs_fetch()"
+    class="fetch"
+>
+    <button @click="newItem">New quote</button>
+    <p x-text="delta + 'ms'"></p>
+    <div x-text="currentItem"></div>
+</div>

@@ -26,10 +26,10 @@ function TagsLink(props: {
         >
             <LinkHref
                 href={props.example.href}
-                class="text-2xl font-bold title"
+                class="text-2xl font-bold capitalize title"
                 disabled={props.blur}
             >
-                {props.example.label}
+                {props.example.label.split("_").join(" ")}
             </LinkHref>
             <p>{props.example.desc}</p>
             <input
@@ -70,10 +70,10 @@ function NoTagsLink(props: {
         >
             <LinkHref
                 href={props.example.href}
-                class="text-2xl font-bold title"
+                class="text-2xl font-bold capitalize title"
                 disabled={props.blur}
             >
-                {props.example.label}
+                {props.example.label.split("_").join(" ")}
             </LinkHref>
             <div>
                 <input

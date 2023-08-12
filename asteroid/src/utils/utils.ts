@@ -312,13 +312,6 @@ export function Capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export function PrettyName(str: string) {
-    return str
-        .split("_")
-        .map((s) => Capitalize(s))
-        .join(" ");
-}
-
 export function GetAllExampleTags() {
     const tags: string[] = [];
 

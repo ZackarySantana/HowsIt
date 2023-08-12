@@ -3,15 +3,16 @@
     let data = [];
     let currentItem = "";
     let delta = 0;
-    const newItem = async () => {
+    const newItem = () => {
         const tick = new Date().getTime();
-        const data = await fetch("/api/fetch").then((r) => r.json());
         currentItem = data[Math.floor(Math.random() * data.length)];
         delta = new Date().getTime() - tick;
     };
 
     onMount(() => {
-        newItem();
+        fetch("/api/fetch")
+            .then((r) => r.json())
+            .then((d) => (data = d) && newItem());
     });
 </script>
 

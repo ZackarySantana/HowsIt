@@ -1,22 +1,31 @@
 /** @jsxImportSource preact */
 
-import { signal } from "@preact/signals";
+import { effect, signal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
 
 export default function Preact() {
+    const data = signal([]);
     const currentItem = signal("");
     const delta = signal(0);
 
-    const setRandom = async () => {
+    const setRandom = () => {
         const tick = new Date().getTime();
-        const items = await fetch("/api/fetch").then((r) => r.json());
-        currentItem.value = items[Math.floor(Math.random() * items.length)];
+        currentItem.value =
+            data.value[Math.floor(Math.random() * data.value.length)];
         delta.value = new Date().getTime() - tick;
     };
 
     useEffect(() => {
-        setRandom();
+        fetch("/api/fetch")
+            .then((r) => r.json())
+            .then((d) => (data.value = d));
     }, []);
+
+    effect(() => {
+        if (data.value.length > 0) {
+            setRandom();
+        }
+    });
 
     return (
         <>
