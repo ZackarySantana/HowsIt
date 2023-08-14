@@ -99,7 +99,10 @@ export const frameworks: {
         docs: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
         extension: "html",
         supportedLanguages: ["JavaScript"],
-        notes: ["TBA"],
+        notes: [
+            "Vanilla JS is writing raw JavaScript that the browser will get without any compile steps.",
+            "It is the simpliest in that you only use fundamentals but it doesn't scale to large web applications as easily.",
+        ],
     },
     react: {
         name: "React",
@@ -107,7 +110,13 @@ export const frameworks: {
         docs: "https://react.dev",
         extension: "tsx",
         supportedLanguages: ["TypeScript", "JavaScript"],
-        notes: ["TBA"],
+        notes: [
+            "React is the most popular library/framework. It focuses on making reusable components (which are functions that export JSX). It follows a functional-programming paradigm (FP) which means it uses pure functions and immutable data.",
+            "It uses JSX (JavaScript XML) which is a syntax extension in JS/TS that allows you to write HTML-like code as components in your code.",
+            "A virtual DOM is used to update the DOM when data changes. This means changes to the data edit this virtual DOM and if there is a difference between the virtual DOM and the real DOM, React updates it",
+            "React is establishing more and more features that make it more of a framework than a library. Usually a library can be used in combination with other tools, and isn't as opinionated as a framework.",
+            "Next.js and Remix.js are two popular frameworks that use React.",
+        ],
     },
     solid: {
         name: "Solid",
@@ -115,7 +124,11 @@ export const frameworks: {
         docs: "https://www.solidjs.com/docs/latest",
         extension: "tsx",
         supportedLanguages: ["TypeScript", "JavaScript"],
-        notes: ["TBA"],
+        notes: [
+            "Solid is a new library that uses JSX and focuses on reusable components like React. It does not follow a functional programming paradigm. It also does not use a virtual DOM.",
+            "It's core concept is signals, which are values that run special code when they change. This special code means if you reassign a variable to a new reference, it will update everywhere the signal is used. If you come from a RxJS background, this is similar to observables with less overhead.",
+            "It focuses on performance, simplicity, and size. It's a direct alternative to React but you trade-off popular frameworks like Next.js.",
+        ],
     },
     preact: {
         name: "Preact",
@@ -123,7 +136,11 @@ export const frameworks: {
         docs: "https://preactjs.com/guide/v10/getting-started",
         extension: "tsx",
         supportedLanguages: ["TypeScript", "JavaScript"],
-        notes: ["TBA"],
+        notes: [
+            "Preact is a drop-in replacement for React. It's smaller and does almost everything React does. The only reason to use Preact is if you want to reduce your bundle size (how much code is being sent to the browser).",
+            "Everything that works in React will work in Preact with a preact-compat package. The only exception is major frameworks that don't support it.",
+            "It has extended React to support signals as well. Preact signals are similar to Solid signals in effect but their syntax is slightly different.",
+        ],
     },
     svelte: {
         name: "Svelte",
