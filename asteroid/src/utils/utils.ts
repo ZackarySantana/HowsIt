@@ -38,6 +38,7 @@ export const examples: {
             "Async call on each button click to fetch some data from an API.",
         tags: ["Frontend", "Async"],
     },
+    // eslint-disable-next-line camelcase
     persistent_fetch: {
         desc: "Async call to fetch some data from an API when mounted, and then it will use the data from the initial call on each future render. Since this is async, the data will not be fetched when SSR.",
         shortDesc: "Async call to fetch some data from an API when mounted.",
@@ -173,7 +174,11 @@ export const frameworks: {
         docs: "https://htmx.org",
         extension: "html",
         supportedLanguages: ["HTML"],
-        notes: ["TBA"],
+        notes: [
+            "HTMX makes all logic, rendering, and state handled server side only. It adds additional markup to HTML to allow it to send GET, POST, PUT, and DELETE requests that replace a DOM element with a response by the given endpoint.",
+            "This means all logic is controlled by the backend. You can also set cookies and increase the complexity of the requests.",
+            "It supports different triggers, triggers on an interval, and OOB swaps (out of bands, or DOM elements that aren't related to the DOM you are replacing).",
+        ],
     },
     alpinejs: {
         name: "Alpine.js",
