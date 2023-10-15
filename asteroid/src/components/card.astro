@@ -41,9 +41,13 @@ const extension = GetExtension(type);
 const version = GetVersion(type, lang, metaTitle);
 const typeInfo = GetTypeInfo(type, givenTypeInfo);
 const fullPath = `src/examples/${type}/${example}${version}.${extension}`;
-const { code, lines } = GetCodeAndLines(fullPath);
+const { code, lines } = await GetCodeAndLines(fullPath);
 
-const endpoint = GetEndpointCodeAndLines(type, lang ?? "typescript", example);
+const endpoint = await GetEndpointCodeAndLines(
+    type,
+    lang ?? "typescript",
+    example,
+);
 
 let finalMetaTitle = metaTitle;
 

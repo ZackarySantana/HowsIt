@@ -278,13 +278,31 @@ export function GetVersion(type: string, lang?: string, metaTitle?: string) {
     return "";
 }
 
-export function GetCodeAndLines(path: string) {
-    const exists = fs.existsSync(path);
+export async function GetCodeAndLines(path: string, getFromGitHub?: boolean) {
     let code = "Failed to load";
     let lines = "";
 
-    if (exists) {
-        code = fs.readFileSync(path, "utf-8");
+    if (!getFromGitHub) {
+        const exists = fs.existsSync(path);
+        if (exists) {
+            code = fs.readFileSync(path, "utf-8");
+            const fileLines = code.split("\n");
+
+            const lineDigits = Math.floor(Math.log10(fileLines.length)) + 1;
+
+            const getPadding = (i: number) => {
+                return " ".repeat(lineDigits - Math.floor(Math.log10(i + 1)));
+            };
+
+            lines = fileLines
+                .map((_, i) => `${i + 1}.${getPadding(i)}  `)
+                .join("\n");
+        }
+    } else {
+        code = await fetch(
+            `https://github.com/ZackarySantana/howsit/raw/main/${path}`,
+        ).then((res) => res.text());
+        console.log(code);
         const fileLines = code.split("\n");
 
         const lineDigits = Math.floor(Math.log10(fileLines.length)) + 1;
@@ -301,7 +319,7 @@ export function GetCodeAndLines(path: string) {
     return { code, lines };
 }
 
-export function GetEndpointCodeAndLines(
+export async function GetEndpointCodeAndLines(
     type: string,
     lang: string,
     example: string,
@@ -321,7 +339,7 @@ export function GetEndpointCodeAndLines(
     }
 
     return {
-        ...GetCodeAndLines(path),
+        ...(await GetCodeAndLines(path, true)),
         path,
     };
 }
