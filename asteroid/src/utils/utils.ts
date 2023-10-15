@@ -310,14 +310,14 @@ export function GetEndpointCodeAndLines(
         return undefined;
     }
 
-    let path = `src/pages/htmx/${lang}/${example}.ts`;
+    let path = `asteroid/src/pages/htmx/typescript/${example}.ts`;
 
     if (lang.toLowerCase() === "rust") {
-        path = `../rubber/src/${example}.rs`;
+        path = `rubber/src/${example}.rs`;
     }
 
     if (lang.toLowerCase() === "go") {
-        path = `../grit/${example}/index.go`;
+        path = `grit/${example}/index.go`;
     }
 
     return {
