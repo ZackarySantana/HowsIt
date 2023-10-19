@@ -1,7 +1,7 @@
 ---
 import Card from "@components/card.astro";
 import SSRCard from "@components/ssr_card.astro";
-import SSRClientCard from "@components/ssr_client_card.astro";
+
 import ExampleLayout from "@layouts/ExampleLayout.astro";
 
 import AstroComponent from "@astro/styling.astro";
@@ -30,10 +30,10 @@ export const prerender = true;
         </h1>
         <p>{desc}</p>
     </div>
-    <SSRClientCard type="vanilla">
+    <Card library="vanilla">
         <Vanilla />
-    </SSRClientCard>
-    <Card type="react">
+    </Card>
+    <Card library="react">
         <React slot="ssr" />
         <React
             slot="ch"
@@ -44,7 +44,7 @@ export const prerender = true;
             client:only="react"
         />
     </Card>
-    <Card type="solid">
+    <Card library="solid">
         <Solid slot="ssr" />
         <Solid
             slot="ch"
@@ -55,7 +55,7 @@ export const prerender = true;
             client:only="solid"
         />
     </Card>
-    <Card type="preact">
+    <Card library="preact">
         <Preact slot="ssr" />
         <Preact
             slot="ch"
@@ -66,7 +66,7 @@ export const prerender = true;
             client:only="preact"
         />
     </Card>
-    <Card type="svelte">
+    <Card library="svelte">
         <Svelte slot="ssr" />
         <Svelte
             slot="ch"
@@ -77,7 +77,7 @@ export const prerender = true;
             client:only="svelte"
         />
     </Card>
-    <Card type="vue">
+    <Card library="vue">
         <Vue slot="ssr" />
         <Vue
             slot="ch"
@@ -88,15 +88,15 @@ export const prerender = true;
             client:only="vue"
         />
     </Card>
-    <SSRClientCard type="alpinejs">
+    <Card library="alpinejs">
         <Alpine />
-    </SSRClientCard>
-    <SSRCard type="astro">
-        <AstroComponent />
-    </SSRCard>
+    </Card>
+    <Card library="astro">
+        <AstroComponent slot="ssr" />
+    </Card>
     <Card
-        type="lit"
-        metaTitle="(Broken)"
+        library="lit"
+        variant="broken"
     >
         <Lit slot="ssr" />
         <Lit

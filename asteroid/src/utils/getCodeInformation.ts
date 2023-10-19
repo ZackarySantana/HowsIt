@@ -92,6 +92,7 @@ async function GetScript(
     example: string,
     variant?: string,
 ) {
+    variant = variant !== "broken" ? variant : undefined;
     const filePath = getExampleFilePath(
         lang.toLowerCase(),
         library.toLowerCase(),
@@ -118,8 +119,16 @@ export async function GetCodeInformation(
         GetScript(lang, library, example, variant),
         getHTMX(lang, library, example),
     ]);
+
+    const libraryInfo = GetLibrary(library);
+
+    if (libraryInfo === null) {
+        throw new Error(`Library ${library} not found`);
+    }
+
     return {
         script,
         endpoint,
+        libraryInfo,
     };
 }

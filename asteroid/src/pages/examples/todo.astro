@@ -1,6 +1,5 @@
 ---
 import Card from "@components/card.astro";
-import SSRClientCard from "@components/ssr_client_card.astro";
 import ExampleLayout from "@layouts/ExampleLayout.astro";
 
 import Alpine from "@examples/alpinejs/todo.html";
@@ -32,10 +31,10 @@ export const prerender = true;
         </h1>
         <p>{desc}</p>
     </div>
-    <SSRClientCard type="vanilla">
+    <Card library="vanilla">
         <Vanilla />
-    </SSRClientCard>
-    <Card type="react">
+    </Card>
+    <Card library="react">
         <React slot="ssr" />
         <React
             slot="ch"
@@ -46,7 +45,7 @@ export const prerender = true;
             client:only="react"
         />
     </Card>
-    <Card type="solid">
+    <Card library="solid">
         <Solid slot="ssr" />
         <Solid
             slot="ch"
@@ -58,8 +57,8 @@ export const prerender = true;
         />
     </Card>
     <Card
-        type="preact"
-        metaTitle="(Hooks)"
+        library="preact"
+        variant="hooks"
     >
         <PreactHooks slot="ssr" />
         <PreactHooks
@@ -72,8 +71,8 @@ export const prerender = true;
         />
     </Card>
     <Card
-        type="preact"
-        metaTitle="(Signals)"
+        library="preact"
+        variant="signals"
     >
         <PreactSignals slot="ssr" />
         <PreactSignals
@@ -85,7 +84,7 @@ export const prerender = true;
             client:only="preact"
         />
     </Card>
-    <Card type="svelte">
+    <Card library="svelte">
         <Svelte slot="ssr" />
         <Svelte
             slot="ch"
@@ -96,7 +95,7 @@ export const prerender = true;
             client:only="svelte"
         />
     </Card>
-    <Card type="vue">
+    <Card library="vue">
         <Vue slot="ssr" />
         <Vue
             slot="ch"
@@ -107,30 +106,30 @@ export const prerender = true;
             client:only="vue"
         />
     </Card>
-    <SSRClientCard
-        type="htmx"
+    <Card
+        library="htmx"
         lang="typescript"
     >
         <HTMXTypeScript />
-    </SSRClientCard>
-    <SSRClientCard
-        type="htmx"
+    </Card>
+    <Card
+        library="htmx"
         lang="rust"
     >
         <HTMXRust />
-    </SSRClientCard>
-    <SSRClientCard
-        type="htmx"
+    </Card>
+    <Card
+        library="htmx"
         lang="go"
     >
         <HTMXGo />
-    </SSRClientCard>
-    <SSRClientCard type="alpinejs">
+    </Card>
+    <Card library="alpinejs">
         <Alpine />
-    </SSRClientCard>
+    </Card>
     <Card
-        type="lit"
-        metaTitle="(Broken)"
+        library="lit"
+        variant="broken"
     >
         <Lit slot="ssr" />
         <Lit

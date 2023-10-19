@@ -1,201 +1,113 @@
 ---
-export interface Props {
-    type: string;
-    lang?: string;
-    title?: string;
-    metaTitle?: string;
-    typeInfo?: string[];
-    exampleInfo?: string[];
-    isSSRAndClientHydrated?: boolean;
-    hideClientHydrated?: boolean;
-    hideClientRendered?: boolean;
-    open?: boolean;
-}
+import CardContainer from "./card/card_container.astro";
+import CardRenderedSection from "./card/card_rendered_section.astro";
 import Code from "@components/code.astro";
 import GithubLink from "@components/github_link.astro";
-import Link from "@components/link.astro";
-import {
-    GetCodeAndLines,
-    GetEndpointCodeAndLines,
-    GetExtension,
-    GetTypeInfo,
-    GetVersion,
-} from "@utils";
-import Icon from "./icon.astro";
-const {
-    type,
-    lang,
-    title,
-    metaTitle,
-    typeInfo: givenTypeInfo,
-    exampleInfo,
-    isSSRAndClientHydrated,
-    hideClientHydrated,
-    hideClientRendered,
-    open,
-} = Astro.props;
+import { GetCodeInformation } from "@utils/getCodeInformation";
+import CardList from "./card/card_list.astro";
+import Link from "./link.astro";
+
+export interface Props {
+    variant?: string;
+    library: string;
+    lang?: string;
+    exampleInfo?: string[];
+}
+
+const { variant: aVariant, library, exampleInfo, lang: aLang } = Astro.props;
+const variant = aVariant ? `(${aVariant})` : "";
+const lang = aLang || "TypeScript";
 
 const example = Astro.locals.example;
 
-const extension = GetExtension(type);
-const version = GetVersion(type, lang, metaTitle);
-const typeInfo = GetTypeInfo(type, givenTypeInfo);
-const fullPath = `src/examples/${type}/${example}${version}.${extension}`;
-const { code, lines } = await GetCodeAndLines(fullPath);
-
-const endpoint = await GetEndpointCodeAndLines(
-    type,
-    lang ?? "typescript",
-    example,
-);
-
-let finalMetaTitle = metaTitle;
-
-if (type === "htmx") {
-    if (lang === undefined || lang === "typescript") {
-        finalMetaTitle = "(TypeScript)";
-    } else if (lang === "rust") {
-        finalMetaTitle = "(Rust)";
+let metaTitle = variant;
+if (library === "htmx") {
+    metaTitle = "(TypeScript)";
+    if (lang === "rust") {
+        metaTitle = "(Rust)";
     } else if (lang === "go") {
-        finalMetaTitle = "(Go)";
+        metaTitle = "(Go)";
     }
 }
+const { script, endpoint, libraryInfo } = await GetCodeInformation(
+    lang,
+    library,
+    example,
+    aVariant,
+);
+
+const defaultSlot = Astro.slots.has("default");
+const ssr = Astro.slots.has("ssr");
+const ch = Astro.slots.has("ch");
+const co = Astro.slots.has("co");
 ---
 
-<details
-    class="w-full rounded-xl !py-5 px-8 text-white shadow-lg section"
-    open={open}
+<CardContainer
+    title={library}
+    metaTitle={metaTitle}
 >
-    <summary class="cursor-pointer text-3xl font-bold capitalize">
-        <!-- <div class="flex"> -->
-        <Icon
-            src={type}
-            class="mx-1 -mt-2 h-8 w-8"
-        />
-        {title ?? type}
-        <!-- </div> -->
-        <span class="italic text-slate-400">{finalMetaTitle}</span>
-    </summary>
-
-    <h2 class="mb-1 mt-4 text-xl text-white">
-        {
-            isSSRAndClientHydrated
-                ? "SSR + Client Hydrated (Hybrid)"
-                : "Server Side Rendered"
-        }
-    </h2>
-    <div
-        class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300 example"
-    >
-        <slot name="ssr" />
-    </div>
-
     {
-        !hideClientHydrated && !isSSRAndClientHydrated && (
-            <>
-                <h2 class="mb-1 mt-4 text-xl text-white">
-                    SSR + Client Hydrated (Hybrid)
-                </h2>
-                <div class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300 example">
-                    <slot name="ch" />
-                </div>
-            </>
+        defaultSlot && (
+            <CardRenderedSection>
+                <p slot="title">SSR + Client Hydrated (Hybrid)</p>
+                <slot />
+            </CardRenderedSection>
         )
     }
-
     {
-        !hideClientRendered && !isSSRAndClientHydrated && (
-            <>
-                <h2 class="mb-1 mt-4 text-xl text-white">Client Rendered</h2>
-                <div class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300 example">
-                    <slot name="co" />
-                </div>
-            </>
+        ssr && (
+            <CardRenderedSection>
+                <p slot="title">Server Side Rendered</p>
+                <slot name="ssr" />
+            </CardRenderedSection>
         )
     }
-
-    <h2 class="mb-1 mt-4 text-xl text-white">
-        Code
-        <span class="text-md italic">
-            <GithubLink path={"asteroid/" + fullPath}>(GitHub)</GithubLink>
-        </span>
-    </h2>
-
-    <div
-        class="flex rounded-xl bg-secondary-background p-4 text-sm text-slate-300"
-    >
-        <p class="select-none whitespace-pre">{lines}</p>
-        <p class="overflow-x-auto">
-            <Code>{code}</Code>
+    {
+        ch && (
+            <CardRenderedSection>
+                <p slot="title">SSR + Client Hydrated (Hybrid)</p>
+                <slot name="ch" />
+            </CardRenderedSection>
+        )
+    }
+    {
+        co && (
+            <CardRenderedSection>
+                <p slot="title">Client Rendered</p>
+                <slot name="co" />
+            </CardRenderedSection>
+        )
+    }
+    <CardRenderedSection code={true}>
+        <p slot="title">
+            Code
+            <span class="text-md italic">
+                <GithubLink path={script.path}>(GitHub)</GithubLink>
+            </span>
         </p>
-    </div>
-
+        <p class="select-none whitespace-pre">{script.lineNumbers}</p>
+        <p class="overflow-x-auto">
+            <Code>{script.code}</Code>
+        </p>
+    </CardRenderedSection>
     {
-        endpoint !== undefined && (
-            <>
-                <h2 class="mb-1 mt-4 text-xl text-white">
+        endpoint !== null && (
+            <CardRenderedSection code={true}>
+                <p slot="title">
                     Endpoint
                     <span class="text-md italic">
                         <GithubLink path={endpoint.path}>(GitHub)</GithubLink>
                     </span>
-                </h2>
-                <div class="flex rounded-xl bg-secondary-background p-4 text-sm text-slate-300">
-                    <p class="select-none whitespace-pre">{endpoint.lines}</p>
-                    <p class="overflow-x-auto">
-                        <Code>{endpoint.code}</Code>
-                    </p>
-                </div>
-            </>
+                </p>
+                <p class="select-none whitespace-pre">{endpoint.lineNumbers}</p>
+                <p class="overflow-x-auto">
+                    <Code>{endpoint.code}</Code>
+                </p>
+            </CardRenderedSection>
         )
     }
-
-    {
-        exampleInfo && exampleInfo.length > 0 && (
-            <>
-                <h2 class="mb-1 mt-4 text-xl text-white">Example Notes</h2>
-                <ul class="ml-4 list-decimal">
-                    {exampleInfo.map((item: string, i: number) => (
-                        <li class="ml-5 text-zinc-300">
-                            {i === 0 && item.startsWith("https://") ? (
-                                <Link
-                                    href={item}
-                                    class="ml-2 italic"
-                                >
-                                    Docs
-                                </Link>
-                            ) : (
-                                <p class="ml-2">{item}</p>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            </>
-        )
-    }
-
-    {
-        typeInfo && typeInfo.length > 0 && (
-            <>
-                <h2 class="mb-1 mt-4 text-xl text-white">
-                    <span class="capitalize">{type}</span> Notes
-                </h2>
-                <ul class="ml-4 list-decimal">
-                    {typeInfo.map((item: string, i: number) => (
-                        <li class="ml-5 text-zinc-300">
-                            {i === 0 && item.startsWith("https://") ? (
-                                <Link
-                                    href={item}
-                                    class="ml-2 italic"
-                                >
-                                    Docs
-                                </Link>
-                            ) : (
-                                <p class="ml-2">{item}</p>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            </>
-        )
-    }
-</details>
+    <CardList listItems={exampleInfo}>Implementation Details</CardList>
+    <CardList listItems={[...libraryInfo.notes]}>
+        {library} Notes <Link href={libraryInfo.docs}>(Docs)</Link>
+    </CardList>
+</CardContainer>

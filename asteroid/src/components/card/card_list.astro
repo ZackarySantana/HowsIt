@@ -1,0 +1,36 @@
+---
+import Link from "@components/link.astro";
+
+export interface Props {
+    listItems?: string[];
+}
+const { listItems } = Astro.props;
+
+const validList = listItems && listItems.length > 0;
+---
+
+{
+    validList && (
+        <>
+            <h2 class="mb-1 mt-4 text-xl capitalize text-white">
+                <slot />
+            </h2>
+            <ul class="ml-4 list-decimal">
+                {listItems.map((item: string, i: number) => (
+                    <li class="ml-5 text-zinc-300">
+                        {i === 0 && item.startsWith("https://") ? (
+                            <Link
+                                href={item}
+                                class="ml-2 italic"
+                            >
+                                Docs
+                            </Link>
+                        ) : (
+                            <p class="ml-2">{item}</p>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        </>
+    )
+}
