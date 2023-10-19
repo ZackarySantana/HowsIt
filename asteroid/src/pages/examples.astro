@@ -27,10 +27,12 @@ export const prerender = true;
     <Links
         client:load
         placeholder="Fetch, etc"
-        tags={GroupArrayByValues([...exampleTags]).map((a) => ({
-            label: `${a.value} (${a.count})`,
-            value: a.value,
-        }))}
+        tags={GroupArrayByValues([...exampleTags])
+            .sort((a, b) => b.count - a.count)
+            .map((a) => ({
+                label: `${a.value} (${a.count})`,
+                value: a.value,
+            }))}
         examples={exampleNames.map((e, i) => ({
             label: `${i + 1}. ${
                 examples[e].name ? examples[e].name : Capitalize(e)

@@ -40,10 +40,12 @@ export const prerender = true;
     <Links
         client:load
         placeholder="Languages, React, etc"
-        tags={GroupArrayByValues([...tags]).map((a) => ({
-            label: `${a.value} (${a.count})`,
-            value: a.value,
-        }))}
+        tags={GroupArrayByValues([...tags])
+            .sort((a, b) => b.count - a.count)
+            .map((a) => ({
+                label: `${a.value} (${a.count})`,
+                value: a.value,
+            }))}
         examples={ordered
             .sort((b1, b2) => b1.data.index - b2.data.index)
             .map((b, i) => ({
