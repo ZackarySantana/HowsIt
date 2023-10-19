@@ -1,4 +1,4 @@
-export const frameworks = {
+export const libraries = {
     vanilla: {
         name: "Vanilla",
         url: "vanilla",
@@ -115,7 +115,7 @@ export const frameworks = {
     },
 } as const;
 
-export const frameworksTBA = {
+export const librariesTBA = {
     angular: {
         name: "Angular",
         docs: "https://angular.io/docs",
@@ -142,26 +142,21 @@ export const frameworksTBA = {
     },
 } as const;
 
-// TODO autogenerate from the frameworks definition
-export type Framework = typeof frameworks[index]; 
-export type FrameworkName = keyof typeof frameworks;
-export type TBAFrameworkName = keyof typeof frameworksTBA;
+export type Library = (typeof libraries)[keyof typeof libraries];
+export type LibraryName = keyof typeof libraries;
+export type TBALibraryName = keyof typeof librariesTBA;
 
-export function IsSupportedFramework(
-    framework: string,
-): framework is FrameworkName {
-    return framework in frameworks;
+export function IsLibrary(library: string): library is LibraryName {
+    return library in libraries;
 }
 
-export function IsSupportedTBAFramework(
-    framework: string,
-): framework is TBAFrameworkName {
-    return framework in frameworksTBA;
+export function IsTBALibrary(library: string): library is TBALibraryName {
+    return library in librariesTBA;
 }
 
-export function GetFramework(framework: string): Framework | null {
-    if (IsSupportedFramework(framework)) {
-        return frameworks[framework];
+export function GetLibrary(library: string): Library | null {
+    if (IsLibrary(library)) {
+        return libraries[library];
     }
     return null;
 }

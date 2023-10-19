@@ -1,4 +1,4 @@
-import { IsSupportedFramework, frameworks } from "./frameworks";
+import { IsLibrary, libraries } from "./library";
 
 export const extensions = {
     rust: "rs",
@@ -20,8 +20,8 @@ export function GetLanguageExtension(lang: string): string | null {
 }
 
 export function GetFrameworkExtension(framework: string): string | null {
-    if (IsSupportedFramework(framework)) {
-        return frameworks[framework].extension;
+    if (IsLibrary(framework)) {
+        return libraries[framework].extension;
     }
     return null;
 }

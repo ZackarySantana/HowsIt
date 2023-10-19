@@ -1,0 +1,23 @@
+---
+import Icon from "../icon.astro";
+
+export interface Props {
+    title: string;
+    metaTitle: string;
+    icon?: string;
+}
+
+const { title, metaTitle, icon } = Astro.props;
+---
+
+<details class="w-full rounded-xl !py-5 px-8 text-white shadow-lg section">
+    <summary class="cursor-pointer text-3xl font-bold capitalize">
+        <Icon
+            src={icon ?? title}
+            class="mx-1 -mt-2 h-8 w-8"
+        />
+        {title}
+        <span class="italic text-slate-400">{metaTitle}</span>
+    </summary>
+    <slot />
+</details>

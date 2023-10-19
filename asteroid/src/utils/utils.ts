@@ -277,7 +277,6 @@ export function GetVersion(type: string, lang?: string, metaTitle?: string) {
 
     return "";
 }
-
 export async function GetCodeAndLines(path: string, getFromGitHub?: boolean) {
     let code = "Failed to load";
     let lines = "";
@@ -302,7 +301,6 @@ export async function GetCodeAndLines(path: string, getFromGitHub?: boolean) {
         code = await fetch(
             `https://github.com/ZackarySantana/howsit/raw/main/${path}`,
         ).then((res) => res.text());
-        console.log(code);
         const fileLines = code.split("\n");
 
         const lineDigits = Math.floor(Math.log10(fileLines.length)) + 1;

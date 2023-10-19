@@ -1,0 +1,25 @@
+---
+export interface Props {
+    code?: boolean;
+}
+
+const { code } = Astro.props;
+---
+
+<h2 class="mb-1 mt-4 text-xl text-white">
+    <slot name="title" />
+</h2>
+{
+    !code && (
+        <div class="flex w-full items-center justify-center rounded-xl bg-secondary-background px-3 py-10 text-zinc-300 example">
+            <slot />
+        </div>
+    )
+}
+{
+    code && (
+        <div class="flex rounded-xl bg-secondary-background p-4 text-sm text-slate-300">
+            <slot />
+        </div>
+    )
+}
