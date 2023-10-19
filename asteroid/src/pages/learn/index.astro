@@ -1,7 +1,7 @@
 ---
 import Links from "@components/interactive/links";
 import PageLayout from "@layouts/PageLayout.astro";
-import { Capitalize } from "@utils";
+import { Capitalize, GroupArrayByValues } from "@utils";
 import { getCollection } from "astro:content";
 
 const learn = await getCollection("learn");
@@ -40,7 +40,10 @@ export const prerender = true;
     <Links
         client:load
         placeholder="Languages, React, etc"
-        tags={tags.sort((a, b) => a.localeCompare(b))}
+        tags={GroupArrayByValues([...tags]).map((a) => ({
+            label: `${a.value} (${a.count})`,
+            value: a.value,
+        }))}
         examples={ordered
             .sort((b1, b2) => b1.data.index - b2.data.index)
             .map((b, i) => ({

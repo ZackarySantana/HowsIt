@@ -42,7 +42,7 @@ function TagsLink(props: {
                     if (!c) {
                         localStorage.removeItem(props.example.href);
                     } else {
-                        localStorage.setItem(props.example.href, c + "");
+                        localStorage.setItem(props.example.href, String(c));
                     }
                     props.recompute();
                 }}
@@ -86,7 +86,7 @@ function NoTagsLink(props: {
                         if (!c) {
                             localStorage.removeItem(props.example.href);
                         } else {
-                            localStorage.setItem(props.example.href, c + "");
+                            localStorage.setItem(props.example.href, String(c));
                         }
                         props.recompute();
                     }}
@@ -208,7 +208,7 @@ function Tag(props: { label: string; onClick: () => void; active: boolean }) {
 export default function Links(props: {
     examples: Omit<Example, "read">[];
     placeholder: string;
-    tags: string[];
+    tags: { value: string; label: string }[];
 }) {
     const [filter, setFilter] = createSignal("");
     const [tagFilter, setTagFilter] = createSignal<string[]>([]);
@@ -256,19 +256,19 @@ export default function Links(props: {
                     <For each={props.tags}>
                         {(t) => (
                             <Tag
-                                label={t}
+                                label={t.label}
                                 onClick={() => {
-                                    if (tagFilter().includes(t)) {
+                                    if (tagFilter().includes(t.value)) {
                                         setTagFilter(
                                             tagFilter().filter(
-                                                (tt) => tt !== t,
+                                                (tt) => tt !== t.value,
                                             ),
                                         );
                                     } else {
-                                        setTagFilter([...tagFilter(), t]);
+                                        setTagFilter([...tagFilter(), t.value]);
                                     }
                                 }}
-                                active={tagFilter().includes(t)}
+                                active={tagFilter().includes(t.value)}
                             />
                         )}
                     </For>

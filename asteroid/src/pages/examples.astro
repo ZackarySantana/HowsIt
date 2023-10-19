@@ -2,7 +2,7 @@
 import Links from "@components/interactive/links";
 import Link from "@components/link.astro";
 import PageLayout from "@layouts/PageLayout.astro";
-import { Capitalize } from "@utils";
+import { Capitalize, GroupArrayByValues } from "@utils";
 import { examples, exampleNames, exampleTags } from "@utils/example";
 
 export const prerender = true;
@@ -27,7 +27,10 @@ export const prerender = true;
     <Links
         client:load
         placeholder="Fetch, etc"
-        tags={[...exampleTags].sort((a, b) => a.localeCompare(b))}
+        tags={GroupArrayByValues([...exampleTags]).map((a) => ({
+            label: `${a.value} (${a.count})`,
+            value: a.value,
+        }))}
         examples={exampleNames.map((e, i) => ({
             label: `${i + 1}. ${
                 examples[e].name ? examples[e].name : Capitalize(e)

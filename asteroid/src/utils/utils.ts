@@ -22,3 +22,25 @@ export const images: {
 export function Capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function GroupArrayByValues<T>(arr: T[]): { value: T; count: number }[] {
+    const grouping: {
+        value: T;
+        count: number;
+    }[] = [];
+
+    arr.forEach((value) => {
+        const group = grouping.find((g) => g.value === value);
+
+        if (group) {
+            group.count++;
+        } else {
+            grouping.push({
+                value,
+                count: 1,
+            });
+        }
+    });
+
+    return grouping;
+}
