@@ -52,3 +52,9 @@ export const examples: {
         tags: ["Backend", "API"],
     },
 };
+
+export const exampleNames = Object.keys(examples);
+
+export const exampleTags = exampleNames
+    .map((name) => examples[name].tags)
+    .flat();

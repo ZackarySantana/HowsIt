@@ -2,14 +2,8 @@
 import Links from "@components/interactive/links";
 import Link from "@components/link.astro";
 import PageLayout from "@layouts/PageLayout.astro";
-import {
-    Capitalize,
-    GetAllExampleTags,
-    GetAllExamples,
-    examples,
-} from "@utils";
-
-const e = GetAllExamples();
+import { Capitalize } from "@utils";
+import { examples, exampleNames, exampleTags } from "@utils/example";
 
 export const prerender = true;
 ---
@@ -33,8 +27,8 @@ export const prerender = true;
     <Links
         client:load
         placeholder="Fetch, etc"
-        tags={GetAllExampleTags().sort((a, b) => a.localeCompare(b))}
-        examples={e.map((e, i) => ({
+        tags={[...exampleTags].sort((a, b) => a.localeCompare(b))}
+        examples={exampleNames.map((e, i) => ({
             label: `${i + 1}. ${
                 examples[e].name ? examples[e].name : Capitalize(e)
             }`,

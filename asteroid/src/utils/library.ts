@@ -144,13 +144,16 @@ export const librariesTBA = {
 
 export type Library = (typeof libraries)[keyof typeof libraries];
 export type LibraryName = keyof typeof libraries;
-export type TBALibraryName = keyof typeof librariesTBA;
+export type LibraryTBAName = keyof typeof librariesTBA;
+
+export const libraryNames = Object.keys(libraries) as LibraryName[];
+export const libraryTBANames = Object.keys(librariesTBA) as LibraryTBAName[];
 
 export function IsLibrary(library: string): library is LibraryName {
     return library in libraries;
 }
 
-export function IsTBALibrary(library: string): library is TBALibraryName {
+export function IsTBALibrary(library: string): library is LibraryTBAName {
     return library in librariesTBA;
 }
 
