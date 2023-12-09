@@ -5,31 +5,41 @@ import lit from "@astrojs/lit";
 import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 import preact from "@astrojs/preact";
-import prefetch from "@astrojs/prefetch";
 import react from "@astrojs/react";
 import solidJs from "@astrojs/solid-js";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
 import vue from "@astrojs/vue";
 
+//  Preact({
+//       Include: ['**/preact/*'],
+//     }),
+//     React({
+//       Include: ['**/react/*'],
+//     }),
+//     Solid({
+//       Include: ['**/solid/*'],
+//     }),
+
 // https://astro.build/config
 export default defineConfig({
     integrations: [
-        preact(),
-        react(),
+        preact({ include: ["**/preact/*"] }),
+        react({ include: ["**/react/*"] }),
         tailwind(),
-        prefetch({
-            selector: "a",
-        }),
-        solidJs(),
-        svelte(),
-        alpinejs(),
-        lit(),
+        solidJs({ include: ["**/solid/*", "**/interactive/*"] }),
+        svelte({ include: ["**/svelte/*"] }),
+        alpinejs({ include: ["**/alpine/*"] }),
+        lit({ include: ["**/lit/*"] }),
         vue({
             jsx: true,
+            // Include: ["**/vue/*"],
         }),
         mdx(),
     ],
+    prefetch: {
+        prefetchAll: true,
+    },
     output: "server",
     adapter: node({
         mode: "standalone",
