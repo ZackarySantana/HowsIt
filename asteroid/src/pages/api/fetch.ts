@@ -1,3 +1,5 @@
+import type { APIRoute } from "astro";
+
 const data = [
     "How many bottles of beer on the wall for this trip?",
     "The best way to predict the future is to create it.",
@@ -14,7 +16,7 @@ const data = [
     "Ideas are easy. It's the execution of ideas that really separates the sheep from the goats.",
 ];
 
-export const get: APIRoute = async () => {
+export const GET: APIRoute = async () => {
     return new Response(JSON.stringify(data), {
         headers: {
             "content-type": "application/json",
