@@ -2,6 +2,8 @@ app = "howsit"
 primary_region = "mia"
 
 [http_service]
+  http_checks = []
+  tcp_checks = []
   internal_port = 80
   force_https = true
   auto_stop_machines = true
@@ -13,10 +15,3 @@ primary_region = "mia"
   type = "connections"
   hard_limit = 25
   soft_limit = 20
-
-[[http_service.checks]]
-  grace_period = "15s"
-  interval = "30s"
-  method = "GET"
-  timeout = "10s"
-  path = "/"
