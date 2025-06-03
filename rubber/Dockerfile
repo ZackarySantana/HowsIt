@@ -1,4 +1,4 @@
-FROM rust as build
+FROM rust:1.87 as build
 
 # RUN addgroup app_group && adduser -u 10000 --group app_group app_user
 
@@ -9,19 +9,25 @@ COPY . .
 
 RUN cargo build --release
 
-# Final image
-# FROM alpine:latest making a statically linked binary we can use alpine but rust makes that extremely hard :(
-FROM rust 
+# Final image - using debian-slim for smaller size but glibc compatibility
+FROM debian:bookworm-slim
 
-RUN mkdir /app
+# Install runtime dependencies and curl for health checks
+RUN apt-get update && \
+    apt-get install -y ca-certificates curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN groupadd -r app && useradd -r -g app app
+
+RUN mkdir /app && chown app:app /app
 WORKDIR /app
 
 COPY --from=build /app/target/release/rubber /app/rubber
-RUN chmod +x ./rubber
+RUN chmod +x /app/rubber && chown app:app /app/rubber
 
-# RUN apk update && apk add curl
+USER app
 
-# COPY --from=build /etc/passwd /etc/passwd
-# USER app_user
+EXPOSE 3001
 
 CMD ["/app/rubber"]
