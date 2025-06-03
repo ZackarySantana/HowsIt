@@ -1,4 +1,4 @@
-FROM golang:1.18 as build
+FROM golang:1.24 as build
 
 # RUN addgroup app_group && adduser -u 10000 -g app_group app_user
 

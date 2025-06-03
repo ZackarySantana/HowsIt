@@ -1,10 +1,10 @@
 package main
 
 import (
-	"htmx/counter"
-	"htmx/fetch"
-	"htmx/interval"
-	"htmx/todo"
+	"github.com/zackarysantana/howsit/grit/counter"
+	"github.com/zackarysantana/howsit/grit/fetch"
+	"github.com/zackarysantana/howsit/grit/interval"
+	"github.com/zackarysantana/howsit/grit/todo"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"

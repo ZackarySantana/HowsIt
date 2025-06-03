@@ -1,6 +1,6 @@
-module htmx
+module github.com/zackarysantana/howsit/grit
 
-go 1.18
+go 1.24
 
 require (
 	github.com/bytedance/sonic v1.10.0-rc2 // indirect
