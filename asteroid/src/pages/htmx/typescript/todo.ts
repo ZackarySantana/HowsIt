@@ -88,7 +88,7 @@ function parseNumber(value: string | undefined): number {
     return isNaN(i) ? 0 : i;
 }
 
-export const get: APIRoute = async () => {
+export const GET: APIRoute = async () => {
     return new Response(container(true), {
         headers: {
             "content-type": "text/html",
