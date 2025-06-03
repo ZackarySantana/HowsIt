@@ -3,20 +3,18 @@ primary_region = "mia"
 
 [http_service]
   internal_port = 3000
-  force_https = true
-  auto_stop_machines = true
+  force_https = false
+  auto_stop_machines = "stop"
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
-
-[http_service.concurrency]
-  type = "connections"
-  hard_limit = 25
-  soft_limit = 20
+  [http_service.concurrency]
+    type = "requests"
+    # Fly Proxy uses this limit to determine Machine excess capacity
+    soft_limit = 250
 
 [[http_service.checks]]
-  grace_period = "15s"
+  grace_period = "10s"
   interval = "30s"
   method = "GET"
-  timeout = "10s"
+  timeout = "5s"
   path = "/"
