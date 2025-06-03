@@ -13,6 +13,8 @@ import (
 func main() {
 	godotenv.Load()
 	r := gin.Default()
+	r.GET("/", health)
+
 	r.GET("/htmx/go/counter", counter.Get)
 	r.POST("/htmx/go/counter", counter.Post)
 
@@ -26,4 +28,10 @@ func main() {
 	r.GET("/htmx/go/fetch", fetch.Get)
 
 	r.Run(":3002")
+}
+
+func health(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"status": "ok",
+	})
 }
