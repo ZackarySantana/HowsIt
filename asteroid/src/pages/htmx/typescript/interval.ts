@@ -22,7 +22,7 @@ export const GET: APIRoute = async () => {
     });
 };
 
-export const post: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request }) => {
     const formData = await request.formData();
     const interval = parseNumber(
         formData.get("intervalTypeScript")?.toString(),

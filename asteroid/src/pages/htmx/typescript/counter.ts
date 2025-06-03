@@ -22,7 +22,7 @@ export const GET: APIRoute = async () => {
     });
 };
 
-export const post: APIRoute = async ({ request, url }) => {
+export const POST: APIRoute = async ({ request, url }) => {
     const formData = await request.formData();
 
     const decrement = url.searchParams.get("decrement") !== null;

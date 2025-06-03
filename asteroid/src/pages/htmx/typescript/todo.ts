@@ -96,7 +96,7 @@ export const GET: APIRoute = async () => {
     });
 };
 
-export const post: APIRoute = async ({ request, url }) => {
+export const POST: APIRoute = async ({ request, url }) => {
     const formData = await request.formData();
     const completedAmount = parseNumber(
         formData.get("todoCompletedAmountTypeScript")?.toString(),
@@ -131,7 +131,7 @@ export const post: APIRoute = async ({ request, url }) => {
     });
 };
 
-export const del: APIRoute = async ({ request, url }) => {
+export const DELETE: APIRoute = async ({ request, url }) => {
     const deleteAll = url.searchParams.get("all") !== null;
 
     if (deleteAll) {
