@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/zackarysantana/howsit/grit/counter"
 	"github.com/zackarysantana/howsit/grit/fetch"
 	"github.com/zackarysantana/howsit/grit/interval"
@@ -27,7 +29,12 @@ func main() {
 
 	r.GET("/htmx/go/fetch", fetch.Get)
 
-	r.Run(":3002")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3002"
+	}
+
+	r.Run(":" + port)
 }
 
 func health(c *gin.Context) {
