@@ -1,4 +1,4 @@
-FROM rust:1.87 as build
+FROM rust:1.71 as build
 
 # RUN addgroup app_group && adduser -u 10000 --group app_group app_user
 
